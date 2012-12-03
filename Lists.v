@@ -1060,16 +1060,19 @@ Definition option_elim (d : nat) (o : natoption) : nat :=
    have to pass a default element for the [nil] case.  *)
 
 Definition hd_opt (l : natlist) : natoption :=
-  (* FILL IN HERE *) admit.
+  match l with
+    | nil => None
+    | cons x x0 => Some x
+  end.
 
 Example test_hd_opt1 : hd_opt [] = None.
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example test_hd_opt2 : hd_opt [1] = Some 1.
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Example test_hd_opt3 : hd_opt [5,6] = Some 5.
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 (** [] *)
 
 (** **** Exercise: 1 star, optional (option_elim_hd) *)
@@ -1078,7 +1081,9 @@ Example test_hd_opt3 : hd_opt [5,6] = Some 5.
 Theorem option_elim_hd : forall (l:natlist) (default:nat),
   hd default l = option_elim default (hd_opt l).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l default. induction l as [| n l'].
+  Case "l = nil". reflexivity.
+  Case "l = cons". reflexivity.  Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, recommended (beq_natlist) *)
@@ -1087,19 +1092,38 @@ Proof.
     yields [true] for every list [l]. *)
 
 Fixpoint beq_natlist (l1 l2 : natlist) : bool :=
-  (* FILL IN HERE *) admit.
+  match l1 with
+    | nil =>
+      match l2 with
+        | nil => true
+        | cons x x0 => false
+      end
+    | cons x xs =>
+      match l2 with
+        | nil => false
+        | cons y ys =>
+          match beq_nat x y with
+            | true => beq_natlist xs ys
+            | false => false
+          end
+      end
+  end.
 
 Example test_beq_natlist1 :   (beq_natlist nil nil = true).
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 Example test_beq_natlist2 :   beq_natlist [1,2,3] [1,2,3] = true.
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 Example test_beq_natlist3 :   beq_natlist [1,2,3] [1,2,4] = false.
- (* FILL IN HERE *) Admitted.
+Proof. reflexivity. Qed.
 
 Theorem beq_natlist_refl : forall l:natlist,
   true = beq_natlist l l.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros l. induction l as [| n l'].
+  Case "l = nil".
+    reflexivity.
+  Case "l = cons".
+    simpl. rewrite <- IHl'. rewrite <- beq_nat_refl. reflexivity.  Qed.
 (** [] *)
 
 (* ###################################################### *)
@@ -1144,7 +1168,7 @@ Fixpoint find (key : nat) (d : dictionary) : natoption :=
 Theorem dictionary_invariant1 : forall (d : dictionary) (k v: nat),
   (find k (insert k v d)) = Some v.
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros d k v. simpl. rewrite <- beq_nat_refl. reflexivity.  Qed.
 (** [] *)
 
 (** **** Exercise: 1 star (dictionary_invariant2) *)
@@ -1153,7 +1177,7 @@ Proof.
 Theorem dictionary_invariant2 : forall (d : dictionary) (m n o: nat),
   (beq_nat m n) = false -> (find m d) = (find m (insert n o d)).
 Proof.
- (* FILL IN HERE *) Admitted.
+  intros d m n o H. simpl. rewrite H. reflexivity.  Qed.
 (** [] *)
 
 End Dictionary.

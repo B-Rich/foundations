@@ -719,7 +719,6 @@ Proof.
       By the definitions of [length] and [snoc], this
       follows from
         S (length (snoc l' n)) = S (S (length l')),
-]]
       which is immediate from the induction hypothesis. [] *)
 
 (** _Theorem_: For all lists [l], [length (rev l) = length l].

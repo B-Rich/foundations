@@ -92,7 +92,8 @@ Require Export Poly.
 (** **** Exercise: 1 star (varieties_of_beauty) *)
 (** How many different ways are there to show that [8] is beautiful? *)
 
-(* FILL IN HERE *)
+(* There are infinitely many, because you can keep using construction of b_0
+plus something else, including other b_0's. *)
 (** [] *)
 
 (** In Coq, we can express the definition of [beautiful] as
@@ -271,10 +272,12 @@ Print eight_is_beautiful'''.
 Theorem six_is_beautiful :
   beautiful 6.
 Proof.
-  (* FILL IN HERE *) Admitted.
+   apply b_sum with (n:=3) (m:=3).
+   apply b_3.
+   apply b_3.  Qed.
 
 Definition six_is_beautiful' : beautiful 6 :=
-  (* FILL IN HERE *) admit.
+  b_sum 3 3 b_3 b_3.
 (** [] *)
 
 (** **** Exercise: 1 star (nine_is_beautiful) *)
@@ -283,10 +286,14 @@ Definition six_is_beautiful' : beautiful 6 :=
 Theorem nine_is_beautiful :
   beautiful 9.
 Proof.
-  (* FILL IN HERE *) Admitted.
+   apply b_sum with (n:=6) (m:=3).
+   apply b_sum with (n:=3) (m:=3).
+   apply b_3.
+   apply b_3.
+   apply b_3.  Qed.
 
 Definition nine_is_beautiful' : beautiful 9 :=
-  (* FILL IN HERE *) admit.
+  b_sum 3 6 b_3 (b_sum 3 3 b_3 b_3).
 (** [] *)
 
 

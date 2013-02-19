@@ -1014,7 +1014,9 @@ Proof.
 Theorem plus_one_r' : forall n:nat,
   n + 1 = S n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  apply nat_ind.
+  Case "0". reflexivity.
+  Case "S". intros n H. simpl. inversion H. reflexivity.  Qed.
 (** [] *)
 
 (** The induction principles that Coq generates for other datatypes
@@ -1052,8 +1054,12 @@ Inductive rgb : Type :=
   | red : rgb
   | green : rgb
   | blue : rgb.
+(** rgb_ind : forall P : rgb -> Prop,
+                P red  ->
+                P green  ->
+                P blue  ->
+                forall r : rgb, P r *)
 Check rgb_ind.
-(** [] *)
 
 (** Here's another example, this time with one of the constructors
     taking some arguments. *)
@@ -1079,7 +1085,12 @@ Inductive natlist1 : Type :=
   | nsnoc1 : natlist1 -> nat -> natlist1.
 
 (** Now what will the induction principle look like? *)
-(** [] *)
+(** natlist1 :
+      forall P : natlist1 -> Prop,
+         P nnil1  ->
+         (forall (l : natlist1) (n : nat), P (nsnoc1 l n)) -> P l ->
+         forall n : natlist1, P n *)
+Check natlist1_ind.
 
 (** From these examples, we can extract this general rule:
 
@@ -1105,8 +1116,9 @@ Inductive natlist1 : Type :=
     Give an [Inductive] definition of [ExSet]: *)
 
 Inductive ExSet : Type :=
-  (* FILL IN HERE *)
-.
+  | con1 : bool -> ExSet
+  | con2 : nat -> ExSet -> ExSet.
+Check ExSet_ind.
 (** [] *)
 
 (** What about polymorphic datatypes?

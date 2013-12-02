@@ -1353,7 +1353,7 @@ Proof.
     rewrite -> plus_n_Sm.
     reflexivity.
 Qed.
-    
+
 Theorem mult_comm : forall m n : nat,
  m * n = n * m.
 Proof.
@@ -1460,7 +1460,7 @@ Theorem all3_spec : forall b c : bool,
 Proof.
   intros b c. destruct b.
   Case "b = true".
-    destruct c. 
+    destruct c.
       reflexivity.
       reflexivity.
   Case "b = false".

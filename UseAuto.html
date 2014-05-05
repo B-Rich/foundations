@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>UseAuto: Theory and Practice of Automation in Coq Proofs</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,7 +29,7 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2012-08-08&nbsp;20:21:51&nbsp;-0400&nbsp;(Wed,&nbsp;08&nbsp;Aug&nbsp;2012)&nbsp;$&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-07-17&nbsp;16:19:11&nbsp;-0400&nbsp;(Wed,&nbsp;17&nbsp;Jul&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
 <span class="comment">(*&nbsp;Chapter&nbsp;maintained&nbsp;by&nbsp;Arthur&nbsp;Chargueraud&nbsp;*)</span><br/>
 
 <br/>
@@ -101,7 +74,7 @@ In a machine-checked proof, every single detail has to be
 </div>
 
 <div class="doc">
-<a name="lab881"></a><h1 class="section">Basic Features of Proof Search</h1>
+<a name="lab896"></a><h1 class="section">Basic Features of Proof Search</h1>
 
 <div class="paragraph"> </div>
 
@@ -125,7 +98,7 @@ In a machine-checked proof, every single detail has to be
 </div>
 
 <div class="doc">
-<a name="lab882"></a><h2 class="section">Strength of Proof Search</h2>
+<a name="lab897"></a><h2 class="section">Strength of Proof Search</h2>
 
 <div class="paragraph"> </div>
 
@@ -170,7 +143,7 @@ In a machine-checked proof, every single detail has to be
 </div>
 
 <div class="doc">
-<a name="lab883"></a><h2 class="section">Basics</h2>
+<a name="lab898"></a><h2 class="section">Basics</h2>
 
 <div class="paragraph"> </div>
 
@@ -210,7 +183,7 @@ The second example illustrates a proof where a sequence of
 
 <div class="doc">
 We can ask <span class="inlinecode"><span class="id" type="tactic">auto</span></span> to tell us what proof it came up with,
-    by invoking <span class="inlinecode"><span class="id" type="var">info</span></span> <span class="inlinecode"><span class="id" type="tactic">auto</span></span> in place of <span class="inlinecode"><span class="id" type="tactic">auto</span></span>. 
+    by invoking <span class="inlinecode"><span class="id" type="var">info_auto</span></span> in place of <span class="inlinecode"><span class="id" type="tactic">auto</span></span>. 
 </div>
 <div class="code code-tight">
 
@@ -219,7 +192,7 @@ We can ask <span class="inlinecode"><span class="id" type="tactic">auto</span></
 &nbsp;&nbsp;(<span style="font-family: arial;">&forall;</span><span class="id" type="var">n</span>, <span class="id" type="var">Q</span> <span class="id" type="var">n</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">P</span> <span class="id" type="var">n</span>) <span style="font-family: arial;">&rarr;</span> <br/>
 &nbsp;&nbsp;(<span style="font-family: arial;">&forall;</span><span class="id" type="var">n</span>, <span class="id" type="var">Q</span> <span class="id" type="var">n</span>) <span style="font-family: arial;">&rarr;</span><br/>
 &nbsp;&nbsp;<span class="id" type="var">P</span> 2.<br/>
-<span class="id" type="keyword">Proof</span>. <span class="id" type="var">info</span> <span class="id" type="tactic">auto</span>. <span class="id" type="keyword">Qed</span>.<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="var">info_auto</span>. <span class="id" type="keyword">Qed</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;output&nbsp;is:&nbsp;<span class="inlinecode"><span class="id" type="tactic">intro</span></span> <span class="inlinecode"><span class="id" type="var">P</span>;</span> <span class="inlinecode"><span class="id" type="tactic">intro</span></span> <span class="inlinecode"><span class="id" type="var">Q</span>;</span> <span class="inlinecode"><span class="id" type="tactic">intro</span></span> <span class="inlinecode"><span class="id" type="var">H</span>;</span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;followed&nbsp;with&nbsp;<span class="inlinecode"><span class="id" type="tactic">intro</span></span> <span class="inlinecode"><span class="id" type="var">H0</span>;</span> <span class="inlinecode"><span class="id" type="var">simple</span></span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H</span>;</span> <span class="inlinecode"><span class="id" type="var">simple</span></span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H0</span></span>.&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;the&nbsp;sequence&nbsp;<span class="inlinecode"><span class="id" type="tactic">intros</span></span> <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode"><span class="id" type="var">Q</span></span> <span class="inlinecode"><span class="id" type="var">H</span></span> <span class="inlinecode"><span class="id" type="var">H0</span>;</span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H</span>;</span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H0</span></span>.&nbsp;*)</span><br/>
@@ -254,7 +227,7 @@ The tactic <span class="inlinecode"><span class="id" type="tactic">auto</span></
 </div>
 
 <div class="doc">
-Remark: Again, we can use <span class="inlinecode"><span class="id" type="var">info</span></span> <span class="inlinecode"><span class="id" type="tactic">eauto</span></span> to see what proof <span class="inlinecode"><span class="id" type="tactic">eauto</span></span>
+Remark: Again, we can use <span class="inlinecode"><span class="id" type="var">info_eauto</span></span> to see what proof <span class="inlinecode"><span class="id" type="tactic">eauto</span></span>
     comes up with. 
 </div>
 <div class="code code-tight">
@@ -263,7 +236,7 @@ Remark: Again, we can use <span class="inlinecode"><span class="id" type="var">i
 </div>
 
 <div class="doc">
-<a name="lab884"></a><h2 class="section">Conjunctions</h2>
+<a name="lab899"></a><h2 class="section">Conjunctions</h2>
 
 <div class="paragraph"> </div>
 
@@ -378,7 +351,7 @@ This situation is slightly disappointing, since automation is
 </div>
 
 <div class="doc">
-<a name="lab885"></a><h2 class="section">Disjunctions</h2>
+<a name="lab900"></a><h2 class="section">Disjunctions</h2>
 
 <div class="paragraph"> </div>
 
@@ -442,7 +415,7 @@ However, the ability of <span class="inlinecode"><span class="id" type="var">iau
 </div>
 
 <div class="doc">
-<a name="lab886"></a><h2 class="section">Existentials</h2>
+<a name="lab901"></a><h2 class="section">Existentials</h2>
 
 <div class="paragraph"> </div>
 
@@ -490,7 +463,7 @@ A major strength of <span class="inlinecode"><span class="id" type="var">jauto</
 </div>
 
 <div class="doc">
-<a name="lab887"></a><h2 class="section">Negation</h2>
+<a name="lab902"></a><h2 class="section">Negation</h2>
 
 <div class="paragraph"> </div>
 
@@ -539,7 +512,7 @@ We will come back later on to the behavior of proof search with
 </div>
 
 <div class="doc">
-<a name="lab888"></a><h2 class="section">Equalities</h2>
+<a name="lab903"></a><h2 class="section">Equalities</h2>
 
 <div class="paragraph"> </div>
 
@@ -570,7 +543,7 @@ To automate more advanced reasoning on equalities, one should
 </div>
 
 <div class="doc">
-<a name="lab889"></a><h1 class="section">How Proof Search Works</h1>
+<a name="lab904"></a><h1 class="section">How Proof Search Works</h1>
 
 </div>
 <div class="code code-space">
@@ -579,7 +552,7 @@ To automate more advanced reasoning on equalities, one should
 </div>
 
 <div class="doc">
-<a name="lab890"></a><h2 class="section">Search Depth</h2>
+<a name="lab905"></a><h2 class="section">Search Depth</h2>
 
 <div class="paragraph"> </div>
 
@@ -610,7 +583,7 @@ To automate more advanced reasoning on equalities, one should
 &nbsp;&nbsp;<span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">True</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">auto</span>.<br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -729,7 +702,7 @@ Because <span class="inlinecode"><span class="id" type="tactic">auto</span></spa
 </div>
 
 <div class="doc">
-<a name="lab891"></a><h2 class="section">Backtracking</h2>
+<a name="lab906"></a><h2 class="section">Backtracking</h2>
 
 <div class="paragraph"> </div>
 
@@ -808,7 +781,7 @@ The output message produced by <span class="inlinecode"><span class="id" type="v
 <div class="doc">
 This time, the output message suggests that the proof search 
     investigates many possibilities. Replacing <span class="inlinecode"><span class="id" type="var">debug</span></span> <span class="inlinecode"><span class="id" type="tactic">eauto</span></span> with
-    <span class="inlinecode"><span class="id" type="var">info</span></span> <span class="inlinecode"><span class="id" type="tactic">eauto</span></span>, we observe that the proof that <span class="inlinecode"><span class="id" type="tactic">eauto</span></span> comes up 
+    <span class="inlinecode"><span class="id" type="var">info_eauto</span></span>, we observe that the proof that <span class="inlinecode"><span class="id" type="tactic">eauto</span></span> comes up 
     with is actually not the simplest one.
            <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H2</span>;</span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H3</span>;</span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H3</span>;</span> <span class="inlinecode"><span class="id" type="tactic">apply</span></span> <span class="inlinecode"><span class="id" type="var">H3</span>;</span> <span class="inlinecode"><span class="id" type="tactic">exact</span></span> <span class="inlinecode"><span class="id" type="var">H1</span></span>
     This proof goes through the proof obligation <span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode">3</span>, even though 
@@ -872,7 +845,7 @@ This time, the output message suggests that the proof search
 </div>
 
 <div class="doc">
-<a name="lab892"></a><h2 class="section">Adding Hints</h2>
+<a name="lab907"></a><h2 class="section">Adding Hints</h2>
 
 <div class="paragraph"> </div>
 
@@ -926,7 +899,7 @@ A convenient shorthand for adding all the constructors of an
 </div>
 
 <div class="doc">
-<a name="lab893"></a><h2 class="section">Integration of Automation in Tactics</h2>
+<a name="lab908"></a><h2 class="section">Integration of Automation in Tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1003,7 +976,7 @@ In the examples that follow, only <span class="inlinecode"><span class="id" type
 </div>
 
 <div class="doc">
-<a name="lab894"></a><h1 class="section">Examples of Use of Automation</h1>
+<a name="lab909"></a><h1 class="section">Examples of Use of Automation</h1>
 
 <div class="paragraph"> </div>
 
@@ -1017,7 +990,7 @@ In the examples that follow, only <span class="inlinecode"><span class="id" type
 </div>
 
 <div class="doc">
-<a name="lab895"></a><h2 class="section">Determinism</h2>
+<a name="lab910"></a><h2 class="section">Determinism</h2>
 
 </div>
 <div class="code code-space">
@@ -1200,7 +1173,7 @@ To obtain a nice clean proof script, we have to remove the calls
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;produces&nbsp;<span class="inlinecode"><span class="id" type="var">H</span>:</span> <span class="inlinecode"><span class="id" type="var">st'</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">st'0</span></span>.&nbsp;*)</span> <span class="id" type="var">skip</span>.<br/>
 
 <br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -1231,15 +1204,16 @@ To polish the proof script, it remains to factorize the calls
 </div>
 
 <div class="doc">
-<a name="lab896"></a><h2 class="section">Preservation for STLC</h2>
+<a name="lab911"></a><h2 class="section">Preservation for STLC</h2>
 
 </div>
 <div class="code code-space">
 
 <br/>
 <span class="id" type="keyword">Module</span> <span class="id" type="var">PreservationProgressStlc</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <span class="id" type="var">Stlc</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Import</span> <span class="id" type="var">StlcProp</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">Import</span> <span class="id" type="var">STLC</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Import</span> <span class="id" type="var">STLCProp</span>.<br/>
 
 <br/>
 </div>
@@ -1270,7 +1244,7 @@ Consider the proof of perservation of STLC, shown below.
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;ST_App1&nbsp;and&nbsp;ST_App2&nbsp;cases&nbsp;are&nbsp;immediate&nbsp;by&nbsp;induction,&nbsp;and<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto&nbsp;takes&nbsp;care&nbsp;of&nbsp;them&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "ST_AppAbs".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">substitution_preserves_typing</span> <span class="id" type="keyword">with</span> <span class="id" type="var">T11</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">substitution_preserves_typing</span> <span class="id" type="keyword">with</span> <span class="id" type="var">T<sub>11</sub></span>...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">HT1</span>...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_True".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">HE</span>.<br/>
@@ -1305,7 +1279,7 @@ Exercise: rewrite this proof using tactics from <span class="inlinecode"><span c
 </div>
 
 <div class="doc">
-<a name="lab897"></a><h2 class="section">Progress for STLC</h2>
+<a name="lab912"></a><h2 class="section">Progress for STLC</h2>
 
 <div class="paragraph"> </div>
 
@@ -1325,19 +1299,19 @@ Exercise: rewrite this proof using tactics from <span class="inlinecode"><span c
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_App".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">right</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHt1</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t1 is a value".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t<sub>1</sub> is a value".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHt2</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t2 is a value".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t<sub>2</sub> is a value".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">subst</span>; <span class="id" type="tactic">try</span> <span class="id" type="var">solve</span> <span class="id" type="tactic">by</span> <span class="id" type="tactic">inversion</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>([<span class="id" type="var">x0</span>:=<span class="id" type="var">t2</span>]<span class="id" type="var">t</span>)...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t2 steps".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H0</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t2'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2'</span>)...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t1 steps".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t1'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t1'</span> <span class="id" type="var">t2</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>([<span class="id" type="var">x0</span>:=<span class="id" type="var">t<sub>2</sub></span>]<span class="id" type="var">t</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t<sub>2</sub> steps".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H0</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t<sub>2</sub>'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub>'</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t<sub>1</sub> steps".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">t<sub>2</sub></span>)...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_If".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">right</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHt1</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">t1</span>; <span class="id" type="tactic">try</span> <span class="id" type="var">solve</span> <span class="id" type="tactic">by</span> <span class="id" type="tactic">inversion</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tif</span> <span class="id" type="var">x0</span> <span class="id" type="var">t2</span> <span class="id" type="var">t3</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">t<sub>1</sub></span>; <span class="id" type="tactic">try</span> <span class="id" type="var">solve</span> <span class="id" type="tactic">by</span> <span class="id" type="tactic">inversion</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tif</span> <span class="id" type="var">x0</span> <span class="id" type="var">t<sub>2</sub></span> <span class="id" type="var">t<sub>3</sub></span>)...<br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
@@ -1365,7 +1339,7 @@ Exercise: optimize the above proof.
 </div>
 
 <div class="doc">
-<a name="lab898"></a><h2 class="section">BigStep and SmallStep</h2>
+<a name="lab913"></a><h2 class="section">BigStep and SmallStep</h2>
 
 </div>
 <div class="code code-space">
@@ -1485,7 +1459,7 @@ Exercise: prove the lemma <span class="inlinecode"><span class="id" type="var">m
 </div>
 
 <div class="doc">
-<a name="lab899"></a><h2 class="section">Preservation for STLCRef</h2>
+<a name="lab914"></a><h2 class="section">Preservation for STLCRef</h2>
 
 </div>
 <div class="code code-space">
@@ -1590,13 +1564,13 @@ The proof of preservation for <span class="inlinecode"><span class="id" type="va
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_Ref".<br/>
 &nbsp;&nbsp;<span class="id" type="var">SCase</span> "ST_RefValue".<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;old:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;(snoc&nbsp;ST&nbsp;T1).&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;(snoc&nbsp;ST&nbsp;T<sub>1</sub>).&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inversion&nbsp;HST;&nbsp;subst.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apply&nbsp;extends_snoc.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;split.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;(TRef&nbsp;T1)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;(TRef&nbsp;(store_Tlookup&nbsp;(length&nbsp;st)&nbsp;(snoc&nbsp;ST&nbsp;T1))).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;(TRef&nbsp;T<sub>1</sub>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;(TRef&nbsp;(store_Tlookup&nbsp;(length&nbsp;st)&nbsp;(snoc&nbsp;ST&nbsp;T<sub>1</sub>))).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apply&nbsp;T_Loc.&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewrite&nbsp;&lt;-&nbsp;H.&nbsp;rewrite&nbsp;length_snoc.&nbsp;omega.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unfold&nbsp;store_Tlookup.&nbsp;rewrite&nbsp;&lt;-&nbsp;H.&nbsp;rewrite&nbsp;nth_eq_snoc...<br/>
@@ -1604,7 +1578,7 @@ The proof of preservation for <span class="inlinecode"><span class="id" type="va
 &nbsp;&nbsp;<span class="comment">(*&nbsp;new:&nbsp;in&nbsp;this&nbsp;proof&nbsp;case,&nbsp;we&nbsp;need&nbsp;to&nbsp;perform&nbsp;an&nbsp;inversion<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;without&nbsp;removing&nbsp;the&nbsp;hypothesis.&nbsp;The&nbsp;tactic&nbsp;<span class="inlinecode"><span class="id" type="var">inverts</span></span> <span class="inlinecode"><span class="id" type="var">keep</span></span>&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;serves&nbsp;exactly&nbsp;this&nbsp;purpose.&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T1</span>). <span class="id" type="var">inverts</span> <span class="id" type="var">keep</span> <span class="id" type="var">HST</span>. <span class="id" type="var">splits</span>.<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T<sub>1</sub></span>). <span class="id" type="var">inverts</span> <span class="id" type="var">keep</span> <span class="id" type="var">HST</span>. <span class="id" type="var">splits</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;proof&nbsp;of&nbsp;the&nbsp;first&nbsp;subgoal&nbsp;needs&nbsp;not&nbsp;be&nbsp;changed&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">extends_snoc</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;For&nbsp;the&nbsp;second&nbsp;subgoal,&nbsp;we&nbsp;use&nbsp;the&nbsp;tactic&nbsp;<span class="inlinecode"><span class="id" type="var">applys_eq</span></span>&nbsp;to&nbsp;avoid<br/>
@@ -1631,7 +1605,7 @@ The proof of preservation for <span class="inlinecode"><span class="id" type="va
 &nbsp;&nbsp;<span class="comment">(*&nbsp;old:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;ST.&nbsp;split;&nbsp;try&nbsp;split...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destruct&nbsp;HST&nbsp;as&nbsp;<span class="inlinecode"><span class="id" type="var">_</span></span> <span class="inlinecode"><span class="id" type="var">Hsty</span></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;T11&nbsp;with&nbsp;(store_Tlookup&nbsp;l&nbsp;ST).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace&nbsp;T<sub>11</sub>&nbsp;with&nbsp;(store_Tlookup&nbsp;l&nbsp;ST).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apply&nbsp;Hsty...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inversion&nbsp;Ht;&nbsp;subst...&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;new:&nbsp;we&nbsp;start&nbsp;by&nbsp;calling&nbsp;<span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">ST</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">splits</span>*</span>.&nbsp;*)</span><br/>
@@ -1696,9 +1670,9 @@ The proof case for <span class="inlinecode"><span class="id" type="var">ref</spa
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Lemma</span> <span class="id" type="var">preservation_ref</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">st</span>:<span class="id" type="var">store</span>) (<span class="id" type="var">ST</span> : <span class="id" type="var">store_ty</span>) <span class="id" type="var">T1</span>,<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">preservation_ref</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">st</span>:<span class="id" type="var">store</span>) (<span class="id" type="var">ST</span> : <span class="id" type="var">store_ty</span>) <span class="id" type="var">T<sub>1</sub></span>,<br/>
 &nbsp;&nbsp;<span class="id" type="var">length</span> <span class="id" type="var">ST</span> = <span class="id" type="var">length</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;<span class="id" type="var">TRef</span> <span class="id" type="var">T1</span> = <span class="id" type="var">TRef</span> (<span class="id" type="var">store_Tlookup</span> (<span class="id" type="var">length</span> <span class="id" type="var">st</span>) (<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T1</span>)).<br/>
+&nbsp;&nbsp;<span class="id" type="var">TRef</span> <span class="id" type="var">T<sub>1</sub></span> = <span class="id" type="var">TRef</span> (<span class="id" type="var">store_Tlookup</span> (<span class="id" type="var">length</span> <span class="id" type="var">st</span>) (<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T<sub>1</sub></span>)).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="id" type="var">dup</span>.<br/>
 
@@ -1739,7 +1713,7 @@ The optimized proof of preservation is summarized next.
 &nbsp;&nbsp;<span class="id" type="var">forwards</span>*: <span class="id" type="var">IHHt1</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">forwards</span>*: <span class="id" type="var">IHHt2</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">forwards</span>*: <span class="id" type="var">IHHt1</span>.<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T1</span>). <span class="id" type="var">inverts</span> <span class="id" type="var">keep</span> <span class="id" type="var">HST</span>. <span class="id" type="var">splits</span>.<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">ST</span> <span class="id" type="var">T<sub>1</sub></span>). <span class="id" type="var">inverts</span> <span class="id" type="var">keep</span> <span class="id" type="var">HST</span>. <span class="id" type="var">splits</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">extends_snoc</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">applys_eq</span> <span class="id" type="var">T_Loc</span> 1.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">length_snoc</span>. <span class="id" type="tactic">omega</span>.<br/>
@@ -1758,7 +1732,7 @@ The optimized proof of preservation is summarized next.
 </div>
 
 <div class="doc">
-<a name="lab900"></a><h2 class="section">Progress for STLCRef</h2>
+<a name="lab915"></a><h2 class="section">Progress for STLCRef</h2>
 
 <div class="paragraph"> </div>
 
@@ -1806,7 +1780,7 @@ The optimized proof of preservation is summarized next.
 </div>
 
 <div class="doc">
-<a name="lab901"></a><h2 class="section">Subtyping</h2>
+<a name="lab916"></a><h2 class="section">Subtyping</h2>
 
 </div>
 <div class="code code-space">
@@ -1825,14 +1799,14 @@ Consider the inversion lemma for typing judgment
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Lemma</span> <span class="id" type="var">abs_arrow</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">S1</span> <span class="id" type="var">s2</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span>, <br/>
-&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">S1</span> <span class="id" type="var">s2</span>) (<span class="id" type="var">TArrow</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span>) <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T1</span> <span class="id" type="var">S1</span> <br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span class="id" type="var">empty</span> <span class="id" type="var">x</span> <span class="id" type="var">S1</span>) <span class="id" type="var">s2</span> <span class="id" type="var">T2</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">abs_arrow</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span> <span class="id" type="var">s<sub>2</sub></span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>, <br/>
+&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span> <span class="id" type="var">s<sub>2</sub></span>) (<span class="id" type="var">TArrow</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>) <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">S<sub>1</sub></span> <br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span class="id" type="var">empty</span> <span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span>) <span class="id" type="var">s<sub>2</sub></span> <span class="id" type="var">T<sub>2</sub></span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x</span> <span class="id" type="var">S1</span> <span class="id" type="var">s2</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">Hty</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span> <span class="id" type="var">s<sub>2</sub></span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">Hty</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">typing_inversion_abs</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Hty</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">Hty</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">S2</span> [<span class="id" type="var">Hsub</span> <span class="id" type="var">Hty</span>]].<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">Hty</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">S<sub>2</sub></span> [<span class="id" type="var">Hsub</span> <span class="id" type="var">Hty</span>]].<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">sub_inversion_arrow</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Hsub</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">Hsub</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">U1</span> [<span class="id" type="var">U2</span> [<span class="id" type="var">Heq</span> [<span class="id" type="var">Hsub1</span> <span class="id" type="var">Hsub2</span>]]]].<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">Heq</span>; <span class="id" type="tactic">subst</span>...<br/>
@@ -1851,10 +1825,10 @@ Exercise: optimize the proof script, using
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Lemma</span> <span class="id" type="var">abs_arrow'</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">S1</span> <span class="id" type="var">s2</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span>, <br/>
-&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">S1</span> <span class="id" type="var">s2</span>) (<span class="id" type="var">TArrow</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span>) <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T1</span> <span class="id" type="var">S1</span> <br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span class="id" type="var">empty</span> <span class="id" type="var">x</span> <span class="id" type="var">S1</span>) <span class="id" type="var">s2</span> <span class="id" type="var">T2</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">abs_arrow'</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span> <span class="id" type="var">s<sub>2</sub></span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>, <br/>
+&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span> <span class="id" type="var">s<sub>2</sub></span>) (<span class="id" type="var">TArrow</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>) <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">S<sub>1</sub></span> <br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span class="id" type="var">empty</span> <span class="id" type="var">x</span> <span class="id" type="var">S<sub>1</sub></span>) <span class="id" type="var">s<sub>2</sub></span> <span class="id" type="var">T<sub>2</sub></span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 <span class="id" type="keyword">Qed</span>.<br/>
@@ -1888,7 +1862,7 @@ The lemma <span class="inlinecode"><span class="id" type="var">substitution_pres
 </div>
 
 <div class="doc">
-<a name="lab902"></a><h1 class="section">Advanced Topics in Proof Search</h1>
+<a name="lab917"></a><h1 class="section">Advanced Topics in Proof Search</h1>
 
 </div>
 <div class="code code-space">
@@ -1897,7 +1871,7 @@ The lemma <span class="inlinecode"><span class="id" type="var">substitution_pres
 </div>
 
 <div class="doc">
-<a name="lab903"></a><h2 class="section">Stating Lemmas in the Right Way</h2>
+<a name="lab918"></a><h2 class="section">Stating Lemmas in the Right Way</h2>
 
 <div class="paragraph"> </div>
 
@@ -1949,7 +1923,7 @@ The lemma <span class="inlinecode"><span class="id" type="var">substitution_pres
 &nbsp;&nbsp;<span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;But&nbsp;then&nbsp;the&nbsp;second&nbsp;goal&nbsp;becomes&nbsp;<span class="inlinecode"><span class="id" type="var">P</span></span> <span class="inlinecode">1</span>,&nbsp;which&nbsp;is&nbsp;where&nbsp;we<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;started&nbsp;from.&nbsp;So,&nbsp;<span class="inlinecode"><span class="id" type="tactic">eauto</span></span>&nbsp;gets&nbsp;stuck&nbsp;at&nbsp;this&nbsp;point.&nbsp;*)</span><br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -1971,7 +1945,7 @@ It is very important to understand that the hypothesis <span class="inlinecode">
 </div>
 
 <div class="doc">
-<a name="lab904"></a><h2 class="section">Unfolding of Definitions During Proof-Search</h2>
+<a name="lab919"></a><h2 class="section">Unfolding of Definitions During Proof-Search</h2>
 
 <div class="paragraph"> </div>
 
@@ -2087,7 +2061,7 @@ There is actually one exception to the previous rule: a constant
 </div>
 
 <div class="doc">
-<a name="lab905"></a><h2 class="section">Automation for Proving Absurd Goals</h2>
+<a name="lab920"></a><h2 class="section">Automation for Proving Absurd Goals</h2>
 
 <div class="paragraph"> </div>
 
@@ -2284,7 +2258,7 @@ In the above example, <span class="inlinecode"><span class="id" type="var">false
 </div>
 
 <div class="doc">
-<a name="lab906"></a><h2 class="section">Automation for Transitivity Lemmas</h2>
+<a name="lab921"></a><h2 class="section">Automation for Transitivity Lemmas</h2>
 
 <div class="paragraph"> </div>
 
@@ -2360,7 +2334,7 @@ Now, consider the goal <span class="inlinecode"><span style="font-family: arial;
 &nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">S</span> <span class="id" type="var">T</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="comment">(*&nbsp;debug&nbsp;*)</span> <span class="id" type="tactic">eauto</span>. <span class="comment">(*&nbsp;Investigates&nbsp;106&nbsp;applications...&nbsp;*)</span><br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -2483,8 +2457,8 @@ This hint declaration can be understood as follows.
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Lemma</span> <span class="id" type="var">transitivity_workaround_1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T1</span> <span class="id" type="var">T4</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">transitivity_workaround_1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">subtype</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T4</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="comment">(*&nbsp;debug&nbsp;*)</span> <span class="id" type="tactic">eauto</span>. <span class="comment">(*&nbsp;The&nbsp;trace&nbsp;shows&nbsp;the&nbsp;external&nbsp;hint&nbsp;being&nbsp;used&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
@@ -2503,13 +2477,13 @@ We may also check that the new external hint does not suffer from the
 &nbsp;&nbsp;<span class="id" type="var">subtype</span> <span class="id" type="var">S</span> <span class="id" type="var">T</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="comment">(*&nbsp;debug&nbsp;*)</span> <span class="id" type="tactic">eauto</span>. <span class="comment">(*&nbsp;Investigates&nbsp;0&nbsp;applications&nbsp;*)</span><br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
 
 <div class="doc">
-<a name="lab907"></a><h1 class="section">Decision Procedures</h1>
+<a name="lab922"></a><h1 class="section">Decision Procedures</h1>
 
 <div class="paragraph"> </div>
 
@@ -2529,7 +2503,7 @@ We may also check that the new external hint does not suffer from the
 </div>
 
 <div class="doc">
-<a name="lab908"></a><h2 class="section">Omega</h2>
+<a name="lab923"></a><h2 class="section">Omega</h2>
 
 <div class="paragraph"> </div>
 
@@ -2617,7 +2591,7 @@ Note: <span class="inlinecode"><span class="id" type="tactic">omega</span></span
 </div>
 
 <div class="doc">
-<a name="lab909"></a><h2 class="section">Ring</h2>
+<a name="lab924"></a><h2 class="section">Ring</h2>
 
 <div class="paragraph"> </div>
 
@@ -2648,7 +2622,7 @@ Note: <span class="inlinecode"><span class="id" type="tactic">omega</span></span
 </div>
 
 <div class="doc">
-<a name="lab910"></a><h2 class="section">Congruence</h2>
+<a name="lab925"></a><h2 class="section">Congruence</h2>
 
 <div class="paragraph"> </div>
 
@@ -2735,7 +2709,7 @@ One of the strengths of <span class="inlinecode"><span class="id" type="tactic">
 </div>
 
 <div class="doc">
-<a name="lab911"></a><h1 class="section">Summary</h1>
+<a name="lab926"></a><h1 class="section">Summary</h1>
 
 <div class="paragraph"> </div>
 

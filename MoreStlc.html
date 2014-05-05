@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>MoreStlc: More on the Simply Typed Lambda-Calculus</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,28 +29,25 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2012-04-30&nbsp;11:09:42&nbsp;-0400&nbsp;(Mon,&nbsp;30&nbsp;Apr&nbsp;2012)&nbsp;$&nbsp;*)</span><br/>
-
-<br/>
 <span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <span class="id" type="var">Stlc</span>.<br/>
 
 <br/>
 </div>
 
 <div class="doc">
-<a name="lab596"></a><h1 class="section">Simple Extensions to STLC</h1>
+<a name="lab611"></a><h1 class="section">Simple Extensions to STLC</h1>
 
 <div class="paragraph"> </div>
 
  The simply typed lambda-calculus has enough structure to make its
-    theoretical properties interesting, but it is not yet much of a
+    theoretical properties interesting, but it is not much of a
     programming language.  In this chapter, we begin to close the gap
     with real-world languages by introducing a number of familiar
     features that have straightforward treatments at the level of
     typing. 
 <div class="paragraph"> </div>
 
-<a name="lab597"></a><h2 class="section">Numbers</h2>
+<a name="lab612"></a><h2 class="section">Numbers</h2>
 
 <div class="paragraph"> </div>
 
@@ -86,7 +56,7 @@
     chapters. 
 <div class="paragraph"> </div>
 
-<a name="lab598"></a><h2 class="section"><span class="inlinecode"><span class="id" type="keyword">let</span></span>-bindings</h2>
+<a name="lab613"></a><h2 class="section"><span class="inlinecode"><span class="id" type="keyword">let</span></span>-bindings</h2>
 
 <div class="paragraph"> </div>
 
@@ -94,8 +64,8 @@
     names to some of its subexpressions: this avoids repetition and
     often increases readability.  Most languages provide one or more
     ways of doing this.  In OCaml (and Coq), for example, we can write
-    <span class="inlinecode"><span class="id" type="keyword">let</span></span> <span class="inlinecode"><span class="id" type="var">x</span>=<span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="keyword">in</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span> to mean ``evaluate the expression <span class="inlinecode"><span class="id" type="var">t1</span></span> and bind
-    the name <span class="inlinecode"><span class="id" type="var">x</span></span> to the resulting value while evaluating <span class="inlinecode"><span class="id" type="var">t2</span></span>.''
+    <span class="inlinecode"><span class="id" type="keyword">let</span></span> <span class="inlinecode"><span class="id" type="var">x</span>=<span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="keyword">in</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> to mean ``evaluate the expression <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> and bind
+    the name <span class="inlinecode"><span class="id" type="var">x</span></span> to the resulting value while evaluating <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>.''
 
 <div class="paragraph"> </div>
 
@@ -121,10 +91,16 @@
            | ...               (other terms same as before)
            | let x=t in t      let-binding
 </pre>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
     Reduction:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Let1) &nbsp;
   </td></tr>
@@ -132,7 +108,7 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">let&nbsp;x=t1&nbsp;in&nbsp;t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;let&nbsp;x=t1'&nbsp;in&nbsp;t2</td>
+  <td class="infrule">let&nbsp;x=t<sub>1</sub>&nbsp;in&nbsp;t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;let&nbsp;x=t<sub>1</sub>'&nbsp;in&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -145,13 +121,13 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">let&nbsp;x=v1&nbsp;in&nbsp;t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;[x:=v1]t2</td>
+  <td class="infrule">let&nbsp;x=v<sub>1</sub>&nbsp;in&nbsp;t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;[x:=v<sub>1</sub>]t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center>    Typing:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x:T1&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t2&nbsp;:&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x:T<sub>1</sub>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T<sub>2</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Let) &nbsp;
   </td></tr>
@@ -159,13 +135,13 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;let&nbsp;x=t1&nbsp;in&nbsp;t2&nbsp;:&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;let&nbsp;x=t<sub>1</sub>&nbsp;in&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T<sub>2</sub></td>
   <td></td>
 </td>
 </table></center> 
 <div class="paragraph"> </div>
 
-<a name="lab599"></a><h2 class="section">Pairs</h2>
+<a name="lab614"></a><h2 class="section">Pairs</h2>
 
 <div class="paragraph"> </div>
 
@@ -187,7 +163,7 @@
     example, here's how we'd write a function that takes a pair of
     numbers and returns the pair of their sum and difference:
 <pre>
-       \x:Nat*Nat. 
+       &lambda;x:Nat*Nat. 
           let sum = x.fst + x.snd in
           let diff = x.fst - x.snd in
           (sum,diff)
@@ -196,10 +172,10 @@
 <div class="paragraph"> </div>
 
  Adding pairs to the simply typed lambda-calculus, then, involves
-    adding two new forms of term &mdash; pairing, written <span class="inlinecode">(<span class="id" type="var">t1</span>,<span class="id" type="var">t2</span>)</span>, and
+    adding two new forms of term &mdash; pairing, written <span class="inlinecode">(<span class="id" type="var">t<sub>1</sub></span>,<span class="id" type="var">t<sub>2</sub></span>)</span>, and
     projection, written <span class="inlinecode"><span class="id" type="var">t.fst</span></span> for the first projection from <span class="inlinecode"><span class="id" type="var">t</span></span> and
     <span class="inlinecode"><span class="id" type="var">t.snd</span></span> for the second projection &mdash; plus one new type constructor,
-    <span class="inlinecode"><span class="id" type="var">T1</span>*<span class="id" type="var">T2</span></span>, called the <i>product</i> of <span class="inlinecode"><span class="id" type="var">T1</span></span> and <span class="inlinecode"><span class="id" type="var">T2</span></span>.  
+    <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span>*<span class="id" type="var">T<sub>2</sub></span></span>, called the <i>product</i> of <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span>.  
 <div class="paragraph"> </div>
 
  Syntax:
@@ -221,11 +197,11 @@
 
 <div class="paragraph"> </div>
 
-   For evaluation, we need several new rules specifying how pairs and
-   projection behave.  
+ For evaluation, we need several new rules specifying how pairs and
+    projection behave.  
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Pair1) &nbsp;
   </td></tr>
@@ -233,12 +209,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(t1,t2)&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;(t1',t2)</td>
+  <td class="infrule">(t<sub>1</sub>,t<sub>2</sub>)&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;(t<sub>1</sub>',t<sub>2</sub>)</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t2'</td>
+  <td class="infrule">t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>2</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Pair2) &nbsp;
   </td></tr>
@@ -246,12 +222,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(v1,t2)&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;(v1,t2')</td>
+  <td class="infrule">(v<sub>1</sub>,t<sub>2</sub>)&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;(v<sub>1</sub>,t<sub>2</sub>')</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Fst1) &nbsp;
   </td></tr>
@@ -259,7 +235,7 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">t1.fst&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'.fst</td>
+  <td class="infrule">t<sub>1</sub>.fst&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'.fst</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -272,12 +248,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(v1,v2).fst&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;v1</td>
+  <td class="infrule">(v<sub>1</sub>,v<sub>2</sub>).fst&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;v<sub>1</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Snd1) &nbsp;
   </td></tr>
@@ -285,7 +261,7 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">t1.snd&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'.snd</td>
+  <td class="infrule">t<sub>1</sub>.snd&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'.snd</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -298,7 +274,7 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(v1,v2).snd&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;v2</td>
+  <td class="infrule">(v<sub>1</sub>,v<sub>2</sub>).snd&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;v<sub>2</sub></td>
   <td></td>
 </td>
 </table></center>
@@ -317,9 +293,9 @@
     part.  The ordering arising from the use of the metavariables <span class="inlinecode"><span class="id" type="var">v</span></span>
     and <span class="inlinecode"><span class="id" type="var">t</span></span> in these rules enforces a left-to-right evaluation
     strategy for pairs.  (Note the implicit convention that
-    metavariables like <span class="inlinecode"><span class="id" type="var">v</span></span> and <span class="inlinecode"><span class="id" type="var">v1</span></span> can only denote values.)  We've
+    metavariables like <span class="inlinecode"><span class="id" type="var">v</span></span> and <span class="inlinecode"><span class="id" type="var">v<sub>1</sub></span></span> can only denote values.)  We've
     also added a clause to the definition of values, above, specifying
-    that <span class="inlinecode">(<span class="id" type="var">v1</span>,<span class="id" type="var">v2</span>)</span> is a value.  The fact that the components of a pair
+    that <span class="inlinecode">(<span class="id" type="var">v<sub>1</sub></span>,<span class="id" type="var">v<sub>2</sub></span>)</span> is a value.  The fact that the components of a pair
     value must themselves be values ensures that a pair passed as an
     argument to a function will be fully evaluated before the function
     body starts executing. 
@@ -328,7 +304,7 @@
  The typing rules for pairs and projections are straightforward.
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t2&nbsp;:&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T<sub>2</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Pair) &nbsp;
   </td></tr>
@@ -336,12 +312,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;(t1,t2)&nbsp;:&nbsp;T1*T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;(t<sub>1</sub>,t<sub>2</sub>)&nbsp;:&nbsp;T<sub>1</sub>*T<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T11*T12</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>11</sub>*T<sub>12</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Fst) &nbsp;
   </td></tr>
@@ -349,12 +325,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1.fst&nbsp;:&nbsp;T11</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>.fst&nbsp;:&nbsp;T<sub>11</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T11*T12</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>11</sub>*T<sub>12</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Snd) &nbsp;
   </td></tr>
@@ -362,30 +338,29 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1.snd&nbsp;:&nbsp;T12</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>.snd&nbsp;:&nbsp;T<sub>12</sub></td>
   <td></td>
 </td>
 </table></center>
 <div class="paragraph"> </div>
 
- The rule <span class="inlinecode"><span class="id" type="var">T_Pair</span></span> says that <span class="inlinecode">(<span class="id" type="var">t1</span>,<span class="id" type="var">t2</span>)</span> has type <span class="inlinecode"><span class="id" type="var">T1</span>*<span class="id" type="var">T2</span></span> if <span class="inlinecode"><span class="id" type="var">t1</span></span> has
-   type <span class="inlinecode"><span class="id" type="var">T1</span></span> and <span class="inlinecode"><span class="id" type="var">t2</span></span> has type <span class="inlinecode"><span class="id" type="var">T2</span></span>.  Conversely, the rules <span class="inlinecode"><span class="id" type="var">T_Fst</span></span>
-   and <span class="inlinecode"><span class="id" type="var">T_Snd</span></span> tell us that, if <span class="inlinecode"><span class="id" type="var">t1</span></span> has a product type
-   <span class="inlinecode"><span class="id" type="var">T11</span>*<span class="id" type="var">T12</span></span> (i.e., if it will evaluate to a pair), then the types of
-   the projections from this pair are <span class="inlinecode"><span class="id" type="var">T11</span></span> and <span class="inlinecode"><span class="id" type="var">T12</span></span>. 
+ The rule <span class="inlinecode"><span class="id" type="var">T_Pair</span></span> says that <span class="inlinecode">(<span class="id" type="var">t<sub>1</sub></span>,<span class="id" type="var">t<sub>2</sub></span>)</span> has type <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span>*<span class="id" type="var">T<sub>2</sub></span></span> if <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> has
+   type <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> and <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> has type <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span>.  Conversely, the rules <span class="inlinecode"><span class="id" type="var">T_Fst</span></span>
+   and <span class="inlinecode"><span class="id" type="var">T_Snd</span></span> tell us that, if <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> has a product type
+   <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span>*<span class="id" type="var">T<sub>12</sub></span></span> (i.e., if it will evaluate to a pair), then the types of
+   the projections from this pair are <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> and <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span>. 
 <div class="paragraph"> </div>
 
-<a name="lab600"></a><h2 class="section">Unit</h2>
+<a name="lab615"></a><h2 class="section">Unit</h2>
 
 <div class="paragraph"> </div>
 
  Another handy base type, found especially in languages in
-    the ML family, is the singleton type <span class="inlinecode"><span class="id" type="var">Unit</span></span>.  It has a single
-    element &mdash; the term constant <span class="inlinecode"><span class="id" type="var">unit</span></span> (with a small <span class="inlinecode"><span class="id" type="var">u</span></span>) &mdash; and a
-    typing rule making <span class="inlinecode"><span class="id" type="var">unit</span></span> an element of <span class="inlinecode"><span class="id" type="var">Unit</span></span>.  We also add
-    <span class="inlinecode"><span class="id" type="var">unit</span></span> to the set of possible result values of computations &mdash;
-    indeed, <span class="inlinecode"><span class="id" type="var">unit</span></span> is the <i>only</i> possible result of evaluating an
-    expression of type <span class="inlinecode"><span class="id" type="var">Unit</span></span>. 
+    the ML family, is the singleton type <span class="inlinecode"><span class="id" type="var">Unit</span></span>.  It has a single element &mdash; the term constant <span class="inlinecode"><span class="id" type="var">unit</span></span> (with a small
+    <span class="inlinecode"><span class="id" type="var">u</span></span>) &mdash; and a typing rule making <span class="inlinecode"><span class="id" type="var">unit</span></span> an element of <span class="inlinecode"><span class="id" type="var">Unit</span></span>.  We
+    also add <span class="inlinecode"><span class="id" type="var">unit</span></span> to the set of possible result values of
+    computations &mdash; indeed, <span class="inlinecode"><span class="id" type="var">unit</span></span> is the <i>only</i> possible result of
+    evaluating an expression of type <span class="inlinecode"><span class="id" type="var">Unit</span></span>. 
 <div class="paragraph"> </div>
 
  Syntax:
@@ -435,14 +410,11 @@
     expression that is evaluated only for its effect. 
 <div class="paragraph"> </div>
 
-<a name="lab601"></a><h2 class="section">Sums</h2>
+<a name="lab616"></a><h2 class="section">Sums</h2>
 
 <div class="paragraph"> </div>
 
-
-<div class="paragraph"> </div>
-
-   Many programs need to deal with values that can take two distinct
+ Many programs need to deal with values that can take two distinct
    forms.  For example, we might identify employees in an accounting
    application using using <i>either</i> their name <i>or</i> their id number.
    A search function might return <i>either</i> a matching value <i>or</i> an
@@ -455,11 +427,14 @@
 <pre>
        Nat + Bool
 </pre>
-   We create elements of these types by <i>tagging</i> elements of the
-   component types.  For example, if <span class="inlinecode"><span class="id" type="var">n</span></span> is a <span class="inlinecode"><span class="id" type="var">Nat</span></span> then <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">v</span></span> is an
-   element of <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>; similarly, if <span class="inlinecode"><span class="id" type="var">b</span></span> is a <span class="inlinecode"><span class="id" type="var">Bool</span></span> then <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">b</span></span>
-   is a <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>.  The names of the tags <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> arise from
-   thinking of them as functions
+
+<div class="paragraph"> </div>
+
+ We create elements of these types by <i>tagging</i> elements of
+    the component types.  For example, if <span class="inlinecode"><span class="id" type="var">n</span></span> is a <span class="inlinecode"><span class="id" type="var">Nat</span></span> then <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">v</span></span>
+    is an element of <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>; similarly, if <span class="inlinecode"><span class="id" type="var">b</span></span> is a <span class="inlinecode"><span class="id" type="var">Bool</span></span> then
+    <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">b</span></span> is a <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>.  The names of the tags <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span>
+    arise from thinking of them as functions
 
 <div class="paragraph"> </div>
 
@@ -470,29 +445,28 @@
 
 <div class="paragraph"> </div>
 
-   that "inject" elements of <span class="inlinecode"><span class="id" type="var">Nat</span></span> or <span class="inlinecode"><span class="id" type="var">Bool</span></span> into the left and right
-   components of the sum type <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>.  (But note that we don't
-   actually treat them as functions in the way we formalize them:
-   <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> are keywords, and <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">t</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">t</span></span> are primitive
-   syntactic forms, not function applications.  This allows us to give
-   them their own special typing rules.)
-
+    that "inject" elements of <span class="inlinecode"><span class="id" type="var">Nat</span></span> or <span class="inlinecode"><span class="id" type="var">Bool</span></span> into the left and right
+    components of the sum type <span class="inlinecode"><span class="id" type="var">Nat</span>+<span class="id" type="var">Bool</span></span>.  (But note that we don't
+    actually treat them as functions in the way we formalize them:
+    <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> are keywords, and <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">t</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">t</span></span> are primitive
+    syntactic forms, not function applications.  This allows us to give
+    them their own special typing rules.) 
 <div class="paragraph"> </div>
 
-   In general, the elements of a type <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">T2</span></span> consist of the
-   elements of <span class="inlinecode"><span class="id" type="var">T1</span></span> tagged with the token <span class="inlinecode"><span class="id" type="var">inl</span></span>, plus the elements of
-   <span class="inlinecode"><span class="id" type="var">T2</span></span> tagged with <span class="inlinecode"><span class="id" type="var">inr</span></span>. 
+ In general, the elements of a type <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span> consist of the
+    elements of <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> tagged with the token <span class="inlinecode"><span class="id" type="var">inl</span></span>, plus the elements of
+    <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span> tagged with <span class="inlinecode"><span class="id" type="var">inr</span></span>. 
 <div class="paragraph"> </div>
 
  One important usage of sums is signaling errors:
 <pre>
     div : Nat -&gt; Nat -&gt; (Nat + Unit) =
     div =
-      \x:Nat. \y:Nat.
+      &lambda;x:Nat. &lambda;y:Nat.
         if iszero y then
-          inr Nat unit
+          inr unit
         else
-          inl String ...
+          inl ...
 </pre>
     The type <span class="inlinecode"><span class="id" type="var">Nat</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">Unit</span></span> above is in fact isomorphic to <span class="inlinecode"><span class="id" type="var">option</span></span> <span class="inlinecode"><span class="id" type="var">nat</span></span>
     in Coq, and we've already seen how to signal errors with options. 
@@ -509,7 +483,7 @@
 
 <pre>
     getNat = 
-      \x:Nat+Bool.
+      &lambda;x:Nat+Bool.
         case x of
           inl n =&gt; n
         | inr b =&gt; if b then 1 else 0
@@ -542,13 +516,13 @@
 
 <div class="paragraph"> </div>
 
-   Evaluation:
+ Evaluation:
 
 <div class="paragraph"> </div>
 
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Inl) &nbsp;
   </td></tr>
@@ -556,12 +530,12 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">inl&nbsp;T&nbsp;t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;inl&nbsp;T&nbsp;t1'</td>
+  <td class="infrule">inl&nbsp;T&nbsp;t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;inl&nbsp;T&nbsp;t<sub>1</sub>'</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Inr) &nbsp;
   </td></tr>
@@ -569,7 +543,7 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">inr&nbsp;T&nbsp;t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;inr&nbsp;T&nbsp;t1'</td>
+  <td class="infrule">inr&nbsp;T&nbsp;t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;inr&nbsp;T&nbsp;t<sub>1</sub>'</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -582,11 +556,11 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">case&nbsp;t0&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t1&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t2&nbsp;<span style="font-family: arial;">&rArr;</span></td>
+  <td class="infrule">case&nbsp;t0&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t<sub>1</sub>&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">case&nbsp;t0'&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t1&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t2</td>
+  <td class="infrule">case&nbsp;t0'&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t<sub>1</sub>&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -599,11 +573,11 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">case&nbsp;(inl&nbsp;T&nbsp;v0)&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t1&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t2</td>
+  <td class="infrule">case&nbsp;(inl&nbsp;T&nbsp;v0)&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t<sub>1</sub>&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;&nbsp;[x1:=v0]t1</td>
+  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;&nbsp;[x1:=v0]t<sub>1</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -616,20 +590,20 @@
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">case&nbsp;(inr&nbsp;T&nbsp;v0)&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t1&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t2</td>
+  <td class="infrule">case&nbsp;(inr&nbsp;T&nbsp;v0)&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t<sub>1</sub>&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;&nbsp;[x2:=v0]t2</td>
+  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;&nbsp;[x2:=v0]t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center>
 <div class="paragraph"> </div>
 
-Typing:
+ Typing:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;&nbsp;T1</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;&nbsp;T<sub>1</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Inl) &nbsp;
   </td></tr>
@@ -637,12 +611,12 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;inl&nbsp;T2&nbsp;t1&nbsp;:&nbsp;T1&nbsp;+&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;inl&nbsp;T<sub>2</sub>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>&nbsp;+&nbsp;T<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>2</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Inr) &nbsp;
   </td></tr>
@@ -650,20 +624,20 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;inr&nbsp;T1&nbsp;t1&nbsp;:&nbsp;T1&nbsp;+&nbsp;T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;inr&nbsp;T<sub>1</sub>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>&nbsp;+&nbsp;T<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t0&nbsp;:&nbsp;T1+T2</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t0&nbsp;:&nbsp;T<sub>1</sub>+T<sub>2</sub></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x1:T1&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x1:T<sub>1</sub>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x2:T2&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t2&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;x2:T<sub>2</sub>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T</td>
   <td class="infrulenamecol" rowspan="3">
     (T_Case) &nbsp;
   </td></tr>
@@ -671,18 +645,18 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;case&nbsp;t0&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t1&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t2&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;case&nbsp;t0&nbsp;of&nbsp;inl&nbsp;x1&nbsp;=>&nbsp;t<sub>1</sub>&nbsp;|&nbsp;inr&nbsp;x2&nbsp;=>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T</td>
   <td></td>
 </td>
 </table></center>
 <div class="paragraph"> </div>
 
-    The reason for the type annotation on the <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> forms
-    has to do with uniqueness of types.  Without this extra
+    We use the type annotation in <span class="inlinecode"><span class="id" type="var">inl</span></span> and <span class="inlinecode"><span class="id" type="var">inr</span></span> to make the typing
+    simpler, similarly to what we did for functions.  Without this extra
     information, the typing rule <span class="inlinecode"><span class="id" type="var">T_Inl</span></span>, for example, would have to
-    say that, once we have shown that <span class="inlinecode"><span class="id" type="var">t1</span></span> is an element of type <span class="inlinecode"><span class="id" type="var">T1</span></span>,
-    we can derive that <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">t1</span></span> is an element of <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">T2</span></span> for <i>any</i>
-    type T2.  For example, we could derive both <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode">5</span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">Nat</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">Nat</span></span>
+    say that, once we have shown that <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> is an element of type <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span>,
+    we can derive that <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> is an element of <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span> for <i>any</i>
+    type T<sub>2</sub>.  For example, we could derive both <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode">5</span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">Nat</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">Nat</span></span>
     and <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode">5</span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">Nat</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">Bool</span></span> (and infinitely many other types).
     This failure of uniqueness of types would mean that we cannot
     build a typechecking algorithm simply by "reading the rules from
@@ -698,7 +672,7 @@ Typing:
     understand and formalize. 
 <div class="paragraph"> </div>
 
-<a name="lab602"></a><h2 class="section">Lists</h2>
+<a name="lab617"></a><h2 class="section">Lists</h2>
 
 <div class="paragraph"> </div>
 
@@ -728,17 +702,12 @@ Typing:
  For example, here is a function that calculates the sum of
     the first two elements of a list of numbers:
 <pre>
-    \x:List Nat.  
+    &lambda;x:List Nat.  
     lcase x of nil -&gt; 0 
        | a::x' -&gt; lcase x' of nil -&gt; a
                      | b::x'' -&gt; a+b 
 </pre>
 
-<div class="paragraph"> </div>
-
-    While we say that <span class="inlinecode"><span class="id" type="var">cons</span></span> <span class="inlinecode"><span class="id" type="var">v1</span></span> <span class="inlinecode"><span class="id" type="var">v2</span></span> is a value, we really mean that
-    <span class="inlinecode"><span class="id" type="var">v2</span></span> should also be a list &mdash; we'll have to enforce this in the
-    formal definition of value. 
 <div class="paragraph"> </div>
 
 
@@ -761,10 +730,13 @@ Typing:
            | ...
            | List T            list of Ts
 </pre>
-   Reduction:
+
+<div class="paragraph"> </div>
+
+ Reduction:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Cons1) &nbsp;
   </td></tr>
@@ -772,12 +744,12 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">cons&nbsp;t1&nbsp;t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;cons&nbsp;t1'&nbsp;t2</td>
+  <td class="infrule">cons&nbsp;t<sub>1</sub>&nbsp;t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;cons&nbsp;t<sub>1</sub>'&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t2'</td>
+  <td class="infrule">t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>2</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Cons2) &nbsp;
   </td></tr>
@@ -785,12 +757,12 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">cons&nbsp;v1&nbsp;t2&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;cons&nbsp;v1&nbsp;t2'</td>
+  <td class="infrule">cons&nbsp;v<sub>1</sub>&nbsp;t<sub>2</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;cons&nbsp;v<sub>1</sub>&nbsp;t<sub>2</sub>'</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Lcase1) &nbsp;
   </td></tr>
@@ -798,11 +770,11 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(lcase&nbsp;t1&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t2&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t3)&nbsp;<span style="font-family: arial;">&rArr;</span></td>
+  <td class="infrule">(lcase&nbsp;t<sub>1</sub>&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>2</sub>&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>3</sub>)&nbsp;<span style="font-family: arial;">&rArr;</span></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">(lcase&nbsp;t1'&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t2&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t3)</td>
+  <td class="infrule">(lcase&nbsp;t<sub>1</sub>'&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>2</sub>&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>3</sub>)</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -815,11 +787,11 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(lcase&nbsp;nil&nbsp;T&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t2&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t3)</td>
+  <td class="infrule">(lcase&nbsp;nil&nbsp;T&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>2</sub>&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>3</sub>)</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;t2</td>
+  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -832,17 +804,17 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">(lcase&nbsp;(cons&nbsp;vh&nbsp;vt)&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t2&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t3)</td>
+  <td class="infrule">(lcase&nbsp;(cons&nbsp;vh&nbsp;vt)&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>2</sub>&nbsp;|&nbsp;xh::xt&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>3</sub>)</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;[xh:=vh,xt:=vt]t3</td>
+  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;[xh:=vh,xt:=vt]t<sub>3</sub></td>
   <td></td>
 </td>
 </table></center>
 <div class="paragraph"> </div>
 
-   Typing:
+ Typing:
 <center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">&nbsp;&nbsp;</td>
@@ -858,7 +830,7 @@ Typing:
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t2&nbsp;:&nbsp;List&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;List&nbsp;T</td>
   <td class="infrulenamecol" rowspan="3">
     (T_Cons) &nbsp;
   </td></tr>
@@ -866,20 +838,20 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;cons&nbsp;t1&nbsp;t2:&nbsp;List&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;cons&nbsp;t<sub>1</sub>&nbsp;t<sub>2</sub>:&nbsp;List&nbsp;T</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;List&nbsp;T1</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;List&nbsp;T<sub>1</sub></td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t2&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>2</sub>&nbsp;:&nbsp;T</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;h:T1,&nbsp;t:List&nbsp;T1&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t3&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;,&nbsp;h:T<sub>1</sub>,&nbsp;t:List&nbsp;T<sub>1</sub>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>3</sub>&nbsp;:&nbsp;T</td>
   <td class="infrulenamecol" rowspan="3">
     (T_Lcase) &nbsp;
   </td></tr>
@@ -887,13 +859,13 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;(lcase&nbsp;t1&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t2&nbsp;|&nbsp;h::t&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t3)&nbsp;:&nbsp;T</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;(lcase&nbsp;t<sub>1</sub>&nbsp;of&nbsp;nil&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>2</sub>&nbsp;|&nbsp;h::t&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;t<sub>3</sub>)&nbsp;:&nbsp;T</td>
   <td></td>
 </td>
 </table></center>
 <div class="paragraph"> </div>
 
-<a name="lab603"></a><h2 class="section">General Recursion</h2>
+<a name="lab618"></a><h2 class="section">General Recursion</h2>
 
 <div class="paragraph"> </div>
 
@@ -902,17 +874,16 @@ Typing:
     we might like to be able to define the factorial function like
     this:
 <pre>
-   fact = \x:Nat. 
+   fact = &lambda;x:Nat. 
              if x=0 then 1 else x * (fact (pred x)))    
 </pre>
    But this would require quite a bit of work to formalize: we'd have
    to introduce a notion of "function definitions" and carry around an
    "environment" of such definitions in the definition of the <span class="inlinecode"><span class="id" type="var">step</span></span>
-   relation.
-
+   relation. 
 <div class="paragraph"> </div>
 
-   Here is another way that is straightforward to formalize: instead
+ Here is another way that is straightforward to formalize: instead
    of writing recursive definitions where the right-hand side can
    contain the identifier being defined, we can define a <i>fixed-point
    operator</i> that performs the "unfolding" of the recursive definition
@@ -920,8 +891,8 @@ Typing:
 <pre>
    fact = 
        fix
-         (\f:Nat-&gt;Nat.
-            \x:Nat. 
+         (&lambda;f:Nat-&gt;Nat.
+            &lambda;x:Nat. 
                if x=0 then 1 else x * (f (pred x)))    
 </pre>
 
@@ -955,7 +926,7 @@ Typing:
    Reduction:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Fix1) &nbsp;
   </td></tr>
@@ -963,12 +934,12 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">fix&nbsp;t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;fix&nbsp;t1'</td>
+  <td class="infrule">fix&nbsp;t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;fix&nbsp;t<sub>1</sub>'</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">F&nbsp;=&nbsp;\xf:T1.t2</td>
+  <td class="infrule">F&nbsp;=&nbsp;&lambda;xf:T<sub>1</sub>.t<sub>2</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (ST_FixAbs) &nbsp;
   </td></tr>
@@ -976,13 +947,13 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">fix&nbsp;F&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;[xf:=fix&nbsp;F]t2</td>
+  <td class="infrule">fix&nbsp;F&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;[xf:=fix&nbsp;F]t<sub>2</sub></td>
   <td></td>
 </td>
 </table></center>   Typing:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T1->T1</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>->T<sub>1</sub></td>
   <td class="infrulenamecol" rowspan="3">
     (T_Fix) &nbsp;
   </td></tr>
@@ -990,21 +961,21 @@ Typing:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;fix&nbsp;t1&nbsp;:&nbsp;T1</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;fix&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub></td>
   <td></td>
 </td>
 </table></center> 
 <div class="paragraph"> </div>
 
  Let's see how <span class="inlinecode"><span class="id" type="var">ST_FixAbs</span></span> works by reducing <span class="inlinecode"><span class="id" type="var">fact</span></span> <span class="inlinecode">3</span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">fix</span></span> <span class="inlinecode"><span class="id" type="var">F</span></span> <span class="inlinecode">3</span>,
-    where <span class="inlinecode"><span class="id" type="var">F</span></span> <span class="inlinecode">=</span> <span class="inlinecode">(\<span class="id" type="var">f</span>.</span> <span class="inlinecode">\<span class="id" type="var">x</span>.</span> <span class="inlinecode"><span class="id" type="keyword">if</span></span> <span class="inlinecode"><span class="id" type="var">x</span>=0</span> <span class="inlinecode"><span class="id" type="keyword">then</span></span> <span class="inlinecode">1</span> <span class="inlinecode"><span class="id" type="keyword">else</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">*</span> <span class="inlinecode">(<span class="id" type="var">f</span></span> <span class="inlinecode">(<span class="id" type="var">pred</span></span> <span class="inlinecode"><span class="id" type="var">x</span>)))</span> (we are
+    where <span class="inlinecode"><span class="id" type="var">F</span></span> <span class="inlinecode">=</span> <span class="inlinecode">(&lambda;<span class="id" type="var">f</span>.</span> <span class="inlinecode">&lambda;<span class="id" type="var">x</span>.</span> <span class="inlinecode"><span class="id" type="keyword">if</span></span> <span class="inlinecode"><span class="id" type="var">x</span>=0</span> <span class="inlinecode"><span class="id" type="keyword">then</span></span> <span class="inlinecode">1</span> <span class="inlinecode"><span class="id" type="keyword">else</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">*</span> <span class="inlinecode">(<span class="id" type="var">f</span></span> <span class="inlinecode">(<span class="id" type="var">pred</span></span> <span class="inlinecode"><span class="id" type="var">x</span>)))</span> (we are
     omitting type annotations for brevity here).
 <pre>
 fix F 3
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_FixAbs</span></span>
 <pre>
-(\x. if x=0 then 1 else x * (fix F (pred x))) 3
+(&lambda;x. if x=0 then 1 else x * (fix F (pred x))) 3
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span>
 <pre>
@@ -1016,11 +987,11 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_FixAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span> 
 <pre>
-3 * ((\x. if x=0 then 1 else x * (fix F (pred x))) (pred 3))
+3 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) (pred 3))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_PredNat</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_App2</span></span>
 <pre>
-3 * ((\x. if x=0 then 1 else x * (fix F (pred x))) 2)
+3 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) 2)
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span>
 <pre>
@@ -1032,11 +1003,11 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_FixAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span>
 <pre>
-3 * (2 * ((\x. if x=0 then 1 else x * (fix F (pred x))) (pred 2)))
+3 * (2 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) (pred 2)))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_PredNat</span></span> <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_App2</span></span>
 <pre>
-3 * (2 * ((\x. if x=0 then 1 else x * (fix F (pred x))) 1))
+3 * (2 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) 1))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span>
 <pre>
@@ -1048,11 +1019,11 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_FixAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode">3</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span>
 <pre>
-3 * (2 * (1 * ((\x. if x=0 then 1 else x * (fix F (pred x))) (pred 1))))
+3 * (2 * (1 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) (pred 1))))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_PredNat</span></span> <span class="inlinecode">+</span> <span class="inlinecode">3</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span> <span class="inlinecode">+</span> <span class="inlinecode"><span class="id" type="var">ST_App2</span></span>
 <pre>
-3 * (2 * (1 * ((\x. if x=0 then 1 else x * (fix F (pred x))) 0)))
+3 * (2 * (1 * ((&lambda;x. if x=0 then 1 else x * (fix F (pred x))) 0)))
 </pre>
 <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span> <span class="inlinecode">+</span> <span class="inlinecode">3</span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">ST_Mult2</span></span>
 <pre>
@@ -1077,11 +1048,11 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 
 <div class="paragraph"> </div>
 
-<a name="lab604"></a><h4 class="section">Exercise: 1 star (halve_fix)</h4>
+<a name="lab619"></a><h4 class="section">Exercise: 1 star (halve_fix)</h4>
  Translate this informal recursive definition into one using <span class="inlinecode"><span class="id" type="var">fix</span></span>:
 <pre>
    halve = 
-     \x:Nat. 
+     &lambda;x:Nat. 
         if x=0 then 0 
         else if (pred x)=0 then 0
         else 1 + (halve (pred (pred x))))
@@ -1091,7 +1062,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 
 <div class="paragraph"> </div>
 
-<a name="lab605"></a><h4 class="section">Exercise: 1 star, recommended (fact_steps)</h4>
+<a name="lab620"></a><h4 class="section">Exercise: 1 star (fact_steps)</h4>
  Write down the sequence of steps that the term <span class="inlinecode"><span class="id" type="var">fact</span></span> <span class="inlinecode">1</span> goes
     through to reduce to a normal form (assuming the usual reduction
     rules for arithmetic operations).
@@ -1111,7 +1082,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 <div class="paragraph"> </div>
 
 <div class="code code-tight">
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">fix</span>&nbsp;(\<span class="id" type="var">x</span>:<span class="id" type="var">T.x</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">fix</span>&nbsp;(&lambda;<span class="id" type="var">x</span>:<span class="id" type="var">T.x</span>)
 <div class="paragraph"> </div>
 
 </div>
@@ -1126,8 +1097,8 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 <pre>
     equal = 
       fix 
-        (\eq:Nat-&gt;Nat-&gt;Bool.
-           \m:Nat. \n:Nat.
+        (&lambda;eq:Nat-&gt;Nat-&gt;Bool.
+           &lambda;m:Nat. &lambda;n:Nat.
              if m=0 then iszero n 
              else if n=0 then false
              else eq (pred m) (pred n))
@@ -1137,13 +1108,13 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 
     And finally, here is an example where <span class="inlinecode"><span class="id" type="var">fix</span></span> is used to define a
     <i>pair</i> of recursive functions (illustrating the fact that the type
-    <span class="inlinecode"><span class="id" type="var">T1</span></span> in the rule <span class="inlinecode"><span class="id" type="var">T_Fix</span></span> need not be a function type):
+    <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> in the rule <span class="inlinecode"><span class="id" type="var">T_Fix</span></span> need not be a function type):
 <pre>
     evenodd = 
       fix 
-        (\eo: (Nat-&gt;Bool * Nat-&gt;Bool).
-           let e = \n:Nat. if n=0 then true  else eo.snd (pred n) in
-           let o = \n:Nat. if n=0 then false else eo.fst (pred n) in
+        (&lambda;eo: (Nat-&gt;Bool * Nat-&gt;Bool).
+           let e = &lambda;n:Nat. if n=0 then true  else eo.snd (pred n) in
+           let o = &lambda;n:Nat. if n=0 then false else eo.fst (pred n) in
            (e,o))
 
     even = evenodd.fst
@@ -1157,7 +1128,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </div>
 
 <div class="doc">
-<a name="lab606"></a><h2 class="section">Records</h2>
+<a name="lab621"></a><h2 class="section">Records</h2>
 
 <div class="paragraph"> </div>
 
@@ -1174,23 +1145,23 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
     heavier; for this reason, we postpone its formal treatment to a
     separate chapter (<span class="inlinecode"><span class="id" type="var">Records</span></span>). Therefore records are not included
     in the extended exercise below, but they are used to motivate the
-    <span class="inlinecode"><span class="id" type="var">Subtyping</span></span> chapter. 
+    <span class="inlinecode"><span class="id" type="var">Sub</span></span> chapter. 
 <div class="paragraph"> </div>
 
  Syntax:
 <pre>
        t ::=                          Terms
            | ...
-           | {i1=t1, ..., in=tn}         record 
+           | {i1=t<sub>1</sub>, ..., in=tn}         record 
            | t.i                         projection
 
        v ::=                          Values
            | ...
-           | {i1=v1, ..., in=vn}         record value
+           | {i1=v<sub>1</sub>, ..., in=vn}         record value
 
        T ::=                          Types
            | ...
-           | {i1:T1, ..., in:Tn}         record type
+           | {i1:T<sub>1</sub>, ..., in:Tn}         record type
 </pre>
    Intuitively, the generalization is pretty obvious.  But it's worth
    noticing that what we've actually written is rather informal: in
@@ -1201,7 +1172,9 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
    more precise, but these tend to be quite heavy and to obscure the
    main points of the definitions.  So we'll leave these a bit loose
    here (they are informal anyway, after all) and do the work of
-   tightening things up elsewhere (in chapter <span class="inlinecode"><span class="id" type="var">Records</span></span>).
+   tightening things up elsewhere (in chapter <span class="inlinecode"><span class="id" type="var">Records</span></span>). 
+<div class="paragraph"> </div>
+
 
 <div class="paragraph"> </div>
 
@@ -1216,16 +1189,16 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{i1=v1,&nbsp;...,&nbsp;im=vm,&nbsp;in=ti,&nbsp;...}</td>
+  <td class="infrule">{i1=v<sub>1</sub>,&nbsp;...,&nbsp;im=vm,&nbsp;in=ti,&nbsp;...}</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;{i1=v1,&nbsp;...,&nbsp;im=vm,&nbsp;in=ti',&nbsp;...}</td>
+  <td class="infrule"><span style="font-family: arial;">&rArr;</span>&nbsp;{i1=v<sub>1</sub>,&nbsp;...,&nbsp;im=vm,&nbsp;in=ti',&nbsp;...}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">t1&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'</td>
+  <td class="infrule">t<sub>1</sub>&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'</td>
   <td class="infrulenamecol" rowspan="3">
     (ST_Proj1) &nbsp;
   </td></tr>
@@ -1233,7 +1206,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">t1.i&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t1'.i</td>
+  <td class="infrule">t<sub>1</sub>.i&nbsp;<span style="font-family: arial;">&rArr;</span>&nbsp;t<sub>1</sub>'.i</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -1253,14 +1226,16 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
    is intended to be read "if <span class="inlinecode"><span class="id" type="var">ti</span></span> is the leftmost field that is not a
    value and if <span class="inlinecode"><span class="id" type="var">ti</span></span> steps to <span class="inlinecode"><span class="id" type="var">ti'</span></span>, then the whole record steps..."
    In the last rule, the intention is that there should only be one
-   field called i, and that all the other fields must contain values.
+   field called i, and that all the other fields must contain values. 
+<div class="paragraph"> </div>
+
 
 <div class="paragraph"> </div>
 
    Typing:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t1&nbsp;:&nbsp;T1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;tn&nbsp;:&nbsp;Tn</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;t<sub>1</sub>&nbsp;:&nbsp;T<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;tn&nbsp;:&nbsp;Tn</td>
   <td class="infrulenamecol" rowspan="3">
     (T_Rcd) &nbsp;
   </td></tr>
@@ -1268,7 +1243,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;{i1=t1,&nbsp;...,&nbsp;in=tn}&nbsp;:&nbsp;{i1:T1,&nbsp;...,&nbsp;in:Tn}</td>
+  <td class="infrule"><span style="font-family: serif; font-size:85%;">&Gamma;</span>&nbsp;<span style="font-family: arial;">&#8866;</span>&nbsp;{i1=t<sub>1</sub>,&nbsp;...,&nbsp;in=tn}&nbsp;:&nbsp;{i1:T<sub>1</sub>,&nbsp;...,&nbsp;in:Tn}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -1295,7 +1270,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </div>
 
 <div class="doc">
-<a name="lab607"></a><h3 class="section">Encoding Records (Optional)</h3>
+<a name="lab622"></a><h3 class="section">Encoding Records (Optional)</h3>
 
 <div class="paragraph"> </div>
 
@@ -1343,20 +1318,20 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 
     First, observe that we can encode arbitrary-size tuples using
     nested pairs and the <span class="inlinecode"><span class="id" type="var">unit</span></span> value.  To avoid overloading the pair
-    notation <span class="inlinecode">(<span class="id" type="var">t1</span>,<span class="id" type="var">t2</span>)</span>, we'll use curly braces without labels to write
+    notation <span class="inlinecode">(<span class="id" type="var">t<sub>1</sub></span>,<span class="id" type="var">t<sub>2</sub></span>)</span>, we'll use curly braces without labels to write
     down tuples, so <span class="inlinecode">{}</span> is the empty tuple, <span class="inlinecode">{5}</span> is a singleton
     tuple, <span class="inlinecode">{5,6}</span> is a 2-tuple (morally the same as a pair),
     <span class="inlinecode">{5,6,7}</span> is a triple, etc.  
 <pre>
     {}                 ----&gt;  unit
-    {t1, t2, ..., tn}  ----&gt;  (t1, trest)
-                              where {t2, ..., tn} ----&gt; trest
+    {t<sub>1</sub>, t<sub>2</sub>, ..., tn}  ----&gt;  (t<sub>1</sub>, trest)
+                              where {t<sub>2</sub>, ..., tn} ----&gt; trest
 </pre>
     Similarly, we can encode tuple types using nested product types:
 <pre>
     {}                 ----&gt;  Unit
-    {T1, T2, ..., Tn}  ----&gt;  T1 * TRest
-                              where {T2, ..., Tn} ----&gt; TRest
+    {T<sub>1</sub>, T<sub>2</sub>, ..., Tn}  ----&gt;  T<sub>1</sub> * TRest
+                              where {T<sub>2</sub>, ..., Tn} ----&gt; TRest
 </pre>
     The operation of projecting a field from a tuple can be encoded
     using a sequence of second projections followed by a first projection: 
@@ -1435,13 +1410,13 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
     compilers that essentially do this! 
 <div class="paragraph"> </div>
 
-<a name="lab608"></a><h3 class="section">Variants (Optional Reading)</h3>
+<a name="lab623"></a><h3 class="section">Variants (Optional Reading)</h3>
 
 <div class="paragraph"> </div>
 
  Just as products can be generalized to records, sums can be
     generalized to n-ary labeled types called <i>variants</i>.  Instead of
-    <span class="inlinecode"><span class="id" type="var">T1</span>+<span class="id" type="var">T2</span></span>, we can write something like <span class="inlinecode">&lt;<span class="id" type="var">l1</span>:<span class="id" type="var">T1</span>,<span class="id" type="var">l2</span>:<span class="id" type="var">T2</span>,...<span class="id" type="var">ln</span>:<span class="id" type="var">Tn</span>&gt;</span>
+    <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span>+<span class="id" type="var">T<sub>2</sub></span></span>, we can write something like <span class="inlinecode">&lt;<span class="id" type="var">l1</span>:<span class="id" type="var">T<sub>1</sub></span>,<span class="id" type="var">l2</span>:<span class="id" type="var">T<sub>2</sub></span>,...<span class="id" type="var">ln</span>:<span class="id" type="var">Tn</span>&gt;</span>
     where <span class="inlinecode"><span class="id" type="var">l1</span></span>,<span class="inlinecode"><span class="id" type="var">l2</span></span>,... are field labels which are used both to build
     instances and as case arm labels.  
 
@@ -1460,11 +1435,11 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </div>
 
 <div class="doc">
-<a name="lab609"></a><h1 class="section">Exercise: Formalizing the Extensions</h1>
+<a name="lab624"></a><h1 class="section">Exercise: Formalizing the Extensions</h1>
 
 <div class="paragraph"> </div>
 
-<a name="lab610"></a><h4 class="section">Exercise: 4 stars, recommended (STLC_extensions)</h4>
+<a name="lab625"></a><h4 class="section">Exercise: 4 stars, advanced (STLC_extensions)</h4>
  Formalizing the extensions (not including the optional ones) is
     left to you.  We've provided the necessary extensions to the
     syntax of terms and types, and we've included a few examples that
@@ -1517,7 +1492,7 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 </div>
 
 <div class="doc">
-<a name="lab611"></a><h3 class="section">Syntax and Operational Semantics</h3>
+<a name="lab626"></a><h3 class="section">Syntax and Operational Semantics</h3>
 
 </div>
 <div class="code code-space">
@@ -1558,17 +1533,17 @@ if 3=0 then 1 else 3 * (fix F (pred 3))
 &nbsp;&nbsp;| <span class="id" type="var">tunit</span> : <span class="id" type="var">tm</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;let&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tlet</span> : <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="keyword">let</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="keyword">in</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="keyword">let</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="keyword">in</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;sums&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tinl</span> : <span class="id" type="var">ty</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tinr</span> : <span class="id" type="var">ty</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tcase</span> : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span>  <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="tactic">case</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode"><span class="id" type="var">of</span></span> <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">x1</span></span> <span class="inlinecode">=&gt;</span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">x2</span></span> <span class="inlinecode">=&gt;</span> <span class="inlinecode"><span class="id" type="var">t2</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="tactic">case</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode"><span class="id" type="var">of</span></span> <span class="inlinecode"><span class="id" type="var">inl</span></span> <span class="inlinecode"><span class="id" type="var">x1</span></span> <span class="inlinecode">=&gt;</span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">inr</span></span> <span class="inlinecode"><span class="id" type="var">x2</span></span> <span class="inlinecode">=&gt;</span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;lists&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tnil</span> : <span class="id" type="var">ty</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tcons</span> : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tlcase</span> : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="var">lcase</span></span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">of</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">nil</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">x</span>::<span class="id" type="var">y</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">t3</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;i.e.,&nbsp;<span class="inlinecode"><span class="id" type="var">lcase</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">of</span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">nil</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode">|</span> <span class="inlinecode"><span class="id" type="var">x</span>::<span class="id" type="var">y</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>3</sub></span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;fix&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tfix</span>  : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span>.<br/>
 
@@ -1606,7 +1581,7 @@ Note that, for brevity, we've omitted booleans and instead
 </div>
 
 <div class="doc">
-<a name="lab612"></a><h3 class="section">Substitution</h3>
+<a name="lab627"></a><h3 class="section">Substitution</h3>
 
 </div>
 <div class="code code-space">
@@ -1615,11 +1590,11 @@ Note that, for brevity, we've omitted booleans and instead
 <span class="id" type="keyword">Fixpoint</span> <span class="id" type="tactic">subst</span> (<span class="id" type="var">x</span>:<span class="id" type="var">id</span>) (<span class="id" type="var">s</span>:<span class="id" type="var">tm</span>) (<span class="id" type="var">t</span>:<span class="id" type="var">tm</span>) : <span class="id" type="var">tm</span> :=<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">t</span> <span class="id" type="keyword">with</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">tvar</span> <span class="id" type="var">y</span> =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">if</span> <span class="id" type="var">beq_id</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="keyword">then</span> <span class="id" type="var">s</span> <span class="id" type="keyword">else</span> <span class="id" type="var">t</span><br/>
-&nbsp;&nbsp;| <span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T</span> <span class="id" type="var">t1</span> =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T</span> (<span class="id" type="keyword">if</span> <span class="id" type="var">beq_id</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="keyword">then</span> <span class="id" type="var">t1</span> <span class="id" type="keyword">else</span> (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t1</span>))<br/>
-&nbsp;&nbsp;| <span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span> =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">tapp</span> (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t1</span>) (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t2</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">if</span> <span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="keyword">then</span> <span class="id" type="var">s</span> <span class="id" type="keyword">else</span> <span class="id" type="var">t</span><br/>
+&nbsp;&nbsp;| <span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T</span> <span class="id" type="var">t<sub>1</sub></span> =&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T</span> (<span class="id" type="keyword">if</span> <span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="keyword">then</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="keyword">else</span> (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t<sub>1</sub></span>))<br/>
+&nbsp;&nbsp;| <span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span> =&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">tapp</span> (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t<sub>1</sub></span>) (<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> <span class="id" type="var">t<sub>2</sub></span>)<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">_</span> =&gt; <span class="id" type="var">t</span>  <span class="comment">(*&nbsp;...&nbsp;and&nbsp;delete&nbsp;this&nbsp;line&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
@@ -1631,7 +1606,7 @@ Note that, for brevity, we've omitted booleans and instead
 </div>
 
 <div class="doc">
-<a name="lab613"></a><h3 class="section">Reduction</h3>
+<a name="lab628"></a><h3 class="section">Reduction</h3>
 
 <div class="paragraph"> </div>
 
@@ -1641,8 +1616,8 @@ Note that, for brevity, we've omitted booleans and instead
 
 <br/>
 <span class="id" type="keyword">Inductive</span> <span class="id" type="var">value</span> : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="keyword">Prop</span> :=<br/>
-&nbsp;&nbsp;| <span class="id" type="var">v_abs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">v_abs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>)<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 &nbsp;&nbsp;.<br/>
 
@@ -1650,23 +1625,23 @@ Note that, for brevity, we've omitted booleans and instead
 <span class="id" type="keyword">Hint</span> <span class="id" type="var">Constructors</span> <span class="id" type="var">value</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Reserved Notation</span> "t1 '<span style="font-family: arial;">&rArr;</span>' t2" (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 40).<br/>
+<span class="id" type="keyword">Reserved Notation</span> "t<sub>1</sub> '<span style="font-family: arial;">&rArr;</span>' t<sub>2</sub>" (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 40).<br/>
 
 <br/>
 <span class="id" type="keyword">Inductive</span> <span class="id" type="var">step</span> : <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="keyword">Prop</span> :=<br/>
-&nbsp;&nbsp;| <span class="id" type="var">ST_AppAbs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span> <span class="id" type="var">v2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> <span class="id" type="var">v2</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>) <span class="id" type="var">v2</span>) <span style="font-family: arial;">&rArr;</span> [<span class="id" type="var">x</span>:=<span class="id" type="var">v2</span>]<span class="id" type="var">t12</span><br/>
-&nbsp;&nbsp;| <span class="id" type="var">ST_App1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">t1</span> <span class="id" type="var">t1'</span> <span class="id" type="var">t2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">t1</span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t1'</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>) <span style="font-family: arial;">&rArr;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t1'</span> <span class="id" type="var">t2</span>)<br/>
-&nbsp;&nbsp;| <span class="id" type="var">ST_App2</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">v1</span> <span class="id" type="var">t2</span> <span class="id" type="var">t2'</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> <span class="id" type="var">v1</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">t2</span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t2'</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> <span class="id" type="var">v1</span> <span class="id" type="var">t2</span>) <span style="font-family: arial;">&rArr;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">v1</span> <span class="id" type="var">t2'</span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">ST_AppAbs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span> <span class="id" type="var">v<sub>2</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> <span class="id" type="var">v<sub>2</sub></span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>) <span class="id" type="var">v<sub>2</sub></span>) <span style="font-family: arial;">&rArr;</span> [<span class="id" type="var">x</span>:=<span class="id" type="var">v<sub>2</sub></span>]<span class="id" type="var">t<sub>12</sub></span><br/>
+&nbsp;&nbsp;| <span class="id" type="var">ST_App1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">t<sub>2</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">t<sub>1</sub></span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t<sub>1</sub>'</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>) <span style="font-family: arial;">&rArr;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">t<sub>2</sub></span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">ST_App2</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">v<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span> <span class="id" type="var">t<sub>2</sub>'</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> <span class="id" type="var">v<sub>1</sub></span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">t<sub>2</sub></span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t<sub>2</sub>'</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">tapp</span> <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>) <span style="font-family: arial;">&rArr;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub>'</span>)<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <br/>
-<span class="id" type="keyword">where</span> "t1 '<span style="font-family: arial;">&rArr;</span>' t2" := (<span class="id" type="var">step</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>).<br/>
+<span class="id" type="keyword">where</span> "t<sub>1</sub> '<span style="font-family: arial;">&rArr;</span>' t<sub>2</sub>" := (<span class="id" type="var">step</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>).<br/>
 
 <br/>
 <span class="id" type="keyword">Tactic Notation</span> "step_cases" <span class="id" type="var">tactic</span>(<span class="id" type="var">first</span>) <span class="id" type="var">ident</span>(<span class="id" type="var">c</span>) :=<br/>
@@ -1677,7 +1652,7 @@ Note that, for brevity, we've omitted booleans and instead
 
 <br/>
 <span class="id" type="keyword">Notation</span> <span class="id" type="var">multistep</span> := (<span class="id" type="var">multi</span> <span class="id" type="var">step</span>).<br/>
-<span class="id" type="keyword">Notation</span> "t1 '<span style="font-family: arial;">&rArr;*</span>' t2" := (<span class="id" type="var">multistep</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 40).<br/>
+<span class="id" type="keyword">Notation</span> "t<sub>1</sub> '<span style="font-family: arial;">&rArr;*</span>' t<sub>2</sub>" := (<span class="id" type="var">multistep</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 40).<br/>
 
 <br/>
 <span class="id" type="keyword">Hint</span> <span class="id" type="var">Constructors</span> <span class="id" type="var">step</span>.<br/>
@@ -1686,7 +1661,7 @@ Note that, for brevity, we've omitted booleans and instead
 </div>
 
 <div class="doc">
-<a name="lab614"></a><h3 class="section">Typing</h3>
+<a name="lab629"></a><h3 class="section">Typing</h3>
 
 </div>
 <div class="code code-space">
@@ -1704,20 +1679,24 @@ Next we define the typing rules.  These are nearly direct
 <div class="code code-tight">
 
 <br/>
+<span class="id" type="keyword">Reserved Notation</span> "Gamma '<span style="font-family: arial;">&#8866;</span>' t '&#x2208;' T" (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 40).<br/>
+
+<br/>
 <span class="id" type="keyword">Inductive</span> <span class="id" type="var">has_type</span> : <span class="id" type="var">context</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">ty</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Typing&nbsp;rules&nbsp;for&nbsp;proper&nbsp;terms&nbsp;*)</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">T_Var</span> : <span style="font-family: arial;">&forall;</span><span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">T</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> = <span class="id" type="var">Some</span> <span class="id" type="var">T</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> (<span class="id" type="var">tvar</span> <span class="id" type="var">x</span>) <span class="id" type="var">T</span><br/>
-&nbsp;&nbsp;| <span class="id" type="var">T_Abs</span> : <span style="font-family: arial;">&forall;</span><span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">T12</span> <span class="id" type="var">t12</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">T11</span>) <span class="id" type="var">t12</span> <span class="id" type="var">T12</span> <span style="font-family: arial;">&rarr;</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>) (<span class="id" type="var">TArrow</span> <span class="id" type="var">T11</span> <span class="id" type="var">T12</span>)<br/>
-&nbsp;&nbsp;| <span class="id" type="var">T_App</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t1</span> (<span class="id" type="var">TArrow</span> <span class="id" type="var">T1</span> <span class="id" type="var">T2</span>) <span style="font-family: arial;">&rarr;</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t2</span> <span class="id" type="var">T1</span> <span style="font-family: arial;">&rarr;</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>) <span class="id" type="var">T2</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> (<span class="id" type="var">tvar</span> <span class="id" type="var">x</span>) &#x2208; <span class="id" type="var">T</span><br/>
+&nbsp;&nbsp;| <span class="id" type="var">T_Abs</span> : <span style="font-family: arial;">&forall;</span><span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">T<sub>12</sub></span> <span class="id" type="var">t<sub>12</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">extend</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span>) <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t<sub>12</sub></span> &#x2208; <span class="id" type="var">T<sub>12</sub></span> <span style="font-family: arial;">&rarr;</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">x</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>) &#x2208; (<span class="id" type="var">TArrow</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">T<sub>12</sub></span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">T_App</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t<sub>1</sub></span> &#x2208; (<span class="id" type="var">TArrow</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>) <span style="font-family: arial;">&rarr;</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t<sub>2</sub></span> &#x2208; <span class="id" type="var">T<sub>1</sub></span> <span style="font-family: arial;">&rarr;</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>) &#x2208; <span class="id" type="var">T<sub>2</sub></span><br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
-&nbsp;&nbsp;.<br/>
+<br/>
+<span class="id" type="keyword">where</span> "Gamma '<span style="font-family: arial;">&#8866;</span>' t '&#x2208;' T" := (<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span>).<br/>
 
 <br/>
 <span class="id" type="keyword">Hint</span> <span class="id" type="var">Constructors</span> <span class="id" type="var">has_type</span>.<br/>
@@ -1733,7 +1712,7 @@ Next we define the typing rules.  These are nearly direct
 </div>
 
 <div class="doc">
-<a name="lab615"></a><h2 class="section">Examples</h2>
+<a name="lab630"></a><h2 class="section">Examples</h2>
 
 <div class="paragraph"> </div>
 
@@ -1755,7 +1734,7 @@ Next we define the typing rules.  These are nearly direct
 </div>
 
 <div class="doc">
-<a name="lab616"></a><h3 class="section">Preliminaries</h3>
+<a name="lab631"></a><h3 class="section">Preliminaries</h3>
 
 <div class="paragraph"> </div>
 
@@ -1795,9 +1774,9 @@ Next, a bit of Coq hackery to automate searching for typing
 <div class="paragraph"> </div>
 
     The following <span class="inlinecode"><span class="id" type="keyword">Hint</span></span> declarations say that, whenever <span class="inlinecode"><span class="id" type="tactic">auto</span></span>
-    arrives at a goal of the form <span class="inlinecode">(<span class="id" type="var">has_type</span></span> <span class="inlinecode"><span class="id" type="var">G</span></span> <span class="inlinecode">(<span class="id" type="var">tapp</span></span> <span class="inlinecode"><span class="id" type="var">e1</span></span> <span class="inlinecode"><span class="id" type="var">e1</span>)</span> <span class="inlinecode"><span class="id" type="var">T</span>)</span>, it
+    arrives at a goal of the form <span class="inlinecode">(<span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">(<span class="id" type="var">tapp</span></span> <span class="inlinecode"><span class="id" type="var">e1</span></span> <span class="inlinecode"><span class="id" type="var">e1</span>)</span> <span class="inlinecode">&#x2208;</span> <span class="inlinecode"><span class="id" type="var">T</span>)</span>, it
     should consider <span class="inlinecode"><span class="id" type="tactic">eapply</span></span> <span class="inlinecode"><span class="id" type="var">T_App</span></span>, leaving an existential variable
-    for the middle type T1, and similar for <span class="inlinecode"><span class="id" type="var">lcase</span></span>. That variable
+    for the middle type T<sub>1</sub>, and similar for <span class="inlinecode"><span class="id" type="var">lcase</span></span>. That variable
     will then be filled in during the search for type derivations for
     <span class="inlinecode"><span class="id" type="var">e1</span></span> and <span class="inlinecode"><span class="id" type="var">e2</span></span>.  We also include a hint to "try harder" when
     solving equality goals; this is useful to automate uses of
@@ -1821,7 +1800,7 @@ Hint&nbsp;Extern&nbsp;2&nbsp;(has_type&nbsp;_&nbsp;(tlcase&nbsp;_&nbsp;_&nbsp;_&
 </div>
 
 <div class="doc">
-<a name="lab617"></a><h3 class="section">Numbers</h3>
+<a name="lab632"></a><h3 class="section">Numbers</h3>
 
 </div>
 <div class="code code-space">
@@ -1854,7 +1833,7 @@ Remove the comment braces once you've implemented enough of the
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;TNat.<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;TNat.<br/>
 Proof.<br/>
 &nbsp;&nbsp;unfold&nbsp;test.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;This&nbsp;typing&nbsp;derivation&nbsp;is&nbsp;quite&nbsp;deep,&nbsp;so&nbsp;we&nbsp;need&nbsp;to&nbsp;increase&nbsp;the<br/>
@@ -1876,7 +1855,7 @@ Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab618"></a><h3 class="section">Products</h3>
+<a name="lab633"></a><h3 class="section">Products</h3>
 
 </div>
 <div class="code code-space">
@@ -1898,7 +1877,7 @@ Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;TNat.<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;TNat.<br/>
 Proof.&nbsp;unfold&nbsp;test.&nbsp;eauto&nbsp;15.&nbsp;Qed.<br/>
 <br/>
 Example&nbsp;reduces&nbsp;:<br/>
@@ -1913,7 +1892,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab619"></a><h3 class="section"><span class="inlinecode"><span class="id" type="keyword">let</span></span></h3>
+<a name="lab634"></a><h3 class="section"><span class="inlinecode"><span class="id" type="keyword">let</span></span></h3>
 
 </div>
 <div class="code code-space">
@@ -1932,7 +1911,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;TNat.<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;TNat.<br/>
 Proof.&nbsp;unfold&nbsp;test.&nbsp;eauto&nbsp;15.&nbsp;Qed.<br/>
 <br/>
 Example&nbsp;reduces&nbsp;:<br/>
@@ -1947,7 +1926,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab620"></a><h3 class="section">Sums</h3>
+<a name="lab635"></a><h3 class="section">Sums</h3>
 
 </div>
 <div class="code code-space">
@@ -1969,7 +1948,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;TNat.<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;TNat.<br/>
 Proof.&nbsp;unfold&nbsp;test.&nbsp;eauto&nbsp;15.&nbsp;Qed.<br/>
 <br/>
 Example&nbsp;reduces&nbsp;:<br/>
@@ -1985,7 +1964,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;let&nbsp;processSum&nbsp;=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\x:Nat+Nat.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lambda;x:Nat+Nat.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;x&nbsp;of<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inl&nbsp;n&nbsp;=&gt;&nbsp;n<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inr&nbsp;n&nbsp;=&gt;&nbsp;if0&nbsp;n&nbsp;then&nbsp;1&nbsp;else&nbsp;0&nbsp;in<br/>
@@ -2006,7 +1985,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;(TProd&nbsp;TNat&nbsp;TNat).<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;(TProd&nbsp;TNat&nbsp;TNat).<br/>
 Proof.&nbsp;unfold&nbsp;test.&nbsp;eauto&nbsp;15.&nbsp;Qed.<br/>
 <br/>
 Example&nbsp;reduces&nbsp;:<br/>
@@ -2021,7 +2000,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab621"></a><h3 class="section">Lists</h3>
+<a name="lab636"></a><h3 class="section">Lists</h3>
 
 </div>
 <div class="code code-space">
@@ -2046,7 +2025,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;test&nbsp;TNat.<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;test&nbsp;&#x2208;&nbsp;TNat.<br/>
 Proof.&nbsp;unfold&nbsp;test.&nbsp;eauto&nbsp;20.&nbsp;Qed.<br/>
 <br/>
 Example&nbsp;reduces&nbsp;:<br/>
@@ -2061,7 +2040,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab622"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">fix</span></span></h3>
+<a name="lab637"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">fix</span></span></h3>
 
 </div>
 <div class="code code-space">
@@ -2071,8 +2050,8 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;fact&nbsp;:=&nbsp;fix<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\f:nat-&gt;nat.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\a:nat.&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&lambda;f:nat-&gt;nat.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lambda;a:nat.&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;a=0&nbsp;then&nbsp;1&nbsp;else&nbsp;a&nbsp;*&nbsp;(f&nbsp;(pred&nbsp;a)))&nbsp;*)</span><br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">fact</span> :=<br/>
 &nbsp;&nbsp;<span class="id" type="var">tfix</span><br/>
@@ -2097,7 +2076,7 @@ Proof.&nbsp;unfold&nbsp;test.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;fact_typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;fact&nbsp;(TArrow&nbsp;TNat&nbsp;TNat).<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;fact&nbsp;&#x2208;&nbsp;(TArrow&nbsp;TNat&nbsp;TNat).<br/>
 Proof.&nbsp;unfold&nbsp;fact.&nbsp;auto&nbsp;10.&nbsp;<br/>
 Qed.<br/>
 *)</span><br/>
@@ -2117,10 +2096,10 @@ Proof.&nbsp;unfold&nbsp;fact.&nbsp;normalize.&nbsp;Qed.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;map&nbsp;:=<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\g:nat-&gt;nat.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lambda;g:nat-&gt;nat.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\f:<span class="inlinecode"><span class="id" type="var">nat</span></span>-&gt;<span class="inlinecode"><span class="id" type="var">nat</span></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\l:<span class="inlinecode"><span class="id" type="var">nat</span></span>.&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&lambda;f:<span class="inlinecode"><span class="id" type="var">nat</span></span>-&gt;<span class="inlinecode"><span class="id" type="var">nat</span></span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lambda;l:<span class="inlinecode"><span class="id" type="var">nat</span></span>.&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;l&nbsp;of<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="inlinecode"></span>&nbsp;-&gt;&nbsp;<span class="inlinecode"></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;x::l&nbsp;-&gt;&nbsp;(g&nbsp;x)::(f&nbsp;l))&nbsp;*)</span><br/>
@@ -2138,7 +2117,7 @@ Proof.&nbsp;unfold&nbsp;fact.&nbsp;normalize.&nbsp;Qed.<br/>
 <span class="comment">(*&nbsp;<br/>
 <span class="comment">(*&nbsp;Make&nbsp;sure&nbsp;you've&nbsp;uncommented&nbsp;the&nbsp;last&nbsp;<span class="inlinecode"><span class="id" type="keyword">Hint</span></span> <span class="inlinecode"><span class="id" type="keyword">Extern</span></span>&nbsp;above...&nbsp;*)</span><br/>
 Example&nbsp;map_typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;empty&nbsp;map&nbsp;<br/>
+&nbsp;&nbsp;empty&nbsp;|-&nbsp;map&nbsp;&#x2208;&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;(TArrow&nbsp;(TArrow&nbsp;TNat&nbsp;TNat)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(TArrow&nbsp;(TList&nbsp;TNat)&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(TList&nbsp;TNat))).<br/>
@@ -2160,8 +2139,8 @@ Proof.&nbsp;unfold&nbsp;map.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;equal&nbsp;=&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\eq:Nat-&gt;Nat-&gt;Bool.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\m:Nat.&nbsp;\n:Nat.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&lambda;eq:Nat-&gt;Nat-&gt;Bool.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lambda;m:Nat.&nbsp;&lambda;n:Nat.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if0&nbsp;m&nbsp;then&nbsp;(if0&nbsp;n&nbsp;then&nbsp;1&nbsp;else&nbsp;0)&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if0&nbsp;n&nbsp;then&nbsp;0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;eq&nbsp;(pred&nbsp;m)&nbsp;(pred&nbsp;n))&nbsp;&nbsp;&nbsp;*)</span><br/>
@@ -2183,7 +2162,7 @@ Proof.&nbsp;unfold&nbsp;map.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;equal_typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;equal&nbsp;(TArrow&nbsp;TNat&nbsp;(TArrow&nbsp;TNat&nbsp;TNat)).<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;equal&nbsp;&#x2208;&nbsp;(TArrow&nbsp;TNat&nbsp;(TArrow&nbsp;TNat&nbsp;TNat)).<br/>
 Proof.&nbsp;unfold&nbsp;equal.&nbsp;auto&nbsp;10.&nbsp;<br/>
 Qed.<br/>
 *)</span><br/>
@@ -2211,9 +2190,9 @@ Proof.&nbsp;unfold&nbsp;equal.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;let&nbsp;evenodd&nbsp;=&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\eo:&nbsp;(Nat-&gt;Nat&nbsp;*&nbsp;Nat-&gt;Nat).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;e&nbsp;=&nbsp;\n:Nat.&nbsp;if0&nbsp;n&nbsp;then&nbsp;1&nbsp;else&nbsp;eo.snd&nbsp;(pred&nbsp;n)&nbsp;in<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;o&nbsp;=&nbsp;\n:Nat.&nbsp;if0&nbsp;n&nbsp;then&nbsp;0&nbsp;else&nbsp;eo.fst&nbsp;(pred&nbsp;n)&nbsp;in<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&lambda;eo:&nbsp;(Nat-&gt;Nat&nbsp;*&nbsp;Nat-&gt;Nat).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;e&nbsp;=&nbsp;&lambda;n:Nat.&nbsp;if0&nbsp;n&nbsp;then&nbsp;1&nbsp;else&nbsp;eo.snd&nbsp;(pred&nbsp;n)&nbsp;in<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;o&nbsp;=&nbsp;&lambda;n:Nat.&nbsp;if0&nbsp;n&nbsp;then&nbsp;0&nbsp;else&nbsp;eo.fst&nbsp;(pred&nbsp;n)&nbsp;in<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(e,o))&nbsp;in<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;even&nbsp;=&nbsp;evenodd.fst&nbsp;in<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;odd&nbsp;&nbsp;=&nbsp;evenodd.snd&nbsp;in<br/>
@@ -2243,7 +2222,7 @@ Proof.&nbsp;unfold&nbsp;equal.&nbsp;normalize.&nbsp;Qed.<br/>
 <br/>
 <span class="comment">(*&nbsp;<br/>
 Example&nbsp;eotest_typechecks&nbsp;:<br/>
-&nbsp;&nbsp;has_type&nbsp;(@empty&nbsp;ty)&nbsp;eotest&nbsp;(TProd&nbsp;TNat&nbsp;TNat).<br/>
+&nbsp;&nbsp;(@empty&nbsp;ty)&nbsp;|-&nbsp;eotest&nbsp;&#x2208;&nbsp;(TProd&nbsp;TNat&nbsp;TNat).<br/>
 Proof.&nbsp;unfold&nbsp;eotest.&nbsp;eauto&nbsp;30.&nbsp;<br/>
 Qed.<br/>
 *)</span><br/>
@@ -2265,7 +2244,7 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab623"></a><h2 class="section">Properties of Typing</h2>
+<a name="lab638"></a><h2 class="section">Properties of Typing</h2>
 
 <div class="paragraph"> </div>
 
@@ -2279,14 +2258,14 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab624"></a><h3 class="section">Progress</h3>
+<a name="lab639"></a><h3 class="section">Progress</h3>
 
 </div>
 <div class="code code-space">
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="tactic">progress</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">t</span> <span class="id" type="var">T</span>, <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">empty</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">T</span> <span style="font-family: arial;">&rarr;</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">value</span> <span class="id" type="var">t</span> <span style="font-family: arial;">&or;</span> <span style="font-family: arial;">&exist;</span><span class="id" type="var">t'</span>, <span class="id" type="var">t</span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t'</span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Theorem:&nbsp;Suppose&nbsp;empty&nbsp;|-&nbsp;t&nbsp;:&nbsp;T.&nbsp;&nbsp;Then&nbsp;either<br/>
@@ -2303,34 +2282,34 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;is&nbsp;empty).&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_Abs".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;<span class="inlinecode"><span class="id" type="var">T_Abs</span></span>&nbsp;rule&nbsp;was&nbsp;the&nbsp;last&nbsp;used,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t12</span></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;<span class="inlinecode"><span class="id" type="var">T_Abs</span></span>&nbsp;rule&nbsp;was&nbsp;the&nbsp;last&nbsp;used,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span></span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;which&nbsp;is&nbsp;a&nbsp;value.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">left</span>...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_App".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;last&nbsp;rule&nbsp;applied&nbsp;was&nbsp;T_App,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span>,&nbsp;and&nbsp;we&nbsp;know&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;last&nbsp;rule&nbsp;applied&nbsp;was&nbsp;T_App,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>,&nbsp;and&nbsp;we&nbsp;know&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;the&nbsp;form&nbsp;of&nbsp;the&nbsp;rule&nbsp;that<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">T2</span></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T1</span></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;the&nbsp;induction&nbsp;hypothesis,&nbsp;each&nbsp;of&nbsp;t1&nbsp;and&nbsp;t2&nbsp;either&nbsp;is&nbsp;a&nbsp;value&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;the&nbsp;induction&nbsp;hypothesis,&nbsp;each&nbsp;of&nbsp;t<sub>1</sub>&nbsp;and&nbsp;t<sub>2</sub>&nbsp;either&nbsp;is&nbsp;a&nbsp;value&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;can&nbsp;take&nbsp;a&nbsp;step.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">right</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHt1</span>; <span class="id" type="tactic">subst</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t1 is a value".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t<sub>1</sub> is a value".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHt2</span>; <span class="id" type="tactic">subst</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t2 is a value".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;both&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">t2</span></span>&nbsp;are&nbsp;values,&nbsp;then&nbsp;we&nbsp;know&nbsp;that&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t12</span></span>,&nbsp;since&nbsp;abstractions&nbsp;are&nbsp;the&nbsp;only&nbsp;values<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t<sub>2</sub> is a value".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;both&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>&nbsp;are&nbsp;values,&nbsp;then&nbsp;we&nbsp;know&nbsp;that&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span></span>,&nbsp;since&nbsp;abstractions&nbsp;are&nbsp;the&nbsp;only&nbsp;values<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;can&nbsp;have&nbsp;an&nbsp;arrow&nbsp;type.&nbsp;&nbsp;But&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode">(<span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t12</span>)</span> <span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">t2</span>]<span class="id" type="var">t12</span></span>&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span>.&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode">(<span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span>)</span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">t<sub>2</sub></span>]<span class="id" type="var">t<sub>12</sub></span></span>&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span>.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">subst</span>; <span class="id" type="tactic">try</span> (<span class="id" type="var">solve</span> <span class="id" type="tactic">by</span> <span class="id" type="tactic">inversion</span>).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">t2</span> <span class="id" type="var">t12</span>)...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t2 steps".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span>&nbsp;is&nbsp;a&nbsp;value&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t2'</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">t2'</span></span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="tactic">subst</span> <span class="id" type="var">x</span> <span class="id" type="var">t<sub>2</sub></span> <span class="id" type="var">t<sub>12</sub></span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SSCase</span> "t<sub>2</sub> steps".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span>&nbsp;is&nbsp;a&nbsp;value&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub>'</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub>'</span></span>&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">ST_App2</span></span>.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H0</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t2'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2'</span>)...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t1 steps".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;Finally,&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t1'</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t1'</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span>&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">ST_App1</span></span>.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t1'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t1'</span> <span class="id" type="var">t2</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H0</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t<sub>2</sub>'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub>'</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "t<sub>1</sub> steps".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;Finally,&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub>'</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub>'</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">ST_App1</span></span>.&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">Hstp</span>]. <span style="font-family: arial;">&exist;</span>(<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub>'</span> <span class="id" type="var">t<sub>2</sub></span>)...<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
@@ -2338,7 +2317,7 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab625"></a><h3 class="section">Context Invariance</h3>
+<a name="lab640"></a><h3 class="section">Context Invariance</h3>
 
 </div>
 <div class="code code-space">
@@ -2347,14 +2326,14 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 <span class="id" type="keyword">Inductive</span> <span class="id" type="var">appears_free_in</span> : <span class="id" type="var">id</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">tm</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <span class="id" type="var">afi_var</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tvar</span> <span class="id" type="var">x</span>)<br/>
-&nbsp;&nbsp;| <span class="id" type="var">afi_app1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t1</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>)<br/>
-&nbsp;&nbsp;| <span class="id" type="var">afi_app2</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t2</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span>)<br/>
-&nbsp;&nbsp;| <span class="id" type="var">afi_abs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>,<br/>
+&nbsp;&nbsp;| <span class="id" type="var">afi_app1</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t<sub>1</sub></span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">afi_app2</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t<sub>2</sub></span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tapp</span> <span class="id" type="var">t<sub>1</sub></span> <span class="id" type="var">t<sub>2</sub></span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">afi_abs</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">y</span> &lt;&gt; <span class="id" type="var">x</span>  <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t12</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T11</span> <span class="id" type="var">t12</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t<sub>12</sub></span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> (<span class="id" type="var">tabs</span> <span class="id" type="var">y</span> <span class="id" type="var">T<sub>11</sub></span> <span class="id" type="var">t<sub>12</sub></span>)<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 &nbsp;&nbsp;.<br/>
 
@@ -2363,9 +2342,9 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 
 <br/>
 <span class="id" type="keyword">Lemma</span> <span class="id" type="var">context_invariance</span> : <span style="font-family: arial;">&forall;</span><span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: serif; font-size:85%;">&Gamma;'</span> <span class="id" type="var">t</span> <span class="id" type="var">S</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t</span> <span class="id" type="var">S</span>  <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">S</span>  <span style="font-family: arial;">&rarr;</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span>, <span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t</span> <span style="font-family: arial;">&rarr;</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> = <span style="font-family: serif; font-size:85%;">&Gamma;'</span> <span class="id" type="var">x</span>)  <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;'</span> <span class="id" type="var">t</span> <span class="id" type="var">S</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;'</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">S</span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="id" type="tactic">generalize</span> <span class="id" type="tactic">dependent</span> <span style="font-family: serif; font-size:85%;">&Gamma;'</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">has_type_cases</span> (<span class="id" type="tactic">induction</span> <span class="id" type="var">H</span>) <span class="id" type="var">Case</span>; <br/>
@@ -2374,15 +2353,15 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">T_Var</span>... <span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqv</span>...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_Abs".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">T_Abs</span>... <span class="id" type="tactic">apply</span> <span class="id" type="var">IHhas_type</span>. <span class="id" type="tactic">intros</span> <span class="id" type="var">y</span> <span class="id" type="var">Hafi</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span>. <span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">e</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">e</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>)...<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Lemma</span> <span class="id" type="var">free_in_context</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span>,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">appears_free_in</span> <span class="id" type="var">x</span> <span class="id" type="var">t</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">T</span> <span style="font-family: arial;">&rarr;</span><br/>
 &nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T'</span>, <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> = <span class="id" type="var">Some</span> <span class="id" type="var">T'</span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">Hafi</span> <span class="id" type="var">Htyp</span>.<br/>
@@ -2390,7 +2369,7 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_Abs".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">IHHtyp</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">T'</span> <span class="id" type="var">Hctx</span>]... <span style="font-family: arial;">&exist;</span><span class="id" type="var">T'</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Hctx</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">not_eq_beq_id_false</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H2</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">H2</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Hctx</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">neq_id</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Hctx</span>...<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
@@ -2398,16 +2377,16 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab626"></a><h3 class="section">Substitution</h3>
+<a name="lab641"></a><h3 class="section">Substitution</h3>
 
 </div>
 <div class="code code-space">
 
 <br/>
 <span class="id" type="keyword">Lemma</span> <span class="id" type="var">substitution_preserves_typing</span> : <span style="font-family: arial;">&forall;</span><span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">U</span> <span class="id" type="var">v</span> <span class="id" type="var">t</span> <span class="id" type="var">S</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> (<span class="id" type="var">extend</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">U</span>) <span class="id" type="var">t</span> <span class="id" type="var">S</span>  <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> <span class="id" type="var">v</span> <span class="id" type="var">U</span>   <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> ([<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t</span>) <span class="id" type="var">S</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">extend</span> <span style="font-family: serif; font-size:85%;">&Gamma;</span> <span class="id" type="var">x</span> <span class="id" type="var">U</span>) <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">S</span>  <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">empty</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">v</span> &#x2208; <span class="id" type="var">U</span>   <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: serif; font-size:85%;">&Gamma;</span> <span style="font-family: arial;">&#8866;</span> ([<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t</span>) &#x2208; <span class="id" type="var">S</span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Theorem:&nbsp;If&nbsp;Gamma,x:U&nbsp;|-&nbsp;t&nbsp;:&nbsp;S&nbsp;and&nbsp;empty&nbsp;|-&nbsp;v&nbsp;:&nbsp;U,&nbsp;then&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gamma&nbsp;|-&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:=<span class="id" type="var">v</span></span>t&nbsp;:&nbsp;S.&nbsp;*)</span><br/>
@@ -2428,14 +2407,14 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">y</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">S</span></span>.<br/>
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There&nbsp;are&nbsp;two&nbsp;cases&nbsp;to&nbsp;consider:&nbsp;either&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>=<span class="id" type="var">y</span></span>&nbsp;or&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>&lt;&gt;<span class="id" type="var">y</span></span>.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">e</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">e</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "x=y".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">y</span></span>,&nbsp;then&nbsp;we&nbsp;know&nbsp;that&nbsp;<span class="inlinecode"><span class="id" type="var">U</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">S</span></span>,&nbsp;and&nbsp;that&nbsp;<span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">y</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">v</span></span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So&nbsp;what&nbsp;we&nbsp;really&nbsp;must&nbsp;show&nbsp;is&nbsp;that&nbsp;if&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">v</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">U</span></span>&nbsp;then<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">v</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">U</span></span>.&nbsp;&nbsp;We&nbsp;have&nbsp;already&nbsp;proven&nbsp;a&nbsp;more&nbsp;general&nbsp;version<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;this&nbsp;theorem,&nbsp;called&nbsp;context&nbsp;invariance.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqe</span>. <span class="id" type="tactic">subst</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>. <span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">beq_id_refl</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">eq_id</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H1</span>; <span class="id" type="tactic">subst</span>. <span class="id" type="tactic">clear</span> <span class="id" type="var">H1</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">eapply</span> <span class="id" type="var">context_invariance</span>...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x</span> <span class="id" type="var">Hcontra</span>.<br/>
@@ -2444,44 +2423,43 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "x&lt;&gt;y".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">&lt;&gt;</span> <span class="inlinecode"><span class="id" type="var">y</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">Some</span></span> <span class="inlinecode"><span class="id" type="var">S</span></span>&nbsp;and&nbsp;the&nbsp;substitution&nbsp;has&nbsp;no<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;effect.&nbsp;&nbsp;We&nbsp;can&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">S</span></span>&nbsp;by&nbsp;<span class="inlinecode"><span class="id" type="var">T_Var</span></span>.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">T_Var</span>... <span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>. <span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqe</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">T_Var</span>... <span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">neq_id</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H1</span>...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "tabs".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rename</span> <span class="id" type="var">i</span> <span class="id" type="var">into</span> <span class="id" type="var">y</span>. <span class="id" type="tactic">rename</span> <span class="id" type="var">t</span> <span class="id" type="var">into</span> <span class="id" type="var">T11</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span>,&nbsp;then&nbsp;we&nbsp;know&nbsp;that<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T11</span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T12</span></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rename</span> <span class="id" type="var">i</span> <span class="id" type="var">into</span> <span class="id" type="var">y</span>. <span class="id" type="tactic">rename</span> <span class="id" type="var">t</span> <span class="id" type="var">into</span> <span class="id" type="var">T<sub>11</sub></span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span>,&nbsp;then&nbsp;we&nbsp;know&nbsp;that<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T<sub>12</sub></span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">v</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">U</span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As&nbsp;our&nbsp;IH,&nbsp;we&nbsp;know&nbsp;that&nbsp;forall&nbsp;S&nbsp;Gamma,&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">S</span></span> <span class="inlinecode"><span style="font-family: arial;">&rarr;</span></span> <span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">S</span></span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;can&nbsp;calculate&nbsp;that&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:=<span class="id" type="var">v</span></span>t&nbsp;=&nbsp;tabs&nbsp;y&nbsp;T11&nbsp;(if&nbsp;beq_id&nbsp;x&nbsp;y&nbsp;then&nbsp;t0&nbsp;else&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:=<span class="id" type="var">v</span></span>t0)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And&nbsp;we&nbsp;must&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T11</span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T12</span></span>.&nbsp;&nbsp;We&nbsp;know<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:=<span class="id" type="var">v</span></span>t&nbsp;=&nbsp;tabs&nbsp;y&nbsp;T<sub>11</sub>&nbsp;(if&nbsp;beq_id&nbsp;x&nbsp;y&nbsp;then&nbsp;t0&nbsp;else&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:=<span class="id" type="var">v</span></span>t0)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And&nbsp;we&nbsp;must&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T<sub>12</sub></span></span>.&nbsp;&nbsp;We&nbsp;know<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;we&nbsp;will&nbsp;do&nbsp;so&nbsp;using&nbsp;<span class="inlinecode"><span class="id" type="var">T_Abs</span></span>,&nbsp;so&nbsp;it&nbsp;remains&nbsp;to&nbsp;be&nbsp;shown&nbsp;that:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="keyword">if</span></span> <span class="inlinecode"><span class="id" type="var">beq_id</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="keyword">then</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode"><span class="id" type="keyword">else</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="keyword">if</span></span> <span class="inlinecode"><span class="id" type="var">beq_id</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">y</span></span> <span class="inlinecode"><span class="id" type="keyword">then</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode"><span class="id" type="keyword">else</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;consider&nbsp;two&nbsp;cases:&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">y</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">&lt;&gt;</span> <span class="inlinecode"><span class="id" type="var">y</span></span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">T_Abs</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">e</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">e</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "x=y".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">y</span></span>,&nbsp;then&nbsp;the&nbsp;substitution&nbsp;has&nbsp;no&nbsp;effect.&nbsp;&nbsp;Context<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invariance&nbsp;shows&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span>&nbsp;are<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equivalent.&nbsp;&nbsp;Since&nbsp;the&nbsp;former&nbsp;context&nbsp;shows&nbsp;that&nbsp;<span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span>,&nbsp;so<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invariance&nbsp;shows&nbsp;that&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span>&nbsp;and&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span>&nbsp;are<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equivalent.&nbsp;&nbsp;Since&nbsp;the&nbsp;former&nbsp;context&nbsp;shows&nbsp;that&nbsp;<span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span>,&nbsp;so<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;does&nbsp;the&nbsp;latter.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">eapply</span> <span class="id" type="var">context_invariance</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqe</span>. <span class="id" type="tactic">subst</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x</span> <span class="id" type="var">Hafi</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>)...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "x&lt;&gt;y".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode">&lt;&gt;</span> <span class="inlinecode"><span class="id" type="var">y</span></span>,&nbsp;then&nbsp;the&nbsp;IH&nbsp;and&nbsp;context&nbsp;invariance&nbsp;allow&nbsp;us&nbsp;to&nbsp;show&nbsp;that<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T11</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T12</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span>,<span class="id" type="var">x</span>:<span class="id" type="var">U</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span style="font-family: serif; font-size:85%;">&Gamma;</span>,<span class="id" type="var">y</span>:<span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v</span>]<span class="id" type="var">t0</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>12</sub></span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">IHt</span>. <span class="id" type="tactic">eapply</span> <span class="id" type="var">context_invariance</span>...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">z</span> <span class="id" type="var">Hafi</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">extend</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">e0</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">e0</span>...<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqe0</span>. <span class="id" type="tactic">subst</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqe</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>)...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">neq_id</span>...<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
@@ -2489,16 +2467,16 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 </div>
 
 <div class="doc">
-<a name="lab627"></a><h3 class="section">Preservation</h3>
+<a name="lab642"></a><h3 class="section">Preservation</h3>
 
 </div>
 <div class="code code-space">
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">preservation</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">t</span> <span class="id" type="var">t'</span> <span class="id" type="var">T</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> <span class="id" type="var">t</span> <span class="id" type="var">T</span>  <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">empty</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t</span> &#x2208; <span class="id" type="var">T</span>  <span style="font-family: arial;">&rarr;</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">t</span> <span style="font-family: arial;">&rArr;</span> <span class="id" type="var">t'</span>  <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">has_type</span> <span class="id" type="var">empty</span> <span class="id" type="var">t'</span> <span class="id" type="var">T</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">empty</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">t'</span> &#x2208; <span class="id" type="var">T</span>.<br/>
 <span class="id" type="keyword">Proof</span> <span class="id" type="keyword">with</span> <span class="id" type="tactic">eauto</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">t</span> <span class="id" type="var">t'</span> <span class="id" type="var">T</span> <span class="id" type="var">HT</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Theorem:&nbsp;If&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T</span></span>&nbsp;and&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t'</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t'</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T</span></span>.&nbsp;*)</span><br/>
@@ -2509,25 +2487,25 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 &nbsp;&nbsp;<span class="id" type="var">has_type_cases</span> (<span class="id" type="tactic">induction</span> <span class="id" type="var">HT</span>) <span class="id" type="var">Case</span>; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">t'</span> <span class="id" type="var">HeqGamma</span> <span class="id" type="var">HE</span>; <span class="id" type="tactic">subst</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">HE</span>; <span class="id" type="tactic">subst</span>...<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "T_App".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;last&nbsp;rule&nbsp;used&nbsp;was&nbsp;<span class="inlinecode"><span class="id" type="var">T_App</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode"><span class="id" type="var">t2</span></span>,&nbsp;and&nbsp;three&nbsp;rules<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;last&nbsp;rule&nbsp;used&nbsp;was&nbsp;<span class="inlinecode"><span class="id" type="var">T_App</span></span>,&nbsp;then&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span>,&nbsp;and&nbsp;three&nbsp;rules<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;could&nbsp;have&nbsp;been&nbsp;used&nbsp;to&nbsp;show&nbsp;<span class="inlinecode"><span class="id" type="var">t</span></span> <span class="inlinecode"><span style="font-family: arial;">&rArr;</span></span> <span class="inlinecode"><span class="id" type="var">t'</span></span>:&nbsp;<span class="inlinecode"><span class="id" type="var">ST_App1</span></span>,&nbsp;<span class="inlinecode"><span class="id" type="var">ST_App2</span></span>,&nbsp;and&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">ST_AppAbs</span></span>.&nbsp;In&nbsp;the&nbsp;first&nbsp;two&nbsp;cases,&nbsp;the&nbsp;result&nbsp;follows&nbsp;directly&nbsp;from&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;IH.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">HE</span>; <span class="id" type="tactic">subst</span>...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "ST_AppAbs".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;For&nbsp;the&nbsp;third&nbsp;case,&nbsp;suppose&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t1</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t12</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t2</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">v2</span></span>.&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;must&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v2</span>]<span class="id" type="var">t12</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T2</span></span>.&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">t<sub>2</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">v<sub>2</sub></span></span>.&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;must&nbsp;show&nbsp;that&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode">[<span class="id" type="var">x</span>:=<span class="id" type="var">v<sub>2</sub></span>]<span class="id" type="var">t<sub>12</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span>.&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;know&nbsp;by&nbsp;assumption&nbsp;that<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T11</span></span> <span class="inlinecode"><span class="id" type="var">t12</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T1</span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T2</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">tabs</span></span> <span class="inlinecode"><span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>11</sub></span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span><span style="font-family: arial;">&rarr;</span><span class="id" type="var">T<sub>2</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;by&nbsp;inversion<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:<span class="id" type="var">T1</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t12</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T2</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">x</span>:<span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">t<sub>12</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;have&nbsp;already&nbsp;proven&nbsp;that&nbsp;substitution_preserves_typing&nbsp;and&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">v2</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T1</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">empty</span></span> <span class="inlinecode"><span style="font-family: arial;">&#8866;</span></span> <span class="inlinecode"><span class="id" type="var">v<sub>2</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;assumption,&nbsp;so&nbsp;we&nbsp;are&nbsp;done.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">substitution_preserves_typing</span> <span class="id" type="keyword">with</span> <span class="id" type="var">T1</span>...<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">substitution_preserves_typing</span> <span class="id" type="keyword">with</span> <span class="id" type="var">T<sub>1</sub></span>...<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">HT1</span>...<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
 <span class="id" type="keyword">Qed</span>.<br/>
@@ -2540,6 +2518,11 @@ Proof.&nbsp;unfold&nbsp;eotest.&nbsp;normalize.&nbsp;Qed.<br/>
 
 <br/>
 <span class="id" type="keyword">End</span> <span class="id" type="var">STLCExtended</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-07-17&nbsp;16:19:11&nbsp;-0400&nbsp;(Wed,&nbsp;17&nbsp;Jul&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
+
+<br/>
 </div>
 </div>
 

@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>LibTactics: A Collection of Handy General-Purpose Tactics</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,7 +29,7 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2010-10-14&nbsp;12:27:18&nbsp;-0400&nbsp;(Thu,&nbsp;14&nbsp;Oct&nbsp;2010)&nbsp;$&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-01-16&nbsp;22:29:57&nbsp;-0500&nbsp;(Wed,&nbsp;16&nbsp;Jan&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
 <span class="comment">(*&nbsp;Chapter&nbsp;maintained&nbsp;by&nbsp;Arthur&nbsp;Chargueraud&nbsp;*)</span><br/>
 
 <br/>
@@ -151,7 +124,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab792"></a><h1 class="section">Additional notations for Coq</h1>
+<a name="lab808"></a><h1 class="section">Additional notations for Coq</h1>
 
 </div>
 <div class="code code-space">
@@ -161,12 +134,12 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab793"></a><h2 class="section">N-ary Existentials</h2>
+<a name="lab809"></a><h2 class="section">N-ary Existentials</h2>
 
 <div class="paragraph"> </div>
 
- <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">TN</span>,</span> <span class="inlinecode"><span class="id" type="var">P</span></span> is a shorthand for 
-    <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span>,</span> <span class="inlinecode">...,</span> <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span>,</span> <span class="inlinecode"><span class="id" type="var">P</span></span>. Note that
+ <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">TN</span>,</span> <span class="inlinecode"><span class="id" type="var">P</span></span> is a shorthand for 
+    <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span>,</span> <span class="inlinecode">...,</span> <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span>,</span> <span class="inlinecode"><span class="id" type="var">P</span></span>. Note that
     <span class="inlinecode"><span class="id" type="var">Coq.Program.Syntax</span></span> already defines exists
     for arity up to 4. 
 </div>
@@ -228,7 +201,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab794"></a><h1 class="section">Tools for programming with Ltac</h1>
+<a name="lab810"></a><h1 class="section">Tools for programming with Ltac</h1>
 
 </div>
 <div class="code code-space">
@@ -238,7 +211,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab795"></a><h2 class="section">Identity continuation</h2>
+<a name="lab811"></a><h2 class="section">Identity continuation</h2>
 
 </div>
 <div class="code code-space">
@@ -252,7 +225,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab796"></a><h2 class="section">Untyped arguments for tactics</h2>
+<a name="lab812"></a><h2 class="section">Untyped arguments for tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -270,7 +243,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab797"></a><h2 class="section">Optional arguments for tactics</h2>
+<a name="lab813"></a><h2 class="section">Optional arguments for tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -292,7 +265,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab798"></a><h2 class="section">Wildcard arguments for tactics</h2>
+<a name="lab814"></a><h2 class="section">Wildcard arguments for tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -333,7 +306,7 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab799"></a><h2 class="section">Position markers</h2>
+<a name="lab815"></a><h2 class="section">Position markers</h2>
 
 <div class="paragraph"> </div>
 
@@ -388,13 +361,13 @@ This file contains a set of tactics that extends the set of builtin
 </div>
 
 <div class="doc">
-<a name="lab800"></a><h2 class="section">List of arguments for tactics</h2>
+<a name="lab816"></a><h2 class="section">List of arguments for tactics</h2>
 
 <div class="paragraph"> </div>
 
  A datatype of type <span class="inlinecode"><span class="id" type="var">list</span></span> <span class="inlinecode"><span class="id" type="var">Boxer</span></span> is used to manipulate list of
-    Coq values in ltac. Notation is <span class="inlinecode">&gt;&gt;</span> <span class="inlinecode"><span class="id" type="var">v1</span></span> <span class="inlinecode"><span class="id" type="var">v2</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">vN</span></span> for building
-    a list containing the values <span class="inlinecode"><span class="id" type="var">v1</span></span> through <span class="inlinecode"><span class="id" type="var">vN</span></span>. 
+    Coq values in ltac. Notation is <span class="inlinecode">&gt;&gt;</span> <span class="inlinecode"><span class="id" type="var">v<sub>1</sub></span></span> <span class="inlinecode"><span class="id" type="var">v<sub>2</sub></span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">vN</span></span> for building
+    a list containing the values <span class="inlinecode"><span class="id" type="var">v<sub>1</sub></span></span> through <span class="inlinecode"><span class="id" type="var">vN</span></span>. 
 </div>
 <div class="code code-tight">
 
@@ -406,86 +379,86 @@ This file contains a set of tactics that extends the set of builtin
 &nbsp;&nbsp;(@<span class="id" type="var">nil</span> <span class="id" type="var">Boxer</span>)<br/>
 &nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub>" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub>" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub>" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8 v9" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8 v9" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v9</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8 v9 v10" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8 v9 v10" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v9</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v10</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8 v9 v10 v<sub>11</sub>" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v9</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v10</span>)<br/>
-&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v11</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>11</sub></span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v11</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>11</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8 v9 v10 v<sub>11</sub> v<sub>12</sub>" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v9</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v10</span>)<br/>
-&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v11</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v12</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>11</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>12</sub></span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v11</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">v12</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>11</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">v<sub>12</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13" :=<br/>
-&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v1</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v2</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v3</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
+<span class="id" type="keyword">Notation</span> "'&gt;&gt;' v<sub>1</sub> v<sub>2</sub> v<sub>3</sub> v4 v5 v6 v7 v8 v9 v10 v<sub>11</sub> v<sub>12</sub> v13" :=<br/>
+&nbsp;&nbsp;((<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>1</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>2</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>3</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v4</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v5</span>)<br/>
 &nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v6</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v7</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v8</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v9</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v10</span>)<br/>
-&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v11</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v12</span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v13</span>)::<span class="id" type="var">nil</span>)<br/>
-&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v1</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v2</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v3</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;&nbsp;::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>11</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v<sub>12</sub></span>)::(<span class="id" type="var">boxer</span> <span class="id" type="var">v13</span>)::<span class="id" type="var">nil</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>1</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>2</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>3</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">v4</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v5</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v6</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v7</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v11</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="var">v12</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v13</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">v8</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v9</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v10</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v<sub>11</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0,<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">v<sub>12</sub></span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">v13</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0)<br/>
 &nbsp;&nbsp;: <span class="id" type="var">ltac_scope</span>.<br/>
 
 <br/>
@@ -520,7 +493,7 @@ The tactic <span class="inlinecode"><span class="id" type="var">list_boxer_of</s
 </div>
 
 <div class="doc">
-<a name="lab801"></a><h2 class="section">Databases of lemmas</h2>
+<a name="lab817"></a><h2 class="section">Databases of lemmas</h2>
 
 <div class="paragraph"> </div>
 
@@ -571,7 +544,7 @@ The tactic <span class="inlinecode"><span class="id" type="var">list_boxer_of</s
 </div>
 
 <div class="doc">
-<a name="lab802"></a><h2 class="section">On-the-fly removal of hypotheses</h2>
+<a name="lab818"></a><h2 class="section">On-the-fly removal of hypotheses</h2>
 
 <div class="paragraph"> </div>
 
@@ -652,7 +625,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab803"></a><h2 class="section">Numbers as arguments</h2>
+<a name="lab819"></a><h2 class="section">Numbers as arguments</h2>
 
 <div class="paragraph"> </div>
 
@@ -664,7 +637,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Require</span> <span class="id" type="var">Coq.NArith.BinPos</span> <span class="id" type="var">Coq.ZArith.BinInt</span>.<br/>
+<span class="id" type="keyword">Require</span> <span class="id" type="var">BinPos</span> <span class="id" type="var">Coq.ZArith.BinInt</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">ltac_nat_from_int</span> (<span class="id" type="var">x</span>:<span class="id" type="var">BinInt.Z</span>) : <span class="id" type="var">nat</span> :=<br/>
@@ -722,7 +695,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab804"></a><h2 class="section">Testing tactics</h2>
+<a name="lab820"></a><h2 class="section">Testing tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -768,7 +741,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab805"></a><h2 class="section">Check no evar in goal</h2>
+<a name="lab821"></a><h2 class="section">Check no evar in goal</h2>
 
 </div>
 <div class="code code-space">
@@ -791,7 +764,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab806"></a><h2 class="section">Tagging of hypotheses</h2>
+<a name="lab822"></a><h2 class="section">Tagging of hypotheses</h2>
 
 <div class="paragraph"> </div>
 
@@ -811,7 +784,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab807"></a><h2 class="section">Tagging of hypotheses</h2>
+<a name="lab823"></a><h2 class="section">Tagging of hypotheses</h2>
 
 <div class="paragraph"> </div>
 
@@ -851,7 +824,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab808"></a><h2 class="section">Deconstructing terms</h2>
+<a name="lab824"></a><h2 class="section">Deconstructing terms</h2>
 
 <div class="paragraph"> </div>
 
@@ -908,7 +881,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab809"></a><h2 class="section">Action at occurence and action not at occurence</h2>
+<a name="lab825"></a><h2 class="section">Action at occurence and action not at occurence</h2>
 
 <div class="paragraph"> </div>
 
@@ -957,7 +930,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab810"></a><h2 class="section">An alias for <span class="inlinecode"><span class="id" type="var">eq</span></span></h2>
+<a name="lab826"></a><h2 class="section">An alias for <span class="inlinecode"><span class="id" type="var">eq</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -982,7 +955,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab811"></a><h1 class="section">Backward and forward chaining</h1>
+<a name="lab827"></a><h1 class="section">Backward and forward chaining</h1>
 
 </div>
 <div class="code code-space">
@@ -992,7 +965,7 @@ For faster performance, one may deactivate <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a name="lab812"></a><h2 class="section">Application</h2>
+<a name="lab828"></a><h2 class="section">Application</h2>
 
 <div class="paragraph"> </div>
 
@@ -1116,7 +1089,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab813"></a><h2 class="section">Assertions</h2>
+<a name="lab829"></a><h2 class="section">Assertions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1164,7 +1137,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 <div class="doc">
 <span class="inlinecode"><span class="id" type="var">tryfalse</span></span> tries to solve a goal by contradiction, and leaves
     the goal unchanged if it cannot solve it.
-    It is equivalent to <span class="inlinecode"><span class="id" type="tactic">try</span></span> <span class="inlinecode"><span class="id" type="var">solve</span></span> <span class="inlinecode">\[</span> <span class="inlinecode"><span class="id" type="var">false</span></span> <span class="inlinecode">\]</span>. 
+    It is equivalent to <span class="inlinecode"><span class="id" type="tactic">try</span></span> <span class="inlinecode"><span class="id" type="var">solve</span></span> <span class="inlinecode">&lambda;[</span> <span class="inlinecode"><span class="id" type="var">false</span></span> <span class="inlinecode">&lambda;]</span>. 
 </div>
 <div class="code code-tight">
 
@@ -1179,7 +1152,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 <span class="inlinecode"><span class="id" type="var">tryfalse</span></span> <span class="inlinecode"><span class="id" type="tactic">by</span></span> <span class="inlinecode"><span class="id" type="var">tac</span></span> <span class="inlinecode">/</span> is that same as <span class="inlinecode"><span class="id" type="var">tryfalse</span></span> except that
     it tries to solve the goal using tactic <span class="inlinecode"><span class="id" type="var">tac</span></span> if <span class="inlinecode"><span class="id" type="tactic">assumption</span></span>
     and <span class="inlinecode"><span class="id" type="tactic">discriminate</span></span> do not apply.
-    It is equivalent to <span class="inlinecode"><span class="id" type="tactic">try</span></span> <span class="inlinecode"><span class="id" type="var">solve</span></span> <span class="inlinecode">\[</span> <span class="inlinecode"><span class="id" type="var">false</span>;</span> <span class="inlinecode"><span class="id" type="var">tac</span></span> <span class="inlinecode">\]</span>. 
+    It is equivalent to <span class="inlinecode"><span class="id" type="tactic">try</span></span> <span class="inlinecode"><span class="id" type="var">solve</span></span> <span class="inlinecode">&lambda;[</span> <span class="inlinecode"><span class="id" type="var">false</span>;</span> <span class="inlinecode"><span class="id" type="var">tac</span></span> <span class="inlinecode">&lambda;]</span>. 
     Example: <span class="inlinecode"><span class="id" type="var">tryfalse</span></span> <span class="inlinecode"><span class="id" type="tactic">by</span></span> <span class="inlinecode"><span class="id" type="tactic">congruence</span>/</span> 
 </div>
 <div class="code code-tight">
@@ -1251,8 +1224,8 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 <div class="doc">
 <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode"><span class="id" type="var">H</span>:</span> <span class="inlinecode"><span class="id" type="var">T</span></span> is another syntax for <span class="inlinecode"><span class="id" type="tactic">assert</span></span> <span class="inlinecode">(<span class="id" type="var">H</span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" type="var">T</span>)</span>, which
     also works with introduction patterns. For instance, one can write:
-    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">\[<span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">P</span>\]</span> <span class="inlinecode">(<span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">n</span>,</span> <span class="inlinecode"><span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">3)</span>, or 
-    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">\[<span class="id" type="var">H</span>|<span class="id" type="var">H</span>\]</span> <span class="inlinecode">(<span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span style="font-family: arial;">&or;</span></span> <span class="inlinecode"><span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">1).</span> <span class="inlinecode"></span>
+    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">x</span></span> <span class="inlinecode"><span class="id" type="var">P</span>&lambda;]</span> <span class="inlinecode">(<span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">n</span>,</span> <span class="inlinecode"><span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">3)</span>, or 
+    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">H</span>|<span class="id" type="var">H</span>&lambda;]</span> <span class="inlinecode">(<span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span style="font-family: arial;">&or;</span></span> <span class="inlinecode"><span class="id" type="var">n</span></span> <span class="inlinecode">=</span> <span class="inlinecode">1).</span> <span class="inlinecode"></span>
 </div>
 <div class="code code-tight">
 
@@ -1266,7 +1239,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 
 <div class="doc">
 <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode"><span class="id" type="var">H1</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">HN</span>:</span> <span class="inlinecode"><span class="id" type="var">T</span></span> is a shorthand for
-    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">\[<span class="id" type="var">H1</span></span> <span class="inlinecode">\[<span class="id" type="var">H2</span></span> <span class="inlinecode">\[..</span> <span class="inlinecode"><span class="id" type="var">HN</span>\]\]\]\</span>: T]. 
+    <span class="inlinecode"><span class="id" type="var">asserts</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">H1</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">H2</span></span> <span class="inlinecode">&lambda;[..</span> <span class="inlinecode"><span class="id" type="var">HN</span>&lambda;]&lambda;]&lambda;]&lambda;</span>: T]. 
 </div>
 <div class="code code-tight">
 
@@ -1334,7 +1307,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 
 <div class="doc">
 <span class="inlinecode"><span class="id" type="var">cuts</span></span> <span class="inlinecode"><span class="id" type="var">H1</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">HN</span>:</span> <span class="inlinecode"><span class="id" type="var">T</span></span> is a shorthand for 
-    <span class="inlinecode"><span class="id" type="var">cuts</span></span> <span class="inlinecode">\[<span class="id" type="var">H1</span></span> <span class="inlinecode">\[<span class="id" type="var">H2</span></span> <span class="inlinecode">\[..</span> <span class="inlinecode"><span class="id" type="var">HN</span>\]\]\]\</span>: T]. 
+    <span class="inlinecode"><span class="id" type="var">cuts</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">H1</span></span> <span class="inlinecode">&lambda;[<span class="id" type="var">H2</span></span> <span class="inlinecode">&lambda;[..</span> <span class="inlinecode"><span class="id" type="var">HN</span>&lambda;]&lambda;]&lambda;]&lambda;</span>: T]. 
 </div>
 <div class="code code-tight">
 
@@ -1364,7 +1337,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab814"></a><h2 class="section">Instantiation and forward-chaining</h2>
+<a name="lab830"></a><h2 class="section">Instantiation and forward-chaining</h2>
 
 <div class="paragraph"> </div>
 
@@ -1848,7 +1821,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab815"></a><h2 class="section">Experimental tactics for application</h2>
+<a name="lab831"></a><h2 class="section">Experimental tactics for application</h2>
 
 <div class="paragraph"> </div>
 
@@ -1884,7 +1857,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab816"></a><h2 class="section">Adding assumptions</h2>
+<a name="lab832"></a><h2 class="section">Adding assumptions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1956,7 +1929,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab817"></a><h2 class="section">Application of tautologies</h2>
+<a name="lab833"></a><h2 class="section">Application of tautologies</h2>
 
 <div class="paragraph"> </div>
 
@@ -1980,7 +1953,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab818"></a><h2 class="section">Application modulo equalities</h2>
+<a name="lab834"></a><h2 class="section">Application modulo equalities</h2>
 
 <div class="paragraph"> </div>
 
@@ -2121,7 +2094,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab819"></a><h1 class="section">Introduction and generalization</h1>
+<a name="lab835"></a><h1 class="section">Introduction and generalization</h1>
 
 </div>
 <div class="code code-space">
@@ -2131,7 +2104,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab820"></a><h2 class="section">Introduction</h2>
+<a name="lab836"></a><h2 class="section">Introduction</h2>
 
 <div class="paragraph"> </div>
 
@@ -2282,7 +2255,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab821"></a><h2 class="section">Generalization</h2>
+<a name="lab837"></a><h2 class="section">Generalization</h2>
 
 <div class="paragraph"> </div>
 
@@ -2346,7 +2319,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab822"></a><h2 class="section">Naming</h2>
+<a name="lab838"></a><h2 class="section">Naming</h2>
 
 <div class="paragraph"> </div>
 
@@ -2535,7 +2508,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab823"></a><h1 class="section">Rewriting</h1>
+<a name="lab839"></a><h1 class="section">Rewriting</h1>
 
 </div>
 <div class="code code-space">
@@ -2545,7 +2518,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab824"></a><h2 class="section">Rewriting</h2>
+<a name="lab840"></a><h2 class="section">Rewriting</h2>
 
 <div class="paragraph"> </div>
 
@@ -2641,8 +2614,8 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<span class="inlinecode"><span class="id" type="var">rewrites</span></span> <span class="inlinecode"><span class="id" type="var">E</span></span> <span class="inlinecode"><span class="id" type="tactic">at</span></span> <span class="inlinecode"><span class="id" type="var">K</span></span> applies when <span class="inlinecode"><span class="id" type="var">E</span></span> is of the form <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">T2</span></span>
-    rewrites the equality <span class="inlinecode"><span class="id" type="var">E</span></span> at the <span class="inlinecode"><span class="id" type="var">K</span></span>-th occurence of <span class="inlinecode"><span class="id" type="var">T1</span></span>
+<span class="inlinecode"><span class="id" type="var">rewrites</span></span> <span class="inlinecode"><span class="id" type="var">E</span></span> <span class="inlinecode"><span class="id" type="tactic">at</span></span> <span class="inlinecode"><span class="id" type="var">K</span></span> applies when <span class="inlinecode"><span class="id" type="var">E</span></span> is of the form <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">T<sub>2</sub></span></span>
+    rewrites the equality <span class="inlinecode"><span class="id" type="var">E</span></span> at the <span class="inlinecode"><span class="id" type="var">K</span></span>-th occurence of <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span>
     in the current goal. 
     Syntaxes <span class="inlinecode"><span class="id" type="var">rewrites</span></span> <span class="inlinecode"><span style="font-family: arial;">&larr;</span></span> <span class="inlinecode"><span class="id" type="var">E</span></span> <span class="inlinecode"><span class="id" type="tactic">at</span></span> <span class="inlinecode"><span class="id" type="var">K</span></span> and <span class="inlinecode"><span class="id" type="var">rewrites</span></span> <span class="inlinecode"><span class="id" type="var">E</span></span> <span class="inlinecode"><span class="id" type="tactic">at</span></span> <span class="inlinecode"><span class="id" type="var">K</span></span> <span class="inlinecode"><span class="id" type="keyword">in</span></span> <span class="inlinecode"><span class="id" type="var">H</span></span>
     are also available. 
@@ -2651,24 +2624,24 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 
 <br/>
 <span class="id" type="keyword">Tactic Notation</span> "rewrites" <span class="id" type="var">constr</span>(<span class="id" type="var">E</span>) "at" <span class="id" type="var">constr</span>(<span class="id" type="var">K</span>) :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T1</span> = ?<span class="id" type="var">T2</span> =&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T1</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">E</span>) <span class="id" type="keyword">end</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T<sub>1</sub></span> = ?<span class="id" type="var">T<sub>2</sub></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">E</span>) <span class="id" type="keyword">end</span>.<br/>
 <span class="id" type="keyword">Tactic Notation</span> "rewrites" "<span style="font-family: arial;">&larr;</span>" <span class="id" type="var">constr</span>(<span class="id" type="var">E</span>) "at" <span class="id" type="var">constr</span>(<span class="id" type="var">K</span>) :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T1</span> = ?<span class="id" type="var">T2</span> =&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T2</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">E</span>) <span class="id" type="keyword">end</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T<sub>1</sub></span> = ?<span class="id" type="var">T<sub>2</sub></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">E</span>) <span class="id" type="keyword">end</span>.<br/>
 <span class="id" type="keyword">Tactic Notation</span> "rewrites" <span class="id" type="var">constr</span>(<span class="id" type="var">E</span>) "at" <span class="id" type="var">constr</span>(<span class="id" type="var">K</span>) "in" <span class="id" type="var">hyp</span>(<span class="id" type="var">H</span>) :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T1</span> = ?<span class="id" type="var">T2</span> =&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T1</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">E</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>) <span class="id" type="keyword">end</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T<sub>1</sub></span> = ?<span class="id" type="var">T<sub>2</sub></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">E</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>) <span class="id" type="keyword">end</span>.<br/>
 <span class="id" type="keyword">Tactic Notation</span> "rewrites" "<span style="font-family: arial;">&larr;</span>" <span class="id" type="var">constr</span>(<span class="id" type="var">E</span>) "at" <span class="id" type="var">constr</span>(<span class="id" type="var">K</span>) "in" <span class="id" type="var">hyp</span>(<span class="id" type="var">H</span>) :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T1</span> = ?<span class="id" type="var">T2</span> =&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T2</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">E</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>) <span class="id" type="keyword">end</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">type</span> <span class="id" type="var">of</span> <span class="id" type="var">E</span> <span class="id" type="keyword">with</span> ?<span class="id" type="var">T<sub>1</sub></span> = ?<span class="id" type="var">T<sub>2</sub></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ltac_action_at</span> <span class="id" type="var">K</span> <span class="id" type="var">of</span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span> <span class="id" type="tactic">do</span> (<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">E</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>) <span class="id" type="keyword">end</span>.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;----------------------------------------------------------------------&nbsp;*)</span><br/>
 </div>
 
 <div class="doc">
-<a name="lab825"></a><h2 class="section">Replace</h2>
+<a name="lab841"></a><h2 class="section">Replace</h2>
 
 <div class="paragraph"> </div>
 
@@ -2712,7 +2685,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab826"></a><h2 class="section">Renaming</h2>
+<a name="lab842"></a><h2 class="section">Renaming</h2>
 
 <div class="paragraph"> </div>
 
@@ -2749,7 +2722,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab827"></a><h2 class="section">Unfolding</h2>
+<a name="lab843"></a><h2 class="section">Unfolding</h2>
 
 <div class="paragraph"> </div>
 
@@ -2859,7 +2832,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab828"></a><h2 class="section">Simplification</h2>
+<a name="lab844"></a><h2 class="section">Simplification</h2>
 
 <div class="paragraph"> </div>
 
@@ -2952,7 +2925,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab829"></a><h2 class="section">Evaluation</h2>
+<a name="lab845"></a><h2 class="section">Evaluation</h2>
 
 </div>
 <div class="code code-space">
@@ -2965,7 +2938,7 @@ The tactics <span class="inlinecode"><span class="id" type="var">applys_N</span>
 </div>
 
 <div class="doc">
-<a name="lab830"></a><h2 class="section">Substitution</h2>
+<a name="lab846"></a><h2 class="section">Substitution</h2>
 
 <div class="paragraph"> </div>
 
@@ -3097,7 +3070,7 @@ Implementation of <span class="inlinecode"><span class="id" type="var">substs</s
 </div>
 
 <div class="doc">
-<a name="lab831"></a><h2 class="section">Tactics to work with proof irrelevance</h2>
+<a name="lab847"></a><h2 class="section">Tactics to work with proof irrelevance</h2>
 
 </div>
 <div class="code code-space">
@@ -3133,7 +3106,7 @@ Implementation of <span class="inlinecode"><span class="id" type="var">substs</s
 </div>
 
 <div class="doc">
-<a name="lab832"></a><h2 class="section">Proving equalities</h2>
+<a name="lab848"></a><h2 class="section">Proving equalities</h2>
 
 <div class="paragraph"> </div>
 
@@ -3195,7 +3168,7 @@ Implementation of <span class="inlinecode"><span class="id" type="var">substs</s
 </div>
 
 <div class="doc">
-<a name="lab833"></a><h1 class="section">Inversion</h1>
+<a name="lab849"></a><h1 class="section">Inversion</h1>
 
 </div>
 <div class="code code-space">
@@ -3205,7 +3178,7 @@ Implementation of <span class="inlinecode"><span class="id" type="var">substs</s
 </div>
 
 <div class="doc">
-<a name="lab834"></a><h2 class="section">Basic inversion</h2>
+<a name="lab850"></a><h2 class="section">Basic inversion</h2>
 
 <div class="paragraph"> </div>
 
@@ -3280,7 +3253,7 @@ Implementation of <span class="inlinecode"><span class="id" type="var">substs</s
 </div>
 
 <div class="doc">
-<a name="lab835"></a><h2 class="section">Inversion with substitution</h2>
+<a name="lab851"></a><h2 class="section">Inversion with substitution</h2>
 
 <div class="paragraph"> </div>
 
@@ -3468,7 +3441,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab836"></a><h2 class="section">Injection with substitution</h2>
+<a name="lab852"></a><h2 class="section">Injection with substitution</h2>
 
 <div class="paragraph"> </div>
 
@@ -3544,7 +3517,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab837"></a><h2 class="section">Inversion and injection with substitution &mdash;rough implementation</h2>
+<a name="lab853"></a><h2 class="section">Inversion and injection with substitution &mdash;rough implementation</h2>
 
 <div class="paragraph"> </div>
 
@@ -3618,7 +3591,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab838"></a><h2 class="section">Case analysis</h2>
+<a name="lab854"></a><h2 class="section">Case analysis</h2>
 
 <div class="paragraph"> </div>
 
@@ -3809,9 +3782,9 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 <br/>
 <span class="id" type="keyword">Ltac</span> <span class="id" type="var">destruct_head_match_core</span> <span class="id" type="var">cont</span> :=<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span> <br/>
-&nbsp;&nbsp;| <span style="font-family: arial;">&#8866;</span> ?<span class="id" type="var">T1</span> = ?<span class="id" type="var">T2</span> =&gt; <span class="id" type="var">first</span> [ <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T1</span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T2</span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span> ]<br/>
-&nbsp;&nbsp;| <span style="font-family: arial;">&#8866;</span> ?<span class="id" type="var">T1</span> =&gt; <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T1</span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span>    <br/>
+&nbsp;&nbsp;| <span style="font-family: arial;">&#8866;</span> ?<span class="id" type="var">T<sub>1</sub></span> = ?<span class="id" type="var">T<sub>2</sub></span> =&gt; <span class="id" type="var">first</span> [ <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span> ]<br/>
+&nbsp;&nbsp;| <span style="font-family: arial;">&#8866;</span> ?<span class="id" type="var">T<sub>1</sub></span> =&gt; <span class="id" type="keyword">let</span> <span class="id" type="var">E</span> := <span class="id" type="var">find_head_match</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="keyword">in</span> <span class="id" type="var">cont</span> <span class="id" type="var">E</span>    <br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>; <br/>
 &nbsp;&nbsp;<span class="id" type="var">destruct_if_post</span>.<br/>
 
@@ -3880,7 +3853,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab839"></a><h1 class="section">Induction</h1>
+<a name="lab855"></a><h1 class="section">Induction</h1>
 
 <div class="paragraph"> </div>
 
@@ -3951,7 +3924,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab840"></a><h1 class="section">Decidable equality</h1>
+<a name="lab856"></a><h1 class="section">Decidable equality</h1>
 
 <div class="paragraph"> </div>
 
@@ -3973,7 +3946,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab841"></a><h1 class="section">Equivalence</h1>
+<a name="lab857"></a><h1 class="section">Equivalence</h1>
 
 <div class="paragraph"> </div>
 
@@ -4010,7 +3983,7 @@ TODO: reimplement <span class="inlinecode"><span class="id" type="var">inverts</
 </div>
 
 <div class="doc">
-<a name="lab842"></a><h1 class="section">N-ary Conjunctions and Disjunctions</h1>
+<a name="lab858"></a><h1 class="section">N-ary Conjunctions and Disjunctions</h1>
 
 </div>
 <div class="code code-space">
@@ -4070,8 +4043,8 @@ N-ary Conjunctions Splitting in Goals
 </div>
 
 <div class="doc">
-<span class="inlinecode"><span class="id" type="var">splits</span></span> applies to a goal of the form <span class="inlinecode">(<span class="id" type="var">T1</span></span> <span class="inlinecode"><span style="font-family: arial;">&and;</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span style="font-family: arial;">&and;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span>)</span> and
-    destruct it into <span class="inlinecode"><span class="id" type="var">N</span></span> subgoals <span class="inlinecode"><span class="id" type="var">T1</span></span> .. <span class="inlinecode"><span class="id" type="var">TN</span></span>. If the goal is not a 
+<span class="inlinecode"><span class="id" type="var">splits</span></span> applies to a goal of the form <span class="inlinecode">(<span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode"><span style="font-family: arial;">&and;</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span style="font-family: arial;">&and;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span>)</span> and
+    destruct it into <span class="inlinecode"><span class="id" type="var">N</span></span> subgoals <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> .. <span class="inlinecode"><span class="id" type="var">TN</span></span>. If the goal is not a 
     conjunction, then it unfolds the head definition. 
 </div>
 <div class="code code-tight">
@@ -4349,35 +4322,35 @@ N-ary Existentials
 </div>
 
 <div class="doc">
-<span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> is a shorthand for <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span>;</span> <span class="inlinecode">...;</span> <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span></span>.
+<span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> is a shorthand for <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span>;</span> <span class="inlinecode">...;</span> <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">TN</span></span>.
     It is intended to prove goals of the form <span class="inlinecode"><span class="id" type="var">exist</span></span> <span class="inlinecode"><span class="id" type="var">X1</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">XN</span>,</span> <span class="inlinecode"><span class="id" type="var">P</span></span>.
     If an argument provided is <span class="inlinecode"><span class="id" type="var">__</span></span> (double underscore), then an
-    evar is introduced. <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> <span class="inlinecode"><span class="id" type="var">___</span></span> is equivalent to
-    <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T1</span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> with as many <span class="inlinecode"><span class="id" type="var">__</span></span> as possible. 
+    evar is introduced. <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> <span class="inlinecode"><span class="id" type="var">___</span></span> is equivalent to
+    <span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">T<sub>1</sub></span></span> <span class="inlinecode">..</span> <span class="inlinecode"><span class="id" type="var">TN</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> with as many <span class="inlinecode"><span class="id" type="var">__</span></span> as possible. 
 </div>
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists_original" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">T1</span> <span class="id" type="keyword">with</span><br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists_original" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">T<sub>1</sub></span> <span class="id" type="keyword">with</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">ltac_wild</span> =&gt; <span class="id" type="var">esplit</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">ltac_wilds</span> =&gt; <span class="id" type="tactic">repeat</span> <span class="id" type="var">esplit</span><br/>
-&nbsp;&nbsp;| <span class="id" type="var">_</span> =&gt; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span><br/>
+&nbsp;&nbsp;| <span class="id" type="var">_</span> =&gt; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span><br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T2</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T2</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T2</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>2</sub></span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>2</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>2</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T2</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T5</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>2</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T5</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T6</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T2</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T5</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T6</span>.<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>2</sub></span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T3</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T4</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T5</span>; <span style="font-family: arial;">&exist;</span><span class="id" type="var">T6</span>.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;The&nbsp;tactic&nbsp;<span class="inlinecode"><span class="id" type="var">exists___</span></span> <span class="inlinecode"><span class="id" type="var">N</span></span>&nbsp;is&nbsp;short&nbsp;for&nbsp;<span class="inlinecode"><span style="font-family: arial;">&exist;</span></span> <span class="inlinecode"><span class="id" type="var">__</span></span> <span class="inlinecode">...</span> <span class="inlinecode"><span class="id" type="var">__</span></span>&nbsp;<br/>
@@ -4437,7 +4410,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab843"></a><h1 class="section">Tactics to prove typeclass instances</h1>
+<a name="lab859"></a><h1 class="section">Tactics to prove typeclass instances</h1>
 
 <div class="paragraph"> </div>
 
@@ -4469,7 +4442,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab844"></a><h1 class="section">Tactics to invoke automation</h1>
+<a name="lab860"></a><h1 class="section">Tactics to invoke automation</h1>
 
 </div>
 <div class="code code-space">
@@ -4479,7 +4452,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab845"></a><h2 class="section"><span class="inlinecode"><span class="id" type="var">jauto</span></span>, a new automation tactics</h2>
+<a name="lab861"></a><h2 class="section"><span class="inlinecode"><span class="id" type="var">jauto</span></span>, a new automation tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -4551,7 +4524,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab846"></a><h2 class="section">Definitions of automation tactics</h2>
+<a name="lab862"></a><h2 class="section">Definitions of automation tactics</h2>
 
 <div class="paragraph"> </div>
 
@@ -4650,7 +4623,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab847"></a><h2 class="section">Definitions for parsing compatibility</h2>
+<a name="lab863"></a><h2 class="section">Definitions for parsing compatibility</h2>
 
 </div>
 <div class="code code-space">
@@ -4668,7 +4641,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab848"></a><h2 class="section">Parsing for light automation</h2>
+<a name="lab864"></a><h2 class="section">Parsing for light automation</h2>
 
 <div class="paragraph"> </div>
 
@@ -5043,27 +5016,27 @@ Existentials and conjunctions in hypotheses
 <br/>
 <span class="id" type="keyword">Tactic Notation</span> "exists___" "~" :=<br/>
 &nbsp;&nbsp;<span class="id" type="var">exists___</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span class="id" type="var">auto_tilde</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>; <span class="id" type="var">auto_tilde</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span>; <span class="id" type="var">auto_tilde</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>; <span class="id" type="var">auto_tilde</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span>; <span class="id" type="var">auto_tilde</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span>; <span class="id" type="var">auto_tilde</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "~" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T6</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span> <span class="id" type="var">T6</span>; <span class="id" type="var">auto_tilde</span>.<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span> <span class="id" type="var">T6</span>; <span class="id" type="var">auto_tilde</span>.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;----------------------------------------------------------------------&nbsp;*)</span><br/>
 </div>
 
 <div class="doc">
-<a name="lab849"></a><h2 class="section">Parsing for strong automation</h2>
+<a name="lab865"></a><h2 class="section">Parsing for strong automation</h2>
 
 <div class="paragraph"> </div>
 
@@ -5426,27 +5399,27 @@ Existentials and conjunctions in hypotheses
 <br/>
 <span class="id" type="keyword">Tactic Notation</span> "exists___" "*" :=<br/>
 &nbsp;&nbsp;<span class="id" type="var">exists___</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span>; <span class="id" type="var">auto_star</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span>; <span class="id" type="var">auto_star</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span>; <span class="id" type="var">auto_star</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) :=<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span>; <span class="id" type="var">auto_star</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span>; <span class="id" type="var">auto_star</span>.<br/>
-<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T1</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T2</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span>; <span class="id" type="var">auto_star</span>.<br/>
+<span class="id" type="keyword">Tactic Notation</span> "exists" "*" <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>1</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T<sub>2</sub></span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T3</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T4</span>) <br/>
 &nbsp;<span class="id" type="var">constr</span>(<span class="id" type="var">T5</span>) <span class="id" type="var">constr</span>(<span class="id" type="var">T6</span>) :=<br/>
-&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T1</span> <span class="id" type="var">T2</span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span> <span class="id" type="var">T6</span>; <span class="id" type="var">auto_star</span>.<br/>
+&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">T<sub>1</sub></span> <span class="id" type="var">T<sub>2</sub></span> <span class="id" type="var">T3</span> <span class="id" type="var">T4</span> <span class="id" type="var">T5</span> <span class="id" type="var">T6</span>; <span class="id" type="var">auto_star</span>.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;**********************************************************************&nbsp;*)</span><br/>
 </div>
 
 <div class="doc">
-<a name="lab850"></a><h1 class="section">Tactics to sort out the proof context</h1>
+<a name="lab866"></a><h1 class="section">Tactics to sort out the proof context</h1>
 
 </div>
 <div class="code code-space">
@@ -5456,7 +5429,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab851"></a><h2 class="section">Hiding hypotheses</h2>
+<a name="lab867"></a><h2 class="section">Hiding hypotheses</h2>
 
 </div>
 <div class="code code-space">
@@ -5648,7 +5621,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab852"></a><h2 class="section">Sorting hypotheses</h2>
+<a name="lab868"></a><h2 class="section">Sorting hypotheses</h2>
 
 <div class="paragraph"> </div>
 
@@ -5673,7 +5646,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab853"></a><h2 class="section">Clearing hypotheses</h2>
+<a name="lab869"></a><h2 class="section">Clearing hypotheses</h2>
 
 <div class="paragraph"> </div>
 
@@ -5770,7 +5743,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab854"></a><h1 class="section">Tactics for development purposes</h1>
+<a name="lab870"></a><h1 class="section">Tactics for development purposes</h1>
 
 </div>
 <div class="code code-space">
@@ -5780,7 +5753,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab855"></a><h2 class="section">Skipping subgoals</h2>
+<a name="lab871"></a><h2 class="section">Skipping subgoals</h2>
 
 <div class="paragraph"> </div>
 
@@ -5981,7 +5954,7 @@ Existentials and conjunctions in hypotheses
 </div>
 
 <div class="doc">
-<a name="lab856"></a><h1 class="section">Compatibility with standard library</h1>
+<a name="lab872"></a><h1 class="section">Compatibility with standard library</h1>
 
 <div class="paragraph"> </div>
 

@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>HoareList: Hoare Logic with Lists</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -62,7 +35,7 @@
 </div>
 
 <div class="doc">
-<a name="lab447"></a><h1 class="section">Imp Programs with Lists</h1>
+<a name="lab465"></a><h1 class="section">Imp Programs with Lists</h1>
 
 <div class="paragraph"> </div>
 
@@ -89,7 +62,7 @@
     We start by repeating some material from chapter <span class="inlinecode"><span class="id" type="var">Imp</span></span>. 
 <div class="paragraph"> </div>
 
-<a name="lab448"></a><h2 class="section">Repeated Definitions</h2>
+<a name="lab466"></a><h2 class="section">Repeated Definitions</h2>
 
 </div>
 <div class="code code-space">
@@ -99,45 +72,38 @@
 &nbsp;&nbsp;<span class="id" type="var">Id</span> : <span class="id" type="var">nat</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">id</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Definition</span> <span class="id" type="var">beq_id</span> <span class="id" type="var">id1</span> <span class="id" type="var">id2</span> :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">match</span> (<span class="id" type="var">id1</span>, <span class="id" type="var">id2</span>) <span class="id" type="keyword">with</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">Id</span> <span class="id" type="var">n1</span>, <span class="id" type="var">Id</span> <span class="id" type="var">n2</span>) =&gt; <span class="id" type="var">beq_nat</span> <span class="id" type="var">n1</span> <span class="id" type="var">n2</span><br/>
-&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="var">eq_id_dec</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">id1</span> <span class="id" type="var">id2</span> : <span class="id" type="var">id</span>, {<span class="id" type="var">id1</span> = <span class="id" type="var">id2</span>} + {<span class="id" type="var">id1</span> &lt;&gt; <span class="id" type="var">id2</span>}.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">id1</span> <span class="id" type="var">id2</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">id1</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">n1</span>]. <span class="id" type="tactic">destruct</span> <span class="id" type="var">id2</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">n2</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_nat_dec</span> <span class="id" type="var">n1</span> <span class="id" type="var">n2</span>) <span class="id" type="keyword">as</span> [<span class="id" type="var">Heq</span> | <span class="id" type="var">Hneq</span>].<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">Case</span> "n1 = n2".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">left</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">Heq</span>. <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">Case</span> "n1 &lt;&gt; n2".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">right</span>. <span class="id" type="tactic">intros</span> <span class="id" type="var">contra</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">contra</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">Hneq</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H0</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">beq_id_refl</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">i</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">true</span> = <span class="id" type="var">beq_id</span> <span class="id" type="var">i</span> <span class="id" type="var">i</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">eq_id</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">T</span>:<span class="id" type="keyword">Type</span>) <span class="id" type="var">x</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span>:<span class="id" type="var">T</span>), <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">if</span> <span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span> <span class="id" type="keyword">then</span> <span class="id" type="var">p</span> <span class="id" type="keyword">else</span> <span class="id" type="var">q</span>) = <span class="id" type="var">p</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">i</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_nat_refl</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>).<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "x = x".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "x &lt;&gt; x (impossible)".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">ex_falso_quodlibet</span>; <span class="id" type="tactic">apply</span> <span class="id" type="var">n</span>; <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">beq_id_eq</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">i1</span> <span class="id" type="var">i2</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">true</span> = <span class="id" type="var">beq_id</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">i1</span> = <span class="id" type="var">i2</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">neq_id</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">T</span>:<span class="id" type="keyword">Type</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span>:<span class="id" type="var">T</span>), <span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span> <span style="font-family: arial;">&rarr;</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">if</span> <span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="keyword">then</span> <span class="id" type="var">p</span> <span class="id" type="keyword">else</span> <span class="id" type="var">q</span>) = <span class="id" type="var">q</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> <span class="id" type="var">H</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">i1</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">i2</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_nat_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>. <span class="id" type="tactic">subst</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-
-<br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">beq_id_false_not_eq</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">i1</span> <span class="id" type="var">i2</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">beq_id</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> = <span class="id" type="var">false</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">i1</span> &lt;&gt; <span class="id" type="var">i2</span>.<br/>
-<span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> <span class="id" type="var">H</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">i1</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">i2</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_nat_false</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">C</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">C</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-
-<br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">not_eq_beq_id_false</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">i1</span> <span class="id" type="var">i2</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">i1</span> &lt;&gt; <span class="id" type="var">i2</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">beq_id</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> = <span class="id" type="var">false</span>.<br/>
-<span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">i1</span> <span class="id" type="var">i2</span> <span class="id" type="var">H</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">i1</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">i2</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">assert</span> (<span class="id" type="var">n</span> &lt;&gt; <span class="id" type="var">n0</span>).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">C</span>. <span class="id" type="tactic">subst</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H</span>. <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">not_eq_beq_false</span>. <span class="id" type="tactic">assumption</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "x = y (impossible)".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">ex_falso_quodlibet</span>; <span class="id" type="tactic">apply</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "x &lt;&gt; y".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">X</span> : <span class="id" type="var">id</span> := <span class="id" type="var">Id</span> 0.<br/>
@@ -148,7 +114,7 @@
 </div>
 
 <div class="doc">
-<a name="lab449"></a><h2 class="section">Extensions</h2>
+<a name="lab467"></a><h2 class="section">Extensions</h2>
 
 <div class="paragraph"> </div>
 
@@ -178,7 +144,7 @@
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">empty_state</span> : <span class="id" type="var">state</span> := <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">VNat</span> 0.<br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">update</span> (<span class="id" type="var">st</span> : <span class="id" type="var">state</span>) (<span class="id" type="var">X</span>:<span class="id" type="var">id</span>) (<span class="id" type="var">v</span> : <span class="id" type="var">val</span>) : <span class="id" type="var">state</span> :=<br/>
-&nbsp;&nbsp;<span class="id" type="keyword">fun</span> <span class="id" type="var">X'</span> =&gt; <span class="id" type="keyword">if</span> <span class="id" type="var">beq_id</span> <span class="id" type="var">X</span> <span class="id" type="var">X'</span> <span class="id" type="keyword">then</span> <span class="id" type="var">v</span> <span class="id" type="keyword">else</span> <span class="id" type="var">st</span> <span class="id" type="var">X'</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">fun</span> <span class="id" type="var">X'</span> =&gt; <span class="id" type="keyword">if</span> <span class="id" type="var">eq_id_dec</span> <span class="id" type="var">X</span> <span class="id" type="var">X'</span> <span class="id" type="keyword">then</span> <span class="id" type="var">v</span> <span class="id" type="keyword">else</span> <span class="id" type="var">st</span> <span class="id" type="var">X'</span>.<br/>
 
 <br/>
 </div>
@@ -327,7 +293,7 @@ We extend <span class="inlinecode"><span class="id" type="var">bexp</span></span
 </div>
 
 <div class="doc">
-<a name="lab450"></a><h2 class="section">Repeated Definitions</h2>
+<a name="lab468"></a><h2 class="section">Repeated Definitions</h2>
 
 <div class="paragraph"> </div>
 
@@ -353,19 +319,20 @@ We extend <span class="inlinecode"><span class="id" type="var">bexp</span></span
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">n</span> <span class="id" type="var">V</span> <span class="id" type="var">st</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">update</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">beq_id_refl</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">eq_id</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
 <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">update_neq</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">V2</span> <span class="id" type="var">V1</span> <span class="id" type="var">n</span> <span class="id" type="var">st</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">beq_id</span> <span class="id" type="var">V2</span> <span class="id" type="var">V1</span> = <span class="id" type="var">false</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">V2</span> &lt;&gt; <span class="id" type="var">V1</span> <span style="font-family: arial;">&rarr;</span> <br/>
 &nbsp;&nbsp;(<span class="id" type="var">update</span> <span class="id" type="var">st</span> <span class="id" type="var">V2</span> <span class="id" type="var">n</span>) <span class="id" type="var">V1</span> = (<span class="id" type="var">st</span> <span class="id" type="var">V1</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">V2</span> <span class="id" type="var">V1</span> <span class="id" type="var">n</span> <span class="id" type="var">st</span> <span class="id" type="var">Hneq</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">update</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Hneq</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">neq_id</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">assumption</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">update_shadow</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> (<span class="id" type="var">f</span> : <span class="id" type="var">state</span>),<br/>
@@ -373,7 +340,7 @@ We extend <span class="inlinecode"><span class="id" type="var">bexp</span></span
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> <span class="id" type="var">f</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">update</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">k2</span> <span class="id" type="var">k1</span>); <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">k2</span> <span class="id" type="var">k1</span>); <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">update_same</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x1</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> (<span class="id" type="var">f</span> : <span class="id" type="var">state</span>),<br/>
@@ -382,30 +349,22 @@ We extend <span class="inlinecode"><span class="id" type="var">bexp</span></span
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x1</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> <span class="id" type="var">f</span> <span class="id" type="var">Heq</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">update</span>. <span class="id" type="tactic">subst</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">b</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">b</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">Case</span> "true".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqb</span>. <span class="id" type="tactic">subst</span>. <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">Case</span> "false".<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span>).<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "k1 = k2".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>. <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "k1 &lt;&gt; k2".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">update_permute</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> <span class="id" type="var">k3</span> <span class="id" type="var">f</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">beq_id</span> <span class="id" type="var">k2</span> <span class="id" type="var">k1</span> = <span class="id" type="var">false</span> <span style="font-family: arial;">&rarr;</span> <br/>
+&nbsp;&nbsp;<span class="id" type="var">k2</span> &lt;&gt; <span class="id" type="var">k1</span> <span style="font-family: arial;">&rarr;</span> <br/>
 &nbsp;&nbsp;(<span class="id" type="var">update</span> (<span class="id" type="var">update</span> <span class="id" type="var">f</span> <span class="id" type="var">k2</span> <span class="id" type="var">x1</span>) <span class="id" type="var">k1</span> <span class="id" type="var">x2</span>) <span class="id" type="var">k3</span> = (<span class="id" type="var">update</span> (<span class="id" type="var">update</span> <span class="id" type="var">f</span> <span class="id" type="var">k1</span> <span class="id" type="var">x2</span>) <span class="id" type="var">k2</span> <span class="id" type="var">x1</span>) <span class="id" type="var">k3</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">k1</span> <span class="id" type="var">k2</span> <span class="id" type="var">k3</span> <span class="id" type="var">f</span> <span class="id" type="var">H</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">update</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">k1</span> <span class="id" type="var">k3</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">b13</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">beq_id</span> <span class="id" type="var">k2</span> <span class="id" type="var">k3</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">b23</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_false_not_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">b13</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="var">Case</span> "true".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">b23</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SCase</span> "true".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqb13</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_id_eq</span> <span class="id" type="keyword">in</span> <span class="id" type="var">Heqb23</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">ex_falso_quodlibet</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">eq_id_dec</span> <span class="id" type="var">k1</span> <span class="id" type="var">k3</span>); <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="var">Case</span> "k1 = k3".<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">subst</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">neq_id</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="tactic">assumption</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 </div>
@@ -486,7 +445,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 </div>
 
 <div class="doc">
-<a name="lab451"></a><h1 class="section">Hoare Rules</h1>
+<a name="lab469"></a><h1 class="section">Hoare Rules</h1>
 
 <div class="paragraph"> </div>
 
@@ -503,7 +462,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{assn_sub&nbsp;X&nbsp;a&nbsp;Q}}&nbsp;X::=a&nbsp;{{Q}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{assn_sub&nbsp;X&nbsp;a&nbsp;Q<span style="letter-spacing:-.4em;">}</span>}&nbsp;X::=a&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
@@ -516,16 +475,16 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{&nbsp;P&nbsp;}}&nbsp;SKIP&nbsp;{{&nbsp;P&nbsp;}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{&nbsp;P&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;SKIP&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;P&nbsp;<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">{{&nbsp;P&nbsp;}}&nbsp;c1&nbsp;{{&nbsp;Q&nbsp;}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{&nbsp;P&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;c1&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;Q&nbsp;<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">{{&nbsp;Q&nbsp;}}&nbsp;c2&nbsp;{{&nbsp;R&nbsp;}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{&nbsp;Q&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;c2&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;R&nbsp;<span style="letter-spacing:-.4em;">}</span>}</td>
   <td class="infrulenamecol" rowspan="3">
     (hoare_seq) &nbsp;
   </td></tr>
@@ -533,16 +492,16 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{&nbsp;P&nbsp;}}&nbsp;c1;c2&nbsp;{{&nbsp;R&nbsp;}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{&nbsp;P&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;c1;c2&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;R&nbsp;<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">{{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;&nbsp;b}}&nbsp;c1&nbsp;{{Q}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;&nbsp;b<span style="letter-spacing:-.4em;">}</span>}&nbsp;c1&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">{{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~b}}&nbsp;c2&nbsp;{{Q}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~b<span style="letter-spacing:-.4em;">}</span>}&nbsp;c2&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q<span style="letter-spacing:-.4em;">}</span>}</td>
   <td class="infrulenamecol" rowspan="3">
     (hoare_if) &nbsp;
   </td></tr>
@@ -550,12 +509,12 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{P}}&nbsp;IFB&nbsp;b&nbsp;THEN&nbsp;c1&nbsp;ELSE&nbsp;c2&nbsp;FI&nbsp;{{Q}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P<span style="letter-spacing:-.4em;">}</span>}&nbsp;IFB&nbsp;b&nbsp;THEN&nbsp;c1&nbsp;ELSE&nbsp;c2&nbsp;FI&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">{{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;b}}&nbsp;c&nbsp;{{P}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;b<span style="letter-spacing:-.4em;">}</span>}&nbsp;c&nbsp;<span style="letter-spacing:-.4em;">{</span>{P<span style="letter-spacing:-.4em;">}</span>}</td>
   <td class="infrulenamecol" rowspan="3">
     (hoare_while) &nbsp;
   </td></tr>
@@ -563,20 +522,20 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{P}}&nbsp;WHILE&nbsp;b&nbsp;DO&nbsp;c&nbsp;END&nbsp;{{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~b}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P<span style="letter-spacing:-.4em;">}</span>}&nbsp;WHILE&nbsp;b&nbsp;DO&nbsp;c&nbsp;END&nbsp;<span style="letter-spacing:-.4em;">{</span>{P&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~b<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">{{P'}}&nbsp;c&nbsp;{{Q'}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P'<span style="letter-spacing:-.4em;">}</span>}&nbsp;c&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q'<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">P&nbsp;<span style="font-family: arial;">&#8669;</span>&nbsp;P'</td>
+  <td class="infrule">P&nbsp;<span style="font-family: arial;">&#8702;</span>&nbsp;P'</td>
   <td></td>
 </td>
 <tr class="infruleassumption">
-  <td class="infrule">Q'&nbsp;<span style="font-family: arial;">&#8669;</span>&nbsp;Q</td>
+  <td class="infrule">Q'&nbsp;<span style="font-family: arial;">&#8702;</span>&nbsp;Q</td>
   <td class="infrulenamecol" rowspan="3">
     (hoare_consequence) &nbsp;
   </td></tr>
@@ -584,7 +543,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule">{{P}}&nbsp;c&nbsp;{{Q}}</td>
+  <td class="infrule"><span style="letter-spacing:-.4em;">{</span>{P<span style="letter-spacing:-.4em;">}</span>}&nbsp;c&nbsp;<span style="letter-spacing:-.4em;">{</span>{Q<span style="letter-spacing:-.4em;">}</span>}</td>
   <td></td>
 </td>
 </table></center>
@@ -602,7 +561,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">Q</span> <span class="id" type="var">st'</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Notation</span> "{{ P }}  c  {{ Q }}" := (<span class="id" type="var">hoare_triple</span> <span class="id" type="var">P</span> <span class="id" type="var">c</span> <span class="id" type="var">Q</span>) <br/>
+<span class="id" type="keyword">Notation</span> "<span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>}  c  <span style="letter-spacing:-.4em;">{</span>{ Q <span style="letter-spacing:-.4em;">}</span>}" := (<span class="id" type="var">hoare_triple</span> <span class="id" type="var">P</span> <span class="id" type="var">c</span> <span class="id" type="var">Q</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 90, <span class="id" type="var">c</span> <span class="id" type="tactic">at</span> <span class="id" type="var">next</span> <span class="id" type="var">level</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="id" type="var">hoare_spec_scope</span>.<br/>
 <span class="id" type="keyword">Open</span> <span class="id" type="keyword">Scope</span> <span class="id" type="var">hoare_spec_scope</span>.<br/>
@@ -614,7 +573,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_asgn</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">Q</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="var">assn_sub</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">Q</span>}} (<span class="id" type="var">X</span> ::= <span class="id" type="var">a</span>) {{<span class="id" type="var">Q</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">assn_sub</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} (<span class="id" type="var">X</span> ::= <span class="id" type="var">a</span>) <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">hoare_triple</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">Q</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">HE</span> <span class="id" type="var">HQ</span>.<br/>
@@ -623,16 +582,16 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_skip</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">P</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">SKIP</span> {{<span class="id" type="var">P</span>}}.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">SKIP</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">H</span> <span class="id" type="var">HP</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">H</span>. <span class="id" type="tactic">subst</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">assumption</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_seq</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">R</span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{<span class="id" type="var">Q</span>}} <span class="id" type="var">c2</span> {{<span class="id" type="var">R</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c1</span> {{<span class="id" type="var">Q</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c1</span>;<span class="id" type="var">c2</span> {{<span class="id" type="var">R</span>}}.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c2</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">R</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c1</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c1</span>;<span class="id" type="var">c2</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">R</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">R</span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span> <span class="id" type="var">H1</span> <span class="id" type="var">H2</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">H12</span> <span class="id" type="var">Pre</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H12</span>; <span class="id" type="tactic">subst</span>.<br/>
@@ -660,9 +619,9 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_if</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">b</span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>}} <span class="id" type="var">c1</span> {{<span class="id" type="var">Q</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~(<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)}} <span class="id" type="var">c2</span> {{<span class="id" type="var">Q</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} (<span class="id" type="var">IFB</span> <span class="id" type="var">b</span> <span class="id" type="var">THEN</span> <span class="id" type="var">c1</span> <span class="id" type="var">ELSE</span> <span class="id" type="var">c2</span> <span class="id" type="var">FI</span>) {{<span class="id" type="var">Q</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c1</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~(<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)<span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c2</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} (<span class="id" type="var">IFB</span> <span class="id" type="var">b</span> <span class="id" type="var">THEN</span> <span class="id" type="var">c1</span> <span class="id" type="var">ELSE</span> <span class="id" type="var">c2</span> <span class="id" type="var">FI</span>) <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">b</span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span> <span class="id" type="var">HTrue</span> <span class="id" type="var">HFalse</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">HE</span> <span class="id" type="var">HP</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">HE</span>; <span class="id" type="tactic">subst</span>.<br/>
@@ -679,8 +638,8 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Lemma</span> <span class="id" type="var">hoare_while</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">P</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">P</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">WHILE</span> <span class="id" type="var">b</span> <span class="id" type="var">DO</span> <span class="id" type="var">c</span> <span class="id" type="var">END</span> {{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~ (<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">WHILE</span> <span class="id" type="var">b</span> <span class="id" type="var">DO</span> <span class="id" type="var">c</span> <span class="id" type="var">END</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~ (<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)<span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">Hhoare</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">He</span> <span class="id" type="var">HP</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;Like&nbsp;we've&nbsp;seen&nbsp;before,&nbsp;we&nbsp;need&nbsp;to&nbsp;reason&nbsp;by&nbsp;induction&nbsp;<br/>
@@ -704,14 +663,14 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 &nbsp;&nbsp;<span style="font-family: arial;">&forall;</span><span class="id" type="var">st</span>, <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Q</span> <span class="id" type="var">st</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Notation</span> "P <span style="font-family: arial;">&#8669;</span> Q" := (<span class="id" type="var">assert_implies</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80).<br/>
-<span class="id" type="keyword">Notation</span> "P <span style="font-family: arial;">&#8621;</span> Q" := (<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80).<br/>
+<span class="id" type="keyword">Notation</span> "P <span style="font-family: arial;">&#8702;</span> Q" := (<span class="id" type="var">assert_implies</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80).<br/>
+<span class="id" type="keyword">Notation</span> "P <span style="font-family: arial;">&#8703;</span> Q" := (<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80).<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_consequence_pre</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">P</span> <span class="id" type="var">P'</span> <span class="id" type="var">Q</span> : <span class="id" type="var">Assertion</span>) <span class="id" type="var">c</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P'</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P'</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P'</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P'</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">P'</span> <span class="id" type="var">Q</span> <span class="id" type="var">c</span> <span class="id" type="var">Hhoare</span> <span class="id" type="var">Himp</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">Hc</span> <span class="id" type="var">HP</span>. <span class="id" type="tactic">apply</span> (<span class="id" type="var">Hhoare</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span>).<br/>
@@ -719,9 +678,9 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_consequence_post</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">Q'</span> : <span class="id" type="var">Assertion</span>) <span class="id" type="var">c</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q'</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;<span class="id" type="var">Q'</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q'</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">Q'</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">Q'</span> <span class="id" type="var">c</span> <span class="id" type="var">Hhoare</span> <span class="id" type="var">Himp</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">Hc</span> <span class="id" type="var">HP</span>.<br/>
@@ -731,10 +690,10 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">hoare_consequence</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">P</span> <span class="id" type="var">P'</span> <span class="id" type="var">Q</span> <span class="id" type="var">Q'</span> : <span class="id" type="var">Assertion</span>) <span class="id" type="var">c</span>,<br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P'</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q'</span>}} <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P'</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;<span class="id" type="var">Q'</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&rarr;</span><br/>
-&nbsp;&nbsp;{{<span class="id" type="var">P</span>}} <span class="id" type="var">c</span> {{<span class="id" type="var">Q</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P'</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q'</span><span style="letter-spacing:-.4em;">}</span>} <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P'</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">Q'</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">Q</span> <span style="font-family: arial;">&rarr;</span><br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} <span class="id" type="var">c</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">Q</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">P'</span> <span class="id" type="var">Q</span> <span class="id" type="var">Q'</span> <span class="id" type="var">c</span> <span class="id" type="var">Hht</span> <span class="id" type="var">HPP'</span> <span class="id" type="var">HQ'Q</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> <span class="id" type="var">st'</span> <span class="id" type="var">Hc</span> <span class="id" type="var">HP</span>.<br/>
@@ -745,7 +704,7 @@ We can keep exactly the same old definitions of <span class="inlinecode"><span c
 </div>
 
 <div class="doc">
-<a name="lab452"></a><h2 class="section">Reasoning About Programs with Lists</h2>
+<a name="lab470"></a><h2 class="section">Reasoning About Programs with Lists</h2>
 
 <div class="paragraph"> </div>
 
@@ -776,43 +735,43 @@ The informal proof looks like this:
 <div class="paragraph"> </div>
 
 <div class="code code-tight">
-&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Z</span>&nbsp;=&nbsp;0&nbsp;}}&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>)&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Z</span>&nbsp;=&nbsp;0&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;=&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>)&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">WHILE</span>&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;<br/>
 &nbsp;&nbsp;<span class="id" type="var">DO</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">IFB</span>&nbsp;(<span class="id" type="var">Y</span>&nbsp;==&nbsp;<span class="id" type="var">head</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;<span class="id" type="var">THEN</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;==&nbsp;<span class="id" type="var">AHead</span>&nbsp;<span class="id" type="var">X</span>&nbsp;}}&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(1&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;==&nbsp;<span class="id" type="var">AHead</span>&nbsp;<span class="id" type="var">X</span>&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;=&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(1&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">Z</span>&nbsp;::=&nbsp;1<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">ELSE</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~&nbsp;(<span class="id" type="var">Y</span>&nbsp;==&nbsp;<span class="id" type="var">head</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;}}&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~&nbsp;(<span class="id" type="var">Y</span>&nbsp;==&nbsp;<span class="id" type="var">head</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;=&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SKIP</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">FI</span>;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">tail</span>&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">X</span>&nbsp;::=&nbsp;<span class="id" type="var">ATail</span>&nbsp;<span class="id" type="var">X</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">END</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;}}&nbsp;=&gt;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">l</span>&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">n</span>&nbsp;&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>))&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;~&nbsp;(<span class="id" type="var">BIsCons</span>&nbsp;<span class="id" type="var">X</span>)&nbsp;<span style="letter-spacing:-.4em;">}</span>}&nbsp;=&gt;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="letter-spacing:-.4em;">}</span>}
 <div class="paragraph"> </div>
 
 </div>
@@ -824,7 +783,7 @@ The informal proof looks like this:
 <div class="paragraph"> </div>
 
 <div class="code code-tight">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>&nbsp;<span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>,&nbsp;<span class="id" type="var">p</span>&nbsp;++&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;(<span class="id" type="var">Z</span>&nbsp;=&nbsp;1&nbsp;<span style="font-family: arial;">&harr;</span>&nbsp;<span class="id" type="var">appears_in</span>&nbsp;<span class="id" type="var">n</span>&nbsp;<span class="id" type="var">p</span>)
 <div class="paragraph"> </div>
 
 </div>
@@ -923,9 +882,9 @@ The main proof uses several lemmas about <span class="inlinecode"><span class="i
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">list_member_correct</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">l</span> <span class="id" type="var">n</span>,<br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 0 }}<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 0 <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">list_member</span><br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">l</span> }}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">l</span> <span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">l</span> <span class="id" type="var">n</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">eapply</span> <span class="id" type="var">hoare_consequence</span>.<br/>
@@ -943,32 +902,31 @@ The main proof uses several lemmas about <span class="inlinecode"><span class="i
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> [[[<span class="id" type="var">H1</span> [<span class="id" type="var">p</span> [<span class="id" type="var">H2</span> <span class="id" type="var">H3</span>]]] <span class="id" type="var">H9</span>] <span class="id" type="var">H10</span>].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">assn_sub</span>. <span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;(st&nbsp;Y)&nbsp;is&nbsp;still&nbsp;n&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">assumption</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;and&nbsp;the&nbsp;interesting&nbsp;part&nbsp;of&nbsp;the&nbsp;invariant&nbsp;is&nbsp;preserved:&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;X&nbsp;has&nbsp;to&nbsp;be&nbsp;a&nbsp;cons&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> <span class="id" type="var">x</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">x</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>] <span class="id" type="var">eqn</span>:<span class="id" type="var">Heqx</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">bassn</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">beval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">H9</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">H9</span>.<br/>
 
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">p</span> <span class="id" type="var">h</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_eq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">snoc_equation</span>. <span class="id" type="tactic">assumption</span>.<br/>
 
 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_eq</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">simpl</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">bassn</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">beval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">rewrite</span> <span class="id" type="var">H1</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> (<span class="id" type="var">beq_nat_true</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H10</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">appears_in_snoc1</span>.<br/>
 
@@ -980,24 +938,23 @@ The main proof uses several lemmas about <span class="inlinecode"><span class="i
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> [[[<span class="id" type="var">H1</span> [<span class="id" type="var">p</span> [<span class="id" type="var">H2</span> <span class="id" type="var">H3</span>]]] <span class="id" type="var">H9</span>] <span class="id" type="var">H10</span>].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;(st&nbsp;Y)&nbsp;is&nbsp;still&nbsp;n&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">assumption</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;and&nbsp;the&nbsp;interesting&nbsp;part&nbsp;of&nbsp;the&nbsp;invariant&nbsp;is&nbsp;preserved:&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;X&nbsp;has&nbsp;to&nbsp;be&nbsp;a&nbsp;cons&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> <span class="id" type="var">x</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">x</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>] <span class="id" type="var">eqn</span>:<span class="id" type="var">Heqx</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">bassn</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">beval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">H9</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H9</span>. <span class="id" type="tactic">inversion</span> <span class="id" type="var">H9</span>.<br/>
 
 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">p</span> <span class="id" type="var">h</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_eq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span>. <span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span>. <span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">snoc_equation</span>. <span class="id" type="tactic">assumption</span>.<br/>
 
 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> <span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; <span class="id" type="tactic">try</span> (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">intros</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">appears_in_snoc2</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H3</span>. <span class="id" type="tactic">assumption</span>.<br/>
 
@@ -1011,7 +968,7 @@ The main proof uses several lemmas about <span class="inlinecode"><span class="i
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">bassn</span>, <span class="id" type="var">beval</span>, <span class="id" type="var">aeval</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">not_true_iff_false</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">beq_nat_false</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">Heqx</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> <span class="id" type="var">H10</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">ex_falso_quodlibet</span>. <span class="id" type="tactic">apply</span> <span class="id" type="var">H10</span>. <span class="id" type="tactic">assumption</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;invariant&nbsp;holds&nbsp;at&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;loop:&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">st</span> [<span class="id" type="var">H1</span> [<span class="id" type="var">H2</span> <span class="id" type="var">H3</span>]].<br/>
@@ -1038,7 +995,7 @@ The main proof uses several lemmas about <span class="inlinecode"><span class="i
 </div>
 
 <div class="doc">
-<a name="lab453"></a><h4 class="section">Exercise: 3 stars (list_sum)</h4>
+<a name="lab471"></a><h4 class="section">Exercise: 3 stars (list_sum)</h4>
  Here is a direct definition of the sum of the elements of a list,
     and an Imp program that computes the sum. 
 </div>
@@ -1067,9 +1024,9 @@ Provide an <i>informal</i> proof of the following specification of
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">sum_program_spec</span> := <span style="font-family: arial;">&forall;</span><span class="id" type="var">l</span>,<br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> }}<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">sum_program</span><br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">sum</span> <span class="id" type="var">l</span> }}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">sum</span> <span class="id" type="var">l</span> <span style="letter-spacing:-.4em;">}</span>}.<br/>
 
 <br/>
 <span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span><br/>
@@ -1079,7 +1036,7 @@ Provide an <i>informal</i> proof of the following specification of
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab454"></a><h4 class="section">Exercise: 4 stars (list_reverse)</h4>
+<a name="lab472"></a><h4 class="section">Exercise: 4 stars (list_reverse)</h4>
  Recall the function <span class="inlinecode"><span class="id" type="var">rev</span></span> from Poly.v, for reversing lists. 
 </div>
 <div class="code code-tight">
@@ -1102,10 +1059,10 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 <div class="paragraph"> </div>
 
 <div class="code code-tight">
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&forall;</span>&nbsp;<span class="id" type="var">l</span>&nbsp;:&nbsp;<span class="id" type="var">list</span>&nbsp;<span class="id" type="var">nat</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">nil</span>&nbsp;}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&forall;</span><span class="id" type="var">l</span>&nbsp;:&nbsp;<span class="id" type="var">list</span>&nbsp;<span class="id" type="var">nat</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">X</span>&nbsp;=&nbsp;&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="font-family: arial;">&and;</span>&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">nil</span>&nbsp;<span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">list_reverse_program</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l</span>&nbsp;}}.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{&nbsp;<span class="id" type="var">Y</span>&nbsp;=&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l</span>&nbsp;<span style="letter-spacing:-.4em;">}</span>}.
 <div class="paragraph"> </div>
 
 </div>
@@ -1151,7 +1108,7 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 </div>
 
 <div class="doc">
-<a name="lab455"></a><h1 class="section">Formal Decorated Programs</h1>
+<a name="lab473"></a><h1 class="section">Formal Decorated Programs</h1>
 
 <div class="paragraph"> </div>
 
@@ -1178,25 +1135,25 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 &nbsp;&nbsp;| <span class="id" type="var">Case_aux</span> <span class="id" type="var">c</span> "Pre" | <span class="id" type="var">Case_aux</span> <span class="id" type="var">c</span> "Post" ].<br/>
 
 <br/>
-<span class="id" type="keyword">Notation</span> "'SKIP' {{ P }}" <br/>
+<span class="id" type="keyword">Notation</span> "'SKIP' <span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>}" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCSkip</span> <span class="id" type="var">P</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 10) : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "l '::=' a {{ P }}" <br/>
+<span class="id" type="keyword">Notation</span> "l '::=' a <span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>}" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCAsgn</span> <span class="id" type="var">l</span> <span class="id" type="var">a</span> <span class="id" type="var">P</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 60, <span class="id" type="var">a</span> <span class="id" type="tactic">at</span> <span class="id" type="var">next</span> <span class="id" type="var">level</span>) : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'WHILE' b 'DO' {{ Pbody }} d 'END' {{ Ppost }}" <br/>
+<span class="id" type="keyword">Notation</span> "'WHILE' b 'DO' <span style="letter-spacing:-.4em;">{</span>{ Pbody <span style="letter-spacing:-.4em;">}</span>} d 'END' <span style="letter-spacing:-.4em;">{</span>{ Ppost <span style="letter-spacing:-.4em;">}</span>}" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCWhile</span> <span class="id" type="var">b</span> <span class="id" type="var">Pbody</span> <span class="id" type="var">d</span> <span class="id" type="var">Ppost</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'IFB' b 'THEN' {{ P }} d 'ELSE' {{ P' }} d' 'FI' {{ Q }}" <br/>
+<span class="id" type="keyword">Notation</span> "'IFB' b 'THEN' <span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>} d 'ELSE' <span style="letter-spacing:-.4em;">{</span>{ P' <span style="letter-spacing:-.4em;">}</span>} d' 'FI' <span style="letter-spacing:-.4em;">{</span>{ Q <span style="letter-spacing:-.4em;">}</span>}" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCIf</span> <span class="id" type="var">b</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span> <span class="id" type="var">P'</span> <span class="id" type="var">d'</span> <span class="id" type="var">Q</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 80, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>)  : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "'=&gt;' {{ P }} d" <br/>
+<span class="id" type="keyword">Notation</span> "'=&gt;' <span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>} d" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCPre</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 90, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>)  : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "{{ P }} d" <br/>
+<span class="id" type="keyword">Notation</span> "<span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>} d" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCPre</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 90)  : <span class="id" type="var">dcom_scope</span>.<br/>
-<span class="id" type="keyword">Notation</span> "d '=&gt;' {{ P }}" <br/>
+<span class="id" type="keyword">Notation</span> "d '=&gt;' <span style="letter-spacing:-.4em;">{</span>{ P <span style="letter-spacing:-.4em;">}</span>}" <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:= (<span class="id" type="var">DCPost</span> <span class="id" type="var">d</span> <span class="id" type="var">P</span>) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 91, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>)  : <span class="id" type="var">dcom_scope</span>.<br/>
 <span class="id" type="keyword">Notation</span> " d ; d' " <br/>
@@ -1208,15 +1165,15 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 
 <br/>
 <span class="id" type="keyword">Example</span> <span class="id" type="var">dec_while</span> : <span class="id" type="var">dcom</span> := (<br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> }}<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">WHILE</span> (<span class="id" type="var">BNot</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 0))) <br/>
 &nbsp;&nbsp;<span class="id" type="var">DO</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BNot</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 0))) <span class="id" type="var">st</span>}}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BNot</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 0))) <span class="id" type="var">st</span><span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">X</span> ::= (<span class="id" type="var">AMinus</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 1)) <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">True</span> }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">True</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">END</span><br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BNot</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 0))) <span class="id" type="var">st</span>}} =&gt;<br/>
-&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = 0 }}<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">True</span> <span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BNot</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>) (<span class="id" type="var">ANum</span> 0))) <span class="id" type="var">st</span><span style="letter-spacing:-.4em;">}</span>} =&gt;<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = 0 <span style="letter-spacing:-.4em;">}</span>}<br/>
 ) % <span class="id" type="var">dcom</span>.<br/>
 
 <br/>
@@ -1257,39 +1214,39 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">dec_correct</span> (<span class="id" type="var">d</span>:<span class="id" type="var">dcom</span>) := <br/>
-&nbsp;&nbsp;{{<span class="id" type="var">pre</span> <span class="id" type="var">d</span>}} (<span class="id" type="var">extract</span> <span class="id" type="var">d</span>) {{<span class="id" type="var">post</span> <span class="id" type="var">d</span>}}.<br/>
+&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">pre</span> <span class="id" type="var">d</span><span style="letter-spacing:-.4em;">}</span>} (<span class="id" type="var">extract</span> <span class="id" type="var">d</span>) <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">post</span> <span class="id" type="var">d</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 
 <br/>
 <span class="id" type="keyword">Fixpoint</span> <span class="id" type="var">verification_conditions</span> (<span class="id" type="var">P</span> : <span class="id" type="var">Assertion</span>) (<span class="id" type="var">d</span>:<span class="id" type="var">dcom</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">d</span> <span class="id" type="keyword">with</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCSkip</span> <span class="id" type="var">Q</span>          =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">Q</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">Q</span>)<br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCSeq</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>      =&gt; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">verification_conditions</span> <span class="id" type="var">P</span> <span class="id" type="var">d1</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> (<span class="id" type="var">post</span> <span class="id" type="var">d1</span>) <span class="id" type="var">d2</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCAsgn</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">Q</span>      =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">assn_sub</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">Q</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">assn_sub</span> <span class="id" type="var">X</span> <span class="id" type="var">a</span> <span class="id" type="var">Q</span>)<br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCIf</span> <span class="id" type="var">b</span> <span class="id" type="var">P1</span> <span class="id" type="var">d1</span> <span class="id" type="var">P2</span> <span class="id" type="var">d2</span> <span class="id" type="var">Q</span> =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>) <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P1</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ((<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~ (<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)) <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P2</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>) <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P1</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ((<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">P</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~ (<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)) <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P2</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">Q</span> = <span class="id" type="var">post</span> <span class="id" type="var">d1</span>) <span style="font-family: arial;">&and;</span> (<span class="id" type="var">Q</span> = <span class="id" type="var">post</span> <span class="id" type="var">d2</span>)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> <span class="id" type="var">P1</span> <span class="id" type="var">d1</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> <span class="id" type="var">P2</span> <span class="id" type="var">d2</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCWhile</span> <span class="id" type="var">b</span> <span class="id" type="var">Pbody</span> <span class="id" type="var">d</span> <span class="id" type="var">Ppost</span>      =&gt; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;post&nbsp;d&nbsp;is&nbsp;the&nbsp;loop&nbsp;invariant&nbsp;and&nbsp;the&nbsp;initial&nbsp;precondition&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">post</span> <span class="id" type="var">d</span>)  <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">post</span> <span class="id" type="var">d</span>)  <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">Pbody</span> = (<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">post</span> <span class="id" type="var">d</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>))<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">Ppost</span> = (<span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">post</span> <span class="id" type="var">d</span> <span class="id" type="var">st</span> <span style="font-family: arial;">&and;</span> ~(<span class="id" type="var">bassn</span> <span class="id" type="var">b</span> <span class="id" type="var">st</span>)))<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> <span class="id" type="var">Pbody</span> <span class="id" type="var">d</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCPre</span> <span class="id" type="var">P'</span> <span class="id" type="var">d</span>         =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">P'</span>) <span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> <span class="id" type="var">P'</span> <span class="id" type="var">d</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">P</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">P'</span>) <span style="font-family: arial;">&and;</span> <span class="id" type="var">verification_conditions</span> <span class="id" type="var">P'</span> <span class="id" type="var">d</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">DCPost</span> <span class="id" type="var">d</span> <span class="id" type="var">Q</span>        =&gt; <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">verification_conditions</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&and;</span> (<span class="id" type="var">post</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&#8669;</span> <span class="id" type="var">Q</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">verification_conditions</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&and;</span> (<span class="id" type="var">post</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&#8702;</span> <span class="id" type="var">Q</span>)<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">verification_correct</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">d</span> <span class="id" type="var">P</span>, <br/>
-&nbsp;&nbsp;<span class="id" type="var">verification_conditions</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&rarr;</span> {{<span class="id" type="var">P</span>}} (<span class="id" type="var">extract</span> <span class="id" type="var">d</span>) {{<span class="id" type="var">post</span> <span class="id" type="var">d</span>}}.<br/>
+&nbsp;&nbsp;<span class="id" type="var">verification_conditions</span> <span class="id" type="var">P</span> <span class="id" type="var">d</span> <span style="font-family: arial;">&rarr;</span> <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">P</span><span style="letter-spacing:-.4em;">}</span>} (<span class="id" type="var">extract</span> <span class="id" type="var">d</span>) <span style="letter-spacing:-.4em;">{</span>{<span class="id" type="var">post</span> <span class="id" type="var">d</span><span style="letter-spacing:-.4em;">}</span>}.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">dcom_cases</span> (<span class="id" type="tactic">induction</span> <span class="id" type="var">d</span>) <span class="id" type="var">Case</span>; <span class="id" type="tactic">intros</span> <span class="id" type="var">P</span> <span class="id" type="var">H</span>; <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> *.<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "Skip".<br/>
@@ -1334,7 +1291,7 @@ Write an Imp program <span class="inlinecode"><span class="id" type="var">list_r
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">bassn</span> <span class="id" type="keyword">in</span> *; <span class="id" type="tactic">unfold</span> <span class="id" type="var">beval</span> <span class="id" type="keyword">in</span> *; <span class="id" type="tactic">unfold</span> <span class="id" type="var">aeval</span> <span class="id" type="keyword">in</span> *;<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">unfold</span> <span class="id" type="var">assn_sub</span>; <span class="id" type="tactic">intros</span>;<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">repeat</span> <span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_eq</span>;<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">repeat</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; [| <span class="id" type="tactic">reflexivity</span>]);<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">repeat</span> (<span class="id" type="tactic">rewrite</span> <span class="id" type="var">update_neq</span>; [| (<span class="id" type="tactic">intro</span> <span class="id" type="var">X</span>; <span class="id" type="tactic">inversion</span> <span class="id" type="var">X</span>)]);<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> *; <br/>
 &nbsp;&nbsp;<span class="id" type="tactic">repeat</span> <span class="id" type="keyword">match</span> <span class="id" type="var">goal</span> <span class="id" type="keyword">with</span> [<span class="id" type="var">H</span> : <span class="id" type="var">_</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">_</span> <span style="font-family: arial;">&#8866;</span> <span class="id" type="var">_</span>] =&gt; <span class="id" type="tactic">destruct</span> <span class="id" type="var">H</span> <span class="id" type="keyword">end</span>;<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">repeat</span> <span class="id" type="tactic">rewrite</span> <span class="id" type="var">not_true_iff_false</span> <span class="id" type="keyword">in</span> *;<br/>
@@ -1369,62 +1326,62 @@ Finally, for a bigger example, let's redo the proof of
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">list_member_dec</span> (<span class="id" type="var">n</span> : <span class="id" type="var">nat</span>) (<span class="id" type="var">l</span> : <span class="id" type="var">list</span> <span class="id" type="var">nat</span>) : <span class="id" type="var">dcom</span> := (<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 0 }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <span style="font-family: arial;">&and;</span> <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 0 <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">WHILE</span> <span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)<br/>
-&nbsp;&nbsp;<span class="id" type="var">DO</span> {{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
+&nbsp;&nbsp;<span class="id" type="var">DO</span> <span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)))<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span> }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">IFB</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">AHead</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))) <span class="id" type="var">THEN</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)))<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">AHead</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))) <span class="id" type="var">st</span> }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">AHead</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))) <span class="id" type="var">st</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">tail</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (1 = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (1 = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">Z</span> ::= <span class="id" type="var">ANum</span> 1<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">tail</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">ELSE</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)))<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> <span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">AHead</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))) <span class="id" type="var">st</span> }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BEq</span> (<span class="id" type="var">AId</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">AHead</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))) <span class="id" type="var">st</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">tail</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">SKIP</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">tail</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">FI</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">tail</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;;<br/>
 &nbsp;&nbsp;&nbsp;<span class="id" type="var">X</span> ::= (<span class="id" type="var">ATail</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>))<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span>  =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span>  =&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <span style="font-family: arial;">&and;</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span> : <span class="id" type="var">list</span> <span class="id" type="var">nat</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)) <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;<span class="id" type="var">END</span><br/>
-&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Y</span>) = <span class="id" type="var">n</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span style="font-family: arial;">&exist;</span><span class="id" type="var">p</span>, <span class="id" type="var">p</span> ++ <span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>) = <span class="id" type="var">l</span> <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> (<span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)))<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span> }}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&and;</span> ~<span class="id" type="var">bassn</span> (<span class="id" type="var">BIsCons</span> (<span class="id" type="var">AId</span> <span class="id" type="var">X</span>)) <span class="id" type="var">st</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 &nbsp;&nbsp;&nbsp;=&gt;<br/>
-&nbsp;&nbsp;&nbsp;{{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">l</span> }}<br/>
+&nbsp;&nbsp;&nbsp;<span style="letter-spacing:-.4em;">{</span>{ <span class="id" type="keyword">fun</span> <span class="id" type="var">st</span> =&gt; <span class="id" type="var">asnat</span> (<span class="id" type="var">st</span> <span class="id" type="var">Z</span>) = 1 <span style="font-family: arial;">&harr;</span> <span class="id" type="var">appears_in</span> <span class="id" type="var">n</span> <span class="id" type="var">l</span> <span style="letter-spacing:-.4em;">}</span>}<br/>
 ) %<span class="id" type="var">dcom</span>.<br/>
 
 <br/>
@@ -1439,8 +1396,7 @@ Finally, for a bigger example, let's redo the proof of
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "IF taken".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H2</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">p</span> [<span class="id" type="var">H3</span> <span class="id" type="var">H4</span>]].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;We&nbsp;know&nbsp;X&nbsp;is&nbsp;non-nil.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> <span class="id" type="var">x</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">x</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H1</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">p</span> <span class="id" type="var">h</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">simpl</span>. <span class="id" type="tactic">split</span>.<br/>
@@ -1453,8 +1409,7 @@ Finally, for a bigger example, let's redo the proof of
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "If not taken".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">H2</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">p</span> [<span class="id" type="var">H3</span> <span class="id" type="var">H4</span>]].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;We&nbsp;know&nbsp;X&nbsp;is&nbsp;non-nil.&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">remember</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> <span class="id" type="var">x</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">x</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> (<span class="id" type="var">aslist</span> (<span class="id" type="var">st</span> <span class="id" type="var">X</span>)) <span class="id" type="keyword">as</span> [|<span class="id" type="var">h</span> <span class="id" type="var">x'</span>].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">H1</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&exist;</span>(<span class="id" type="var">snoc</span> <span class="id" type="var">p</span> <span class="id" type="var">h</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">split</span>. <span class="id" type="tactic">simpl</span>.<br/>

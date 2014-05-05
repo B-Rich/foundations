@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>Lists: Working with Structured Data</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,63 +29,7 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2012-09-08&nbsp;20:51:57&nbsp;-0400&nbsp;(Sat,&nbsp;08&nbsp;Sep&nbsp;2012)&nbsp;$&nbsp;*)</span><br/>
-
-<br/>
-</div>
-
-<div class="doc">
-The next line imports all of our definitions from the
-    previous chapter. 
-</div>
-<div class="code code-tight">
-
-<br/>
-<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <span class="id" type="var">Basics</span>.<br/>
-
-<br/>
-</div>
-
-<div class="doc">
-For it to work, you need to use <span class="inlinecode"><span class="id" type="var">coqc</span></span> to compile <span class="inlinecode"><span class="id" type="var">Basics.v</span></span>
-    into <span class="inlinecode"><span class="id" type="var">Basics.vo</span></span>.  (This is like making a .class file from a .java
-    file, or a .o file from a .c file.)
-
-<div class="paragraph"> </div>
-
-    Here are two ways to compile your code:
-
-<div class="paragraph"> </div>
-
-<ul class="doclist">
-<li> CoqIDE:
-
-<div class="paragraph"> </div>
-
-         Open <span class="inlinecode"><span class="id" type="var">Basics.v</span></span>.
-         In the "Compile" menu, click on "Compile Buffer".
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Command line:
-
-<div class="paragraph"> </div>
-
-         Run <span class="inlinecode"><span class="id" type="var">coqc</span></span> <span class="inlinecode"><span class="id" type="var">Basics.v</span></span>
-
-</li>
-</ul>
-
-<div class="paragraph"> </div>
-
-    In this file, we again use the <span class="inlinecode"><span class="id" type="keyword">Module</span></span> feature to wrap all of the
-    definitions for pairs and lists of numbers in a module so that,
-    later, we can reuse the same names for improved (generic) versions
-    of the same operations. 
-</div>
-<div class="code code-tight">
+<span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <span class="id" type="keyword">Induction</span>.<br/>
 
 <br/>
 <span class="id" type="keyword">Module</span> <span class="id" type="var">NatList</span>.<br/>
@@ -121,12 +38,12 @@ For it to work, you need to use <span class="inlinecode"><span class="id" type="
 </div>
 
 <div class="doc">
-<a name="lab49"></a><h1 class="section">Pairs of Numbers</h1>
+<a name="lab58"></a><h1 class="section">Pairs of Numbers</h1>
 
 <div class="paragraph"> </div>
 
  In an <span class="inlinecode"><span class="id" type="keyword">Inductive</span></span> type definition, each constructor can take
-    any number of parameters &mdash; none (as with <span class="inlinecode"><span class="id" type="var">true</span></span> and <span class="inlinecode"><span class="id" type="var">O</span></span>), one (as
+    any number of arguments &mdash; none (as with <span class="inlinecode"><span class="id" type="var">true</span></span> and <span class="inlinecode"><span class="id" type="var">O</span></span>), one (as
     with <span class="inlinecode"><span class="id" type="var">S</span></span>), or more than one, as in this definition: 
 </div>
 <div class="code code-tight">
@@ -149,7 +66,7 @@ This declaration can be read: "There is just one way to
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Eval</span> <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> (<span class="id" type="var">pair</span> 3 5).<br/>
+<span class="id" type="keyword">Check</span> (<span class="id" type="var">pair</span> 3 5).<br/>
 
 <br/>
 </div>
@@ -173,7 +90,8 @@ Here are two simple function definitions for extracting the
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Eval</span> <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> (<span class="id" type="var">fst</span> (<span class="id" type="var">pair</span> 3 5)).<br/>
+<span class="id" type="keyword">Eval</span> <span class="id" type="tactic">compute</span> <span class="id" type="keyword">in</span> (<span class="id" type="var">fst</span> (<span class="id" type="var">pair</span> 3 5)).<br/>
+<span class="comment">(*&nbsp;===&gt;&nbsp;3&nbsp;*)</span><br/>
 
 <br/>
 </div>
@@ -201,7 +119,7 @@ The new notation can be used both in expressions and in
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Eval</span> <span class="id" type="tactic">simpl</span> <span class="id" type="keyword">in</span> (<span class="id" type="var">fst</span> (3,5)).<br/>
+<span class="id" type="keyword">Eval</span> <span class="id" type="tactic">compute</span> <span class="id" type="keyword">in</span> (<span class="id" type="var">fst</span> (3,5)).<br/>
 
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">fst'</span> (<span class="id" type="var">p</span> : <span class="id" type="var">natprod</span>) : <span class="id" type="var">nat</span> := <br/>
@@ -240,8 +158,8 @@ Let's try and prove a few simple facts about pairs.  If we
 </div>
 
 <div class="doc">
-But reflexivity is not enough if we state the lemma in a more
-    natural way: 
+Note that <span class="inlinecode"><span class="id" type="tactic">reflexivity</span></span> is not enough if we state the lemma in a
+    more natural way: 
 </div>
 <div class="code code-tight">
 
@@ -250,7 +168,7 @@ But reflexivity is not enough if we state the lemma in a more
 &nbsp;&nbsp;<span class="id" type="var">p</span> = (<span class="id" type="var">fst</span> <span class="id" type="var">p</span>, <span class="id" type="var">snd</span> <span class="id" type="var">p</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">simpl</span>. <span class="comment">(*&nbsp;Doesn't&nbsp;reduce&nbsp;anything!&nbsp;*)</span><br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -272,18 +190,13 @@ We have to expose the structure of <span class="inlinecode"><span class="id" typ
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">surjective_pairing</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">p</span> : <span class="id" type="var">natprod</span>),<br/>
 &nbsp;&nbsp;<span class="id" type="var">p</span> = (<span class="id" type="var">fst</span> <span class="id" type="var">p</span>, <span class="id" type="var">snd</span> <span class="id" type="var">p</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">p</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">p</span> <span class="id" type="keyword">as</span> (<span class="id" type="var">n</span>,<span class="id" type="var">m</span>). <span class="id" type="tactic">simpl</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">p</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">p</span> <span class="id" type="keyword">as</span> [<span class="id" type="var">n</span> <span class="id" type="var">m</span>]. <span class="id" type="tactic">simpl</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 </div>
 
 <div class="doc">
-Notice that Coq allows us to use the notation we introduced
-    for pairs in the "<span class="inlinecode"><span class="id" type="keyword">as</span></span>..." pattern that tells it what variables to
-    bind. 
-<div class="paragraph"> </div>
-
-<a name="lab50"></a><h4 class="section">Exercise: 1 star (snd_fst_is_swap)</h4>
+<a name="lab59"></a><h4 class="section">Exercise: 1 star (snd_fst_is_swap)</h4>
 
 </div>
 <div class="code code-space">
@@ -297,7 +210,7 @@ Notice that Coq allows us to use the notation we introduced
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab51"></a><h4 class="section">Exercise: 1 star, optional (fst_swap_is_snd)</h4>
+<a name="lab60"></a><h4 class="section">Exercise: 1 star, optional (fst_swap_is_snd)</h4>
 
 </div>
 <div class="code code-space">
@@ -316,7 +229,7 @@ Notice that Coq allows us to use the notation we introduced
 </div>
 
 <div class="doc">
-<a name="lab52"></a><h1 class="section">Lists of Numbers</h1>
+<a name="lab61"></a><h1 class="section">Lists of Numbers</h1>
 
 <div class="paragraph"> </div>
 
@@ -357,7 +270,7 @@ As with pairs, it is more convenient to write lists in
 <br/>
 <span class="id" type="keyword">Notation</span> "x :: l" := (<span class="id" type="var">cons</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 60, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>).<br/>
 <span class="id" type="keyword">Notation</span> "[ ]" := <span class="id" type="var">nil</span>.<br/>
-<span class="id" type="keyword">Notation</span> "[ x , .. , y ]" := (<span class="id" type="var">cons</span> <span class="id" type="var">x</span> .. (<span class="id" type="var">cons</span> <span class="id" type="var">y</span> <span class="id" type="var">nil</span>) ..).<br/>
+<span class="id" type="keyword">Notation</span> "[ x ; .. ; y ]" := (<span class="id" type="var">cons</span> <span class="id" type="var">x</span> .. (<span class="id" type="var">cons</span> <span class="id" type="var">y</span> <span class="id" type="var">nil</span>) ..).<br/>
 
 <br/>
 </div>
@@ -377,7 +290,7 @@ It is not necessary to fully understand these declarations,
 <br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">mylist1</span> := 1 :: (2 :: (3 :: <span class="id" type="var">nil</span>)).<br/>
 <span class="id" type="keyword">Definition</span> <span class="id" type="var">mylist2</span> := 1 :: 2 :: 3 :: <span class="id" type="var">nil</span>.<br/>
-<span class="id" type="keyword">Definition</span> <span class="id" type="var">mylist3</span> := [1,2,3].<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="var">mylist3</span> := [1;2;3].<br/>
 
 <br/>
 </div>
@@ -405,9 +318,9 @@ The <span class="inlinecode"><span class="id" type="tactic">at</span></span> <sp
    (By the way, it's worth noting in passing that expressions like "<span class="inlinecode">1</span>
    <span class="inlinecode">+</span> <span class="inlinecode">2</span> <span class="inlinecode">::</span> <span class="inlinecode">[3]</span>" can be a little confusing when you read them in a .v
    file.  The inner brackets, around 3, indicate a list, but the outer
-   brackets are there to instruct the "coqdoc" tool that the bracketed
-   part should be displayed as Coq code rather than running text.
-   These brackets don't appear in the generated HTML.)
+   brackets, which are invisible in the HTML rendering, are there to
+   instruct the "coqdoc" tool that the bracketed part should be
+   displayed as Coq code rather than running text.)
 
 <div class="paragraph"> </div>
 
@@ -476,11 +389,11 @@ Actually, <span class="inlinecode"><span class="id" type="var">app</span></span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">right</span> <span class="id" type="var">associativity</span>, <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 60).<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app1</span>:             [1,2,3] ++ [4,5] = [1,2,3,4,5].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app1</span>:             [1;2;3] ++ [4;5] = [1;2;3;4;5].<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app2</span>:             <span class="id" type="var">nil</span> ++ [4,5] = [4,5].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app2</span>:             <span class="id" type="var">nil</span> ++ [4;5] = [4;5].<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app3</span>:             [1,2,3] ++ <span class="id" type="var">nil</span> = [1,2,3].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_app3</span>:             [1;2;3] ++ <span class="id" type="var">nil</span> = [1;2;3].<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
@@ -489,8 +402,9 @@ Actually, <span class="inlinecode"><span class="id" type="var">app</span></span>
 <div class="doc">
 Here are two smaller examples of programming with lists.
     The <span class="inlinecode"><span class="id" type="var">hd</span></span> function returns the first element (the "head") of the
-    list, while <span class="inlinecode"><span class="id" type="var">tail</span></span> returns everything but the first
-    element.  Of course, the empty list has no first element, so we
+    list, while <span class="inlinecode"><span class="id" type="var">tl</span></span> returns everything but the first
+    element (the "tail").  
+    Of course, the empty list has no first element, so we
     must pass a default value to be returned in that case.  
 </div>
 <div class="code code-tight">
@@ -503,27 +417,28 @@ Here are two smaller examples of programming with lists.
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Definition</span> <span class="id" type="var">tail</span> (<span class="id" type="var">l</span>:<span class="id" type="var">natlist</span>) : <span class="id" type="var">natlist</span> :=<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="var">tl</span> (<span class="id" type="var">l</span>:<span class="id" type="var">natlist</span>) : <span class="id" type="var">natlist</span> :=<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
 &nbsp;&nbsp;| <span class="id" type="var">nil</span> =&gt; <span class="id" type="var">nil</span>  <br/>
 &nbsp;&nbsp;| <span class="id" type="var">h</span> :: <span class="id" type="var">t</span> =&gt; <span class="id" type="var">t</span><br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_hd1</span>:             <span class="id" type="var">hd</span> 0 [1,2,3] = 1.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_hd1</span>:             <span class="id" type="var">hd</span> 0 [1;2;3] = 1.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 <span class="id" type="keyword">Example</span> <span class="id" type="var">test_hd2</span>:             <span class="id" type="var">hd</span> 0 [] = 0.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_tail</span>:            <span class="id" type="var">tail</span> [1,2,3] = [2,3].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_tl</span>:              <span class="id" type="var">tl</span> [1;2;3] = [2;3].<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 </div>
 
 <div class="doc">
-<a name="lab53"></a><h4 class="section">Exercise: 2 stars, recommended (list_funs)</h4>
+<a name="lab62"></a><h4 class="section">Exercise: 2 stars (list_funs)</h4>
  Complete the definitions of <span class="inlinecode"><span class="id" type="var">nonzeros</span></span>, <span class="inlinecode"><span class="id" type="var">oddmembers</span></span> and
-    <span class="inlinecode"><span class="id" type="var">countoddmembers</span></span> below.  
+    <span class="inlinecode"><span class="id" type="var">countoddmembers</span></span> below. Have a look at the tests to understand
+    what these functions should do. 
 </div>
 <div class="code code-tight">
 
@@ -532,7 +447,7 @@ Here are two smaller examples of programming with lists.
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_nonzeros</span>:            <span class="id" type="var">nonzeros</span> [0,1,0,2,3,0,0] = [1,2,3].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_nonzeros</span>:            <span class="id" type="var">nonzeros</span> [0;1;0;2;3;0;0] = [1;2;3].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -540,7 +455,7 @@ Here are two smaller examples of programming with lists.
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_oddmembers</span>:            <span class="id" type="var">oddmembers</span> [0,1,0,2,3,0,0] = [1,3].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_oddmembers</span>:            <span class="id" type="var">oddmembers</span> [0;1;0;2;3;0;0] = [1;3].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -548,9 +463,9 @@ Here are two smaller examples of programming with lists.
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_countoddmembers1</span>:    <span class="id" type="var">countoddmembers</span> [1,0,3,1,4,5] = 4.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_countoddmembers1</span>:    <span class="id" type="var">countoddmembers</span> [1;0;3;1;4;5] = 4.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_countoddmembers2</span>:    <span class="id" type="var">countoddmembers</span> [0,2,4] = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_countoddmembers2</span>:    <span class="id" type="var">countoddmembers</span> [0;2;4] = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 <span class="id" type="keyword">Example</span> <span class="id" type="var">test_countoddmembers3</span>:    <span class="id" type="var">countoddmembers</span> <span class="id" type="var">nil</span> = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
@@ -560,7 +475,7 @@ Here are two smaller examples of programming with lists.
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab54"></a><h4 class="section">Exercise: 3 stars, recommended (alternate)</h4>
+<a name="lab63"></a><h4 class="section">Exercise: 3 stars, advanced (alternate)</h4>
  Complete the definition of <span class="inlinecode"><span class="id" type="var">alternate</span></span>, which "zips up" two lists
     into one, alternating between elements taken from the first list
     and elements from the second.  See the tests below for more
@@ -582,13 +497,13 @@ Here are two smaller examples of programming with lists.
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate1</span>:        <span class="id" type="var">alternate</span> [1,2,3] [4,5,6] = [1,4,2,5,3,6].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate1</span>:        <span class="id" type="var">alternate</span> [1;2;3] [4;5;6] = [1;4;2;5;3;6].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate2</span>:        <span class="id" type="var">alternate</span> [1] [4,5,6] = [1,4,5,6].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate2</span>:        <span class="id" type="var">alternate</span> [1] [4;5;6] = [1;4;5;6].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate3</span>:        <span class="id" type="var">alternate</span> [1,2,3] [4] = [1,4,2,3].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate3</span>:        <span class="id" type="var">alternate</span> [1;2;3] [4] = [1;4;2;3].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate4</span>:        <span class="id" type="var">alternate</span> [] [20,30] = [20,30].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_alternate4</span>:        <span class="id" type="var">alternate</span> [] [20;30] = [20;30].<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 </div>
 
@@ -601,7 +516,7 @@ Here are two smaller examples of programming with lists.
 </div>
 
 <div class="doc">
-<a name="lab55"></a><h2 class="section">Bags via Lists</h2>
+<a name="lab64"></a><h2 class="section">Bags via Lists</h2>
 
 <div class="paragraph"> </div>
 
@@ -619,7 +534,7 @@ Here are two smaller examples of programming with lists.
 </div>
 
 <div class="doc">
-<a name="lab56"></a><h4 class="section">Exercise: 3 stars, recommended (bag_functions)</h4>
+<a name="lab65"></a><h4 class="section">Exercise: 3 stars (bag_functions)</h4>
  Complete the following definitions for the functions
     <span class="inlinecode"><span class="id" type="var">count</span></span>, <span class="inlinecode"><span class="id" type="var">sum</span></span>, <span class="inlinecode"><span class="id" type="var">add</span></span>, and <span class="inlinecode"><span class="id" type="var">member</span></span> for bags. 
 </div>
@@ -638,9 +553,9 @@ All these proofs can be done just by <span class="inlinecode"><span class="id" t
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_count1</span>:              <span class="id" type="var">count</span> 1 [1,2,3,1,4,1] = 3.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_count1</span>:              <span class="id" type="var">count</span> 1 [1;2;3;1;4;1] = 3.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_count2</span>:              <span class="id" type="var">count</span> 6 [1,2,3,1,4,1] = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_count2</span>:              <span class="id" type="var">count</span> 6 [1;2;3;1;4;1] = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -666,7 +581,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_sum1</span>:              <span class="id" type="var">count</span> 1 (<span class="id" type="var">sum</span> [1,2,3] [1,4,1]) = 3.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_sum1</span>:              <span class="id" type="var">count</span> 1 (<span class="id" type="var">sum</span> [1;2;3] [1;4;1]) = 3.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -674,9 +589,9 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_add1</span>:                <span class="id" type="var">count</span> 1 (<span class="id" type="var">add</span> 1 [1,4,1]) = 3.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_add1</span>:                <span class="id" type="var">count</span> 1 (<span class="id" type="var">add</span> 1 [1;4;1]) = 3.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_add2</span>:                <span class="id" type="var">count</span> 5 (<span class="id" type="var">add</span> 1 [1,4,1]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_add2</span>:                <span class="id" type="var">count</span> 5 (<span class="id" type="var">add</span> 1 [1;4;1]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -684,9 +599,9 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_member1</span>:             <span class="id" type="var">member</span> 1 [1,4,1] = <span class="id" type="var">true</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_member1</span>:             <span class="id" type="var">member</span> 1 [1;4;1] = <span class="id" type="var">true</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_member2</span>:             <span class="id" type="var">member</span> 2 [1,4,1] = <span class="id" type="var">false</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_member2</span>:             <span class="id" type="var">member</span> 2 [1;4;1] = <span class="id" type="var">false</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 </div>
 
@@ -694,7 +609,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab57"></a><h4 class="section">Exercise: 3 stars, optional (bag_more_functions)</h4>
+<a name="lab66"></a><h4 class="section">Exercise: 3 stars, optional (bag_more_functions)</h4>
  Here are some more bag functions for you to practice with. 
 </div>
 <div class="code code-tight">
@@ -706,14 +621,13 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one1</span>:         <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2,1,5,4,1]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one1</span>:         <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2;1;5;4;1]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one2</span>:         <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2,1,4,1]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one2</span>:         <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2;1;4;1]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one3</span>:         <span class="id" type="var">count</span> 4 (<span class="id" type="var">remove_one</span> 5 [2,1,4,5,1,4]) = 2.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one3</span>:         <span class="id" type="var">count</span> 4 (<span class="id" type="var">remove_one</span> 5 [2;1;4;5;1;4]) = 2.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one4</span>: <br/>
-&nbsp;&nbsp;<span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2,1,5,4,5,1,4]) = 1.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_one4</span>:         <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_one</span> 5 [2;1;5;4;5;1;4]) = 1.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -721,23 +635,23 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all1</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2,1,5,4,1]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all1</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2;1;5;4;1]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all2</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2,1,4,1]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all2</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2;1;4;1]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all3</span>:          <span class="id" type="var">count</span> 4 (<span class="id" type="var">remove_all</span> 5 [2,1,4,5,1,4]) = 2.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all3</span>:          <span class="id" type="var">count</span> 4 (<span class="id" type="var">remove_all</span> 5 [2;1;4;5;1;4]) = 2.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all4</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2,1,5,4,5,1,4,5,1,4]) = 0.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_remove_all4</span>:          <span class="id" type="var">count</span> 5 (<span class="id" type="var">remove_all</span> 5 [2;1;5;4;5;1;4;5;1;4]) = 0.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Fixpoint</span> <span class="id" type="var">subset</span> (<span class="id" type="var">s1</span>:<span class="id" type="var">bag</span>) (<span class="id" type="var">s2</span>:<span class="id" type="var">bag</span>) : <span class="id" type="var">bool</span> :=<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="var">subset</span> (<span class="id" type="var">s<sub>1</sub></span>:<span class="id" type="var">bag</span>) (<span class="id" type="var">s<sub>2</sub></span>:<span class="id" type="var">bag</span>) : <span class="id" type="var">bool</span> :=<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">admit</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_subset1</span>:              <span class="id" type="var">subset</span> [1,2] [2,1,4,1] = <span class="id" type="var">true</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_subset1</span>:              <span class="id" type="var">subset</span> [1;2] [2;1;4;1] = <span class="id" type="var">true</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_subset2</span>:              <span class="id" type="var">subset</span> [1,2,2] [2,1,4,1] = <span class="id" type="var">false</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_subset2</span>:              <span class="id" type="var">subset</span> [1;2;2] [2;1;4;1] = <span class="id" type="var">false</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 </div>
 
@@ -745,7 +659,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab58"></a><h4 class="section">Exercise: 3 stars, recommended (bag_theorem)</h4>
+<a name="lab67"></a><h4 class="section">Exercise: 3 stars (bag_theorem)</h4>
  Write down an interesting theorem about bags involving the
     functions <span class="inlinecode"><span class="id" type="var">count</span></span> and <span class="inlinecode"><span class="id" type="var">add</span></span>, and prove it.  Note that, since this
     problem is somewhat open-ended, it's possible that you may come up
@@ -768,7 +682,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 </div>
 
 <div class="doc">
-<a name="lab59"></a><h1 class="section">Reasoning About Lists</h1>
+<a name="lab68"></a><h1 class="section">Reasoning About Lists</h1>
 
 <div class="paragraph"> </div>
 
@@ -782,8 +696,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">nil_app</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">l</span>:<span class="id" type="var">natlist</span>,<br/>
 &nbsp;&nbsp;[] ++ <span class="id" type="var">l</span> = <span class="id" type="var">l</span>.<br/>
-<span class="id" type="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
 </div>
@@ -802,7 +715,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 
 <br/>
 <span class="id" type="keyword">Theorem</span> <span class="id" type="var">tl_length_pred</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">l</span>:<span class="id" type="var">natlist</span>,<br/>
-&nbsp;&nbsp;<span class="id" type="var">pred</span> (<span class="id" type="var">length</span> <span class="id" type="var">l</span>) = <span class="id" type="var">length</span> (<span class="id" type="var">tail</span> <span class="id" type="var">l</span>).<br/>
+&nbsp;&nbsp;<span class="id" type="var">pred</span> (<span class="id" type="var">length</span> <span class="id" type="var">l</span>) = <span class="id" type="var">length</span> (<span class="id" type="var">tl</span> <span class="id" type="var">l</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="tactic">intros</span> <span class="id" type="var">l</span>. <span class="id" type="tactic">destruct</span> <span class="id" type="var">l</span> <span class="id" type="keyword">as</span> [| <span class="id" type="var">n</span> <span class="id" type="var">l'</span>].<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "l = nil".<br/>
@@ -815,7 +728,7 @@ Multiset <span class="inlinecode"><span class="id" type="var">sum</span></span> 
 
 <div class="doc">
 Here, the <span class="inlinecode"><span class="id" type="var">nil</span></span> case works because we've chosen to define
-    <span class="inlinecode"><span class="id" type="var">tail</span></span> <span class="inlinecode"><span class="id" type="var">nil</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">nil</span></span>. Notice that the <span class="inlinecode"><span class="id" type="keyword">as</span></span> annotation on the <span class="inlinecode"><span class="id" type="tactic">destruct</span></span>
+    <span class="inlinecode"><span class="id" type="var">tl</span></span> <span class="inlinecode"><span class="id" type="var">nil</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" type="var">nil</span></span>. Notice that the <span class="inlinecode"><span class="id" type="keyword">as</span></span> annotation on the <span class="inlinecode"><span class="id" type="tactic">destruct</span></span>
     tactic here introduces two names, <span class="inlinecode"><span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">l'</span></span>, corresponding to
     the fact that the <span class="inlinecode"><span class="id" type="var">cons</span></span> constructor for lists takes two
     arguments (the head and tail of the list it is constructing). 
@@ -830,7 +743,7 @@ Here, the <span class="inlinecode"><span class="id" type="var">nil</span></span>
 </div>
 
 <div class="doc">
-<a name="lab60"></a><h2 class="section">Micro-Sermon</h2>
+<a name="lab69"></a><h2 class="section">Micro-Sermon</h2>
 
 <div class="paragraph"> </div>
 
@@ -846,7 +759,7 @@ Here, the <span class="inlinecode"><span class="id" type="var">nil</span></span>
 </div>
 
 <div class="doc">
-<a name="lab61"></a><h2 class="section">Induction on Lists</h2>
+<a name="lab70"></a><h2 class="section">Induction on Lists</h2>
 
 <div class="paragraph"> </div>
 
@@ -978,7 +891,7 @@ Again, this Coq proof is not especially illuminating as a
 
 <div class="paragraph"> </div>
 
-  Here is an exercise to be worked together in class: 
+  Here is a similar example to be worked together in class: 
 </div>
 <div class="code code-tight">
 
@@ -1027,7 +940,7 @@ For a slightly more involved example of an inductive proof
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_rev1</span>:            <span class="id" type="var">rev</span> [1,2,3] = [3,2,1].<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_rev1</span>:            <span class="id" type="var">rev</span> [1;2;3] = [3;2;1].<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 <span class="id" type="keyword">Example</span> <span class="id" type="var">test_rev2</span>:            <span class="id" type="var">rev</span> <span class="id" type="var">nil</span> = <span class="id" type="var">nil</span>.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
@@ -1052,18 +965,19 @@ Now let's prove some more list theorems using our newly
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "l = []".<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
 &nbsp;&nbsp;<span class="id" type="var">Case</span> "l = n :: l'".<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;This&nbsp;is&nbsp;the&nbsp;tricky&nbsp;case.&nbsp;&nbsp;Let's&nbsp;begin&nbsp;as&nbsp;usual&nbsp;by&nbsp;simplifying.&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;This&nbsp;is&nbsp;the&nbsp;tricky&nbsp;case.&nbsp;&nbsp;Let's&nbsp;begin&nbsp;as&nbsp;usual&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;simplifying.&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">simpl</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;Now&nbsp;we&nbsp;seem&nbsp;to&nbsp;be&nbsp;stuck:&nbsp;the&nbsp;goal&nbsp;is&nbsp;an&nbsp;equality&nbsp;involving<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="inlinecode"><span class="id" type="var">snoc</span></span>,&nbsp;but&nbsp;we&nbsp;don't&nbsp;have&nbsp;any&nbsp;equations&nbsp;in&nbsp;either&nbsp;the<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;immediate&nbsp;context&nbsp;or&nbsp;the&nbsp;global&nbsp;environment&nbsp;that&nbsp;have<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anything&nbsp;to&nbsp;do&nbsp;with&nbsp;<span class="inlinecode"><span class="id" type="var">snoc</span></span>!&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;Now&nbsp;we&nbsp;seem&nbsp;to&nbsp;be&nbsp;stuck:&nbsp;the&nbsp;goal&nbsp;is&nbsp;an&nbsp;equality&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;involving&nbsp;<span class="inlinecode"><span class="id" type="var">snoc</span></span>,&nbsp;but&nbsp;we&nbsp;don't&nbsp;have&nbsp;any&nbsp;equations&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;either&nbsp;the&nbsp;immediate&nbsp;context&nbsp;or&nbsp;the&nbsp;global&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;environment&nbsp;that&nbsp;have&nbsp;anything&nbsp;to&nbsp;do&nbsp;with&nbsp;<span class="inlinecode"><span class="id" type="var">snoc</span></span>!&nbsp;<br/>
 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;can&nbsp;make&nbsp;a&nbsp;little&nbsp;progress&nbsp;by&nbsp;using&nbsp;the&nbsp;IH&nbsp;to&nbsp;rewrite&nbsp;the&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal...&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We&nbsp;can&nbsp;make&nbsp;a&nbsp;little&nbsp;progress&nbsp;by&nbsp;using&nbsp;the&nbsp;IH&nbsp;to&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewrite&nbsp;the&nbsp;goal...&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span style="font-family: arial;">&larr;</span> <span class="id" type="var">IHl'</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;...&nbsp;but&nbsp;now&nbsp;we&nbsp;can't&nbsp;go&nbsp;any&nbsp;further.&nbsp;*)</span><br/>
-<span class="id" type="var">Admitted</span>.<br/>
+<span class="id" type="keyword">Abort</span>.<br/>
 
 <br/>
 </div>
@@ -1071,6 +985,7 @@ Now let's prove some more list theorems using our newly
 <div class="doc">
 So let's take the equation about <span class="inlinecode"><span class="id" type="var">snoc</span></span> that would have
     enabled us to make progress and prove it as a separate lemma. 
+
 </div>
 <div class="code code-tight">
 
@@ -1088,7 +1003,16 @@ So let's take the equation about <span class="inlinecode"><span class="id" type=
 </div>
 
 <div class="doc">
-Now we can complete the original proof. 
+    Note that we make the lemma as <i>general</i> as possible: in particular,
+    we quantify over <i>all</i> <span class="inlinecode"><span class="id" type="var">natlist</span></span>s, not just those that result
+    from an application of <span class="inlinecode"><span class="id" type="var">rev</span></span>. This should seem natural, 
+    because the truth of the goal clearly doesn't depend on 
+    the list having been reversed.  Moreover, it is much easier
+    to prove the more general property. 
+
+<div class="paragraph"> </div>
+
+ Now we can complete the original proof. 
 </div>
 <div class="code code-tight">
 
@@ -1240,10 +1164,10 @@ For comparison, here are informal proofs of these two theorems:
 
  Obviously, the style of these proofs is rather longwinded
     and pedantic.  After the first few, we might find it easier to
-    follow proofs that give a little less detail overall (since we can
-    easily work them out in our own minds or on scratch paper if
-    necessary) and just highlight the non-obvious steps.  In this more
-    compressed style, the above proof might look more like this: 
+    follow proofs that give fewer details (since we can easily work
+    them out in our own minds or on scratch paper if necessary) and
+    just highlight the non-obvious steps.  In this more compressed
+    style, the above proof might look more like this: 
 <div class="paragraph"> </div>
 
  <i>Theorem</i>:
@@ -1278,7 +1202,7 @@ For comparison, here are informal proofs of these two theorems:
 </div>
 
 <div class="doc">
-<a name="lab62"></a><h2 class="section"><span class="inlinecode"><span class="id" type="var">SearchAbout</span></span></h2>
+<a name="lab71"></a><h2 class="section"><span class="inlinecode"><span class="id" type="var">SearchAbout</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -1300,7 +1224,7 @@ For comparison, here are informal proofs of these two theorems:
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;SearchAbout&nbsp;rev.&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;&nbsp;SearchAbout&nbsp;rev.&nbsp;*)</span><br/>
 
 <br/>
 </div>
@@ -1308,11 +1232,6 @@ For comparison, here are informal proofs of these two theorems:
 <div class="doc">
 Keep <span class="inlinecode"><span class="id" type="var">SearchAbout</span></span> in mind as you do the following exercises and
     throughout the rest of the course; it can save you a lot of time! 
-<div class="paragraph"> </div>
-
- Also, if you are using ProofGeneral, you can run <span class="inlinecode"><span class="id" type="var">SearchAbout</span></span>
-    with <span class="inlinecode"><span class="id" type="var">C</span>-<span class="id" type="var">c</span></span> <span class="inlinecode"><span class="id" type="var">C</span>-<span class="id" type="var">a</span></span> <span class="inlinecode"><span class="id" type="var">C</span>-<span class="id" type="var">a</span></span>. Pasting its response into your buffer can be
-    accomplished with <span class="inlinecode"><span class="id" type="var">C</span>-<span class="id" type="var">c</span></span> <span class="inlinecode"><span class="id" type="var">C</span>-;</span>. 
 </div>
 <div class="code code-tight">
 
@@ -1320,11 +1239,11 @@ Keep <span class="inlinecode"><span class="id" type="var">SearchAbout</span></sp
 </div>
 
 <div class="doc">
-<a name="lab63"></a><h2 class="section">List Exercises, Part 1</h2>
+<a name="lab72"></a><h2 class="section">List Exercises, Part 1</h2>
 
 <div class="paragraph"> </div>
 
-<a name="lab64"></a><h4 class="section">Exercise: 3 stars, recommended (list_exercises)</h4>
+<a name="lab73"></a><h4 class="section">Exercise: 3 stars (list_exercises)</h4>
  More practice with lists. 
 </div>
 <div class="code code-tight">
@@ -1378,7 +1297,7 @@ An exercise about your implementation of <span class="inlinecode"><span class="i
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Lemma</span> <span class="id" type="var">nonzeros_length</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">l1</span> <span class="id" type="var">l2</span> : <span class="id" type="var">natlist</span>,<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="var">nonzeros_app</span> : <span style="font-family: arial;">&forall;</span><span class="id" type="var">l1</span> <span class="id" type="var">l2</span> : <span class="id" type="var">natlist</span>,<br/>
 &nbsp;&nbsp;<span class="id" type="var">nonzeros</span> (<span class="id" type="var">l1</span> ++ <span class="id" type="var">l2</span>) = (<span class="id" type="var">nonzeros</span> <span class="id" type="var">l1</span>) ++ (<span class="id" type="var">nonzeros</span> <span class="id" type="var">l2</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
@@ -1393,18 +1312,18 @@ An exercise about your implementation of <span class="inlinecode"><span class="i
 </div>
 
 <div class="doc">
-<a name="lab65"></a><h2 class="section">List Exercises, Part 2</h2>
+<a name="lab74"></a><h2 class="section">List Exercises, Part 2</h2>
 
 <div class="paragraph"> </div>
 
-<a name="lab66"></a><h4 class="section">Exercise: 2 stars, recommended (list_design)</h4>
+<a name="lab75"></a><h4 class="section">Exercise: 2 stars (list_design)</h4>
  Design exercise: 
 
 <div class="paragraph"> </div>
 
 <ul class="doclist">
 <li> Write down a non-trivial theorem involving <span class="inlinecode"><span class="id" type="var">cons</span></span>
-       (<span class="inlinecode">::</span>), <span class="inlinecode"><span class="id" type="var">snoc</span></span>, and <span class="inlinecode"><span class="id" type="var">append</span></span> (<span class="inlinecode">++</span>).  
+       (<span class="inlinecode">::</span>), <span class="inlinecode"><span class="id" type="var">snoc</span></span>, and <span class="inlinecode"><span class="id" type="var">app</span></span> (<span class="inlinecode">++</span>).  
 
 </li>
 <li> Prove it. 
@@ -1422,9 +1341,9 @@ An exercise about your implementation of <span class="inlinecode"><span class="i
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab67"></a><h4 class="section">Exercise: 2 stars, optional (bag_proofs)</h4>
- If you did the optional exercise about bags above, here are a
-    couple of little theorems to prove about your definitions. 
+<a name="lab76"></a><h4 class="section">Exercise: 3 stars, advanced (bag_proofs)</h4>
+ Here are a couple of little theorems to prove about your
+    definitions about bags in the previous problem. 
 </div>
 <div class="code code-tight">
 
@@ -1463,7 +1382,7 @@ The following lemma about <span class="inlinecode"><span class="id" type="var">b
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab68"></a><h4 class="section">Exercise: 3 stars, optional (bag_count_sum)</h4>
+<a name="lab77"></a><h4 class="section">Exercise: 3 stars, optional (bag_count_sum)</h4>
  Write down an interesting theorem about bags involving the
     functions <span class="inlinecode"><span class="id" type="var">count</span></span> and <span class="inlinecode"><span class="id" type="var">sum</span></span>, and prove it.
 </div>
@@ -1477,7 +1396,7 @@ The following lemma about <span class="inlinecode"><span class="id" type="var">b
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab69"></a><h4 class="section">Exercise: 4 stars, optional (rev_injective)</h4>
+<a name="lab78"></a><h4 class="section">Exercise: 4 stars, advanced (rev_injective)</h4>
  Prove that the <span class="inlinecode"><span class="id" type="var">rev</span></span> function is injective, that is,
 
 <div class="paragraph"> </div>
@@ -1486,7 +1405,7 @@ The following lemma about <span class="inlinecode"><span class="id" type="var">b
 <div class="paragraph"> </div>
 
 <div class="code code-tight">
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&forall;</span>&nbsp;(<span class="id" type="var">l1</span>&nbsp;<span class="id" type="var">l2</span>&nbsp;:&nbsp;<span class="id" type="var">natlist</span>),&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l1</span>&nbsp;=&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l2</span>&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;<span class="id" type="var">l1</span>&nbsp;=&nbsp;<span class="id" type="var">l2</span>.
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: arial;">&forall;</span>(<span class="id" type="var">l1</span>&nbsp;<span class="id" type="var">l2</span>&nbsp;:&nbsp;<span class="id" type="var">natlist</span>),&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l1</span>&nbsp;=&nbsp;<span class="id" type="var">rev</span>&nbsp;<span class="id" type="var">l2</span>&nbsp;<span style="font-family: arial;">&rarr;</span>&nbsp;<span class="id" type="var">l1</span>&nbsp;=&nbsp;<span class="id" type="var">l2</span>.
 <div class="paragraph"> </div>
 
 </div>
@@ -1511,7 +1430,7 @@ There is a hard way and an easy way to solve this exercise.
 </div>
 
 <div class="doc">
-<a name="lab70"></a><h1 class="section">Options</h1>
+<a name="lab79"></a><h1 class="section">Options</h1>
 
 <div class="paragraph"> </div>
 
@@ -1569,11 +1488,11 @@ On the other hand, if we give it type <span class="inlinecode"><span class="id" 
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index1</span> :    <span class="id" type="var">index</span> 0 [4,5,6,7]  = <span class="id" type="var">Some</span> 4.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index1</span> :    <span class="id" type="var">index</span> 0 [4;5;6;7]  = <span class="id" type="var">Some</span> 4.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index2</span> :    <span class="id" type="var">index</span> 3 [4,5,6,7]  = <span class="id" type="var">Some</span> 7.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index2</span> :    <span class="id" type="var">index</span> 3 [4;5;6;7]  = <span class="id" type="var">Some</span> 7.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index3</span> :    <span class="id" type="var">index</span> 10 [4,5,6,7] = <span class="id" type="var">None</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_index3</span> :    <span class="id" type="var">index</span> 10 [4;5;6;7] = <span class="id" type="var">None</span>.<br/>
 <span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
 
 <br/>
@@ -1622,7 +1541,7 @@ Coq's conditionals are exactly like those found in any other
 </div>
 
 <div class="doc">
-<a name="lab71"></a><h4 class="section">Exercise: 2 stars (hd_opt)</h4>
+<a name="lab80"></a><h4 class="section">Exercise: 2 stars (hd_opt)</h4>
  Using the same idea, fix the <span class="inlinecode"><span class="id" type="var">hd</span></span> function from earlier so we don't
    have to pass a default element for the <span class="inlinecode"><span class="id" type="var">nil</span></span> case.  
 </div>
@@ -1641,7 +1560,7 @@ Coq's conditionals are exactly like those found in any other
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_hd_opt3</span> : <span class="id" type="var">hd_opt</span> [5,6] = <span class="id" type="var">Some</span> 5.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_hd_opt3</span> : <span class="id" type="var">hd_opt</span> [5;6] = <span class="id" type="var">Some</span> 5.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 </div>
 
@@ -1649,7 +1568,7 @@ Coq's conditionals are exactly like those found in any other
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab72"></a><h4 class="section">Exercise: 1 star, optional (option_elim_hd)</h4>
+<a name="lab81"></a><h4 class="section">Exercise: 1 star, optional (option_elim_hd)</h4>
  This exercise relates your new <span class="inlinecode"><span class="id" type="var">hd_opt</span></span> to the old <span class="inlinecode"><span class="id" type="var">hd</span></span>. 
 </div>
 <div class="code code-tight">
@@ -1665,7 +1584,7 @@ Coq's conditionals are exactly like those found in any other
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab73"></a><h4 class="section">Exercise: 2 stars, recommended (beq_natlist)</h4>
+<a name="lab82"></a><h4 class="section">Exercise: 2 stars (beq_natlist)</h4>
  Fill in the definition of <span class="inlinecode"><span class="id" type="var">beq_natlist</span></span>, which compares
     lists of numbers for equality.  Prove that <span class="inlinecode"><span class="id" type="var">beq_natlist</span></span> <span class="inlinecode"><span class="id" type="var">l</span></span> <span class="inlinecode"><span class="id" type="var">l</span></span>
     yields <span class="inlinecode"><span class="id" type="var">true</span></span> for every list <span class="inlinecode"><span class="id" type="var">l</span></span>. 
@@ -1679,9 +1598,9 @@ Coq's conditionals are exactly like those found in any other
 <br/>
 <span class="id" type="keyword">Example</span> <span class="id" type="var">test_beq_natlist1</span> :   (<span class="id" type="var">beq_natlist</span> <span class="id" type="var">nil</span> <span class="id" type="var">nil</span> = <span class="id" type="var">true</span>).<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_beq_natlist2</span> :   <span class="id" type="var">beq_natlist</span> [1,2,3] [1,2,3] = <span class="id" type="var">true</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_beq_natlist2</span> :   <span class="id" type="var">beq_natlist</span> [1;2;3] [1;2;3] = <span class="id" type="var">true</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
-<span class="id" type="keyword">Example</span> <span class="id" type="var">test_beq_natlist3</span> :   <span class="id" type="var">beq_natlist</span> [1,2,3] [1,2,4] = <span class="id" type="var">false</span>.<br/>
+<span class="id" type="keyword">Example</span> <span class="id" type="var">test_beq_natlist3</span> :   <span class="id" type="var">beq_natlist</span> [1;2;3] [1;2;4] = <span class="id" type="var">false</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 
 <br/>
@@ -1700,7 +1619,7 @@ Coq's conditionals are exactly like those found in any other
 </div>
 
 <div class="doc">
-<a name="lab74"></a><h1 class="section">Extended Exercise: Dictionaries</h1>
+<a name="lab83"></a><h1 class="section">Dictionaries</h1>
 
 <div class="paragraph"> </div>
 
@@ -1752,20 +1671,22 @@ Here is a function <span class="inlinecode"><span class="id" type="var">find</sp
 <span class="id" type="keyword">Fixpoint</span> <span class="id" type="var">find</span> (<span class="id" type="var">key</span> : <span class="id" type="var">nat</span>) (<span class="id" type="var">d</span> : <span class="id" type="var">dictionary</span>) : <span class="id" type="var">natoption</span> := <br/>
 &nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">d</span> <span class="id" type="keyword">with</span> <br/>
 &nbsp;&nbsp;| <span class="id" type="var">empty</span>         =&gt; <span class="id" type="var">None</span><br/>
-&nbsp;&nbsp;| <span class="id" type="var">record</span> <span class="id" type="var">k</span> <span class="id" type="var">v</span> <span class="id" type="var">d'</span> =&gt; <span class="id" type="keyword">if</span> (<span class="id" type="var">beq_nat</span> <span class="id" type="var">key</span> <span class="id" type="var">k</span>) <span class="id" type="keyword">then</span> (<span class="id" type="var">Some</span> <span class="id" type="var">v</span>) <span class="id" type="keyword">else</span> (<span class="id" type="var">find</span> <span class="id" type="var">key</span> <span class="id" type="var">d'</span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="var">record</span> <span class="id" type="var">k</span> <span class="id" type="var">v</span> <span class="id" type="var">d'</span> =&gt; <span class="id" type="keyword">if</span> (<span class="id" type="var">beq_nat</span> <span class="id" type="var">key</span> <span class="id" type="var">k</span>) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">then</span> (<span class="id" type="var">Some</span> <span class="id" type="var">v</span>) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">else</span> (<span class="id" type="var">find</span> <span class="id" type="var">key</span> <span class="id" type="var">d'</span>)<br/>
 &nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
 
 <br/>
 </div>
 
 <div class="doc">
-<a name="lab75"></a><h4 class="section">Exercise: 1 star (dictionary_invariant1)</h4>
+<a name="lab84"></a><h4 class="section">Exercise: 1 star (dictionary_invariant1)</h4>
  Complete the following proof. 
 </div>
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">dictionary_invariant1</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">d</span> : <span class="id" type="var">dictionary</span>) (<span class="id" type="var">k</span> <span class="id" type="var">v</span>: <span class="id" type="var">nat</span>),<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="var">dictionary_invariant1'</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">d</span> : <span class="id" type="var">dictionary</span>) (<span class="id" type="var">k</span> <span class="id" type="var">v</span>: <span class="id" type="var">nat</span>),<br/>
 &nbsp;&nbsp;(<span class="id" type="var">find</span> <span class="id" type="var">k</span> (<span class="id" type="var">insert</span> <span class="id" type="var">k</span> <span class="id" type="var">v</span> <span class="id" type="var">d</span>)) = <span class="id" type="var">Some</span> <span class="id" type="var">v</span>.<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
@@ -1775,14 +1696,14 @@ Here is a function <span class="inlinecode"><span class="id" type="var">find</sp
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab76"></a><h4 class="section">Exercise: 1 star (dictionary_invariant2)</h4>
+<a name="lab85"></a><h4 class="section">Exercise: 1 star (dictionary_invariant2)</h4>
  Complete the following proof. 
 </div>
 <div class="code code-tight">
 
 <br/>
-<span class="id" type="keyword">Theorem</span> <span class="id" type="var">dictionary_invariant2</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">d</span> : <span class="id" type="var">dictionary</span>) (<span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">o</span>: <span class="id" type="var">nat</span>),<br/>
-&nbsp;&nbsp;(<span class="id" type="var">beq_nat</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>) = <span class="id" type="var">false</span> <span style="font-family: arial;">&rarr;</span> (<span class="id" type="var">find</span> <span class="id" type="var">m</span> <span class="id" type="var">d</span>) = (<span class="id" type="var">find</span> <span class="id" type="var">m</span> (<span class="id" type="var">insert</span> <span class="id" type="var">n</span> <span class="id" type="var">o</span> <span class="id" type="var">d</span>)).<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="var">dictionary_invariant2'</span> : <span style="font-family: arial;">&forall;</span>(<span class="id" type="var">d</span> : <span class="id" type="var">dictionary</span>) (<span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">o</span>: <span class="id" type="var">nat</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">beq_nat</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> = <span class="id" type="var">false</span> <span style="font-family: arial;">&rarr;</span> <span class="id" type="var">find</span> <span class="id" type="var">m</span> <span class="id" type="var">d</span> = <span class="id" type="var">find</span> <span class="id" type="var">m</span> (<span class="id" type="var">insert</span> <span class="id" type="var">n</span> <span class="id" type="var">o</span> <span class="id" type="var">d</span>).<br/>
 <span class="id" type="keyword">Proof</span>.<br/>
 &nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" type="var">Admitted</span>.<br/>
 </div>
@@ -1797,6 +1718,9 @@ Here is a function <span class="inlinecode"><span class="id" type="var">find</sp
 
 <br/>
 <span class="id" type="keyword">End</span> <span class="id" type="var">NatList</span>.<br/>
+
+<br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-07-17&nbsp;16:19:11&nbsp;-0400&nbsp;(Wed,&nbsp;17&nbsp;Jul&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
 
 <br/>
 </div>

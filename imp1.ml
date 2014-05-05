@@ -16,6 +16,10 @@ type 'a option =
 | Some of 'a
 | None
 
+type sumbool =
+| Left
+| Right
+
 (** val plus : nat -> nat -> nat **)
 
 let rec plus n m =
@@ -39,6 +43,19 @@ let rec minus n m =
     (match m with
      | O -> n
      | S l -> minus k l)
+
+(** val eq_nat_dec : nat -> nat -> sumbool **)
+
+let rec eq_nat_dec n m =
+  match n with
+  | O ->
+    (match m with
+     | O -> Left
+     | S m0 -> Right)
+  | S n0 ->
+    (match m with
+     | O -> Right
+     | S m0 -> eq_nat_dec n0 m0)
 
 (** val beq_nat : nat -> nat -> bool **)
 
@@ -67,19 +84,19 @@ type id =
   nat
   (* singleton inductive, whose constructor was Id *)
 
-(** val beq_id : id -> id -> bool **)
+(** val eq_id_dec : id -> id -> sumbool **)
 
-let beq_id id1 id2 =
-  beq_nat id1 id2
+let eq_id_dec id1 id2 =
+  eq_nat_dec id1 id2
 
 type state = id -> nat
 
 (** val update : state -> id -> nat -> state **)
 
 let update st x n x' =
-  match beq_id x x' with
-  | True -> n
-  | False -> st x'
+  match eq_id_dec x x' with
+  | Left -> n
+  | Right -> st x'
 
 type aexp =
 | ANum of nat

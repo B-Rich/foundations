@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>Rel: Properties of Relations</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,7 +29,7 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2012-04-23&nbsp;14:08:14&nbsp;-0400&nbsp;(Mon,&nbsp;23&nbsp;Apr&nbsp;2012)&nbsp;$&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-04-01&nbsp;09:15:45&nbsp;-0400&nbsp;(Mon,&nbsp;01&nbsp;Apr&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
 
 <br/>
 <span class="id" type="keyword">Require</span> <span class="id" type="keyword">Export</span> <span class="id" type="var">SfLib</span>.<br/>
@@ -118,7 +91,7 @@ Inductive&nbsp;le&nbsp;(n&nbsp;:&nbsp;nat)&nbsp;:&nbsp;nat&nbsp;-&gt;&nbsp;Prop&
 </div>
 
 <div class="doc">
-<a name="lab457"></a><h1 class="section">Basic Properties of Relations</h1>
+<a name="lab478"></a><h1 class="section">Basic Properties of Relations</h1>
 
 <div class="paragraph"> </div>
 
@@ -188,7 +161,7 @@ However, the <span class="inlinecode">&lt;=</span> relation on numbers is not a 
 </div>
 
 <div class="doc">
-<a name="lab458"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab479"></a><h4 class="section">Exercise: 2 stars, optional</h4>
  Show that the <span class="inlinecode"><span class="id" type="var">total_relation</span></span> defined in Logic.v is not a partial
     function. 
 </div>
@@ -202,7 +175,7 @@ However, the <span class="inlinecode">&lt;=</span> relation on numbers is not a 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab459"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab480"></a><h4 class="section">Exercise: 2 stars, optional</h4>
  Show that the <span class="inlinecode"><span class="id" type="var">empty_relation</span></span> defined in Logic.v is a partial
     function. 
 </div>
@@ -268,7 +241,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 </div>
 
 <div class="doc">
-<a name="lab460"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab481"></a><h4 class="section">Exercise: 2 stars, optional</h4>
  We can also prove <span class="inlinecode"><span class="id" type="var">lt_trans</span></span> more laboriously by induction,
     without using le_trans.  Do this.
 </div>
@@ -289,7 +262,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab461"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab482"></a><h4 class="section">Exercise: 2 stars, optional</h4>
  Prove the same thing again by induction on <span class="inlinecode"><span class="id" type="var">o</span></span>. 
 </div>
 <div class="code code-tight">
@@ -325,7 +298,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 </div>
 
 <div class="doc">
-<a name="lab462"></a><h4 class="section">Exercise: 1 star, optional</h4>
+<a name="lab483"></a><h4 class="section">Exercise: 1 star, optional</h4>
 
 </div>
 <div class="code code-space">
@@ -339,7 +312,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab463"></a><h4 class="section">Exercise: 2 stars, optional (le_Sn_n_inf)</h4>
+<a name="lab484"></a><h4 class="section">Exercise: 2 stars, optional (le_Sn_n_inf)</h4>
  Provide an informal proof of the following theorem:
 
 <div class="paragraph"> </div>
@@ -359,7 +332,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
  
 <div class="paragraph"> </div>
 
-<a name="lab464"></a><h4 class="section">Exercise: 1 star, optional</h4>
+<a name="lab485"></a><h4 class="section">Exercise: 1 star, optional</h4>
 
 </div>
 <div class="code code-space">
@@ -391,7 +364,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 </div>
 
 <div class="doc">
-<a name="lab465"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab486"></a><h4 class="section">Exercise: 2 stars, optional</h4>
 
 </div>
 <div class="code code-space">
@@ -419,7 +392,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 </div>
 
 <div class="doc">
-<a name="lab466"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab487"></a><h4 class="section">Exercise: 2 stars, optional</h4>
 
 </div>
 <div class="code code-space">
@@ -433,7 +406,7 @@ A relation <span class="inlinecode"><span class="id" type="var">R</span></span> 
 <font size=-2>&#9744;</font> 
 <div class="paragraph"> </div>
 
-<a name="lab467"></a><h4 class="section">Exercise: 2 stars, optional</h4>
+<a name="lab488"></a><h4 class="section">Exercise: 2 stars, optional</h4>
 
 </div>
 <div class="code code-space">
@@ -499,7 +472,7 @@ A preorder is almost like a partial order, but doesn't have to be
 </div>
 
 <div class="doc">
-<a name="lab468"></a><h1 class="section">Reflexive, Transitive Closure</h1>
+<a name="lab489"></a><h1 class="section">Reflexive, Transitive Closure</h1>
 
 <div class="paragraph"> </div>
 
@@ -632,7 +605,7 @@ Our new definition of reflexive, transitive closure "bundles"
 </div>
 
 <div class="doc">
-<a name="lab469"></a><h4 class="section">Exercise: 2 stars, optional (rsc_trans)</h4>
+<a name="lab490"></a><h4 class="section">Exercise: 2 stars, optional (rsc_trans)</h4>
 
 </div>
 <div class="code code-space">
@@ -654,7 +627,7 @@ Our new definition of reflexive, transitive closure "bundles"
     relation. 
 <div class="paragraph"> </div>
 
-<a name="lab470"></a><h4 class="section">Exercise: 3 stars, optional (rtc_rsc_coincide)</h4>
+<a name="lab491"></a><h4 class="section">Exercise: 3 stars, optional (rtc_rsc_coincide)</h4>
 
 </div>
 <div class="code code-space">

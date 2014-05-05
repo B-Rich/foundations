@@ -5,37 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="coqdoc.css" rel="stylesheet" type="text/css"/>
 <title>Extraction: Extracting ML from Coq</title>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </head>
 
-<script>
-<!--
-  function toggleDisplay(id)
-  {
-     var elt = document.getElementById(id);
-     if (elt.style.display == 'none') {
-       elt.style.display = 'block';
-     } else {
-       elt.style.display = 'none';
-     }
-  }
-  function hideAll(cls)
-  {
-    var testClass = new RegExp("(^|s)" + cls + "(s|$)");
-    var tag = tag || "*";
-    var elements = document.getElementsByTagName("div");
-    var current;
-    var length = elements.length;
-    for(var i=0; i<length; i++){
-      current = elements[i];
-      if(testClass.test(current.className)) {
-        current.style.display = 'none';
-      }
-    }
-  }
-// --> 
-</script>
-
-<body onLoad="hideAll('proofscript')">
 <body>
 
 <div id="page">
@@ -56,13 +29,13 @@
 <div class="code code-tight">
 
 <br/>
-<span class="comment">(*&nbsp;$Date:&nbsp;2012-05-03&nbsp;17:52:38&nbsp;-0400&nbsp;(Thu,&nbsp;03&nbsp;May&nbsp;2012)&nbsp;$&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;$Date:&nbsp;2013-01-16&nbsp;22:29:57&nbsp;-0500&nbsp;(Wed,&nbsp;16&nbsp;Jan&nbsp;2013)&nbsp;$&nbsp;*)</span><br/>
 
 <br/>
 </div>
 
 <div class="doc">
-<a name="lab342"></a><h1 class="section">Basic Extraction</h1>
+<a name="lab352"></a><h1 class="section">Basic Extraction</h1>
 
 <div class="paragraph"> </div>
 
@@ -118,7 +91,7 @@ When Coq processes this command, it generates a file <span class="inlinecode"><s
 </div>
 
 <div class="doc">
-<a name="lab343"></a><h1 class="section">Controlling Extraction of Specific Types</h1>
+<a name="lab353"></a><h1 class="section">Controlling Extraction of Specific Types</h1>
 
 <div class="paragraph"> </div>
 
@@ -207,7 +180,7 @@ Have a look at the file <span class="inlinecode"><span class="id" type="var">imp
 </div>
 
 <div class="doc">
-<a name="lab344"></a><h1 class="section">A Complete Example</h1>
+<a name="lab354"></a><h1 class="section">A Complete Example</h1>
 
 <div class="paragraph"> </div>
 
@@ -236,8 +209,8 @@ Have a look at the file <span class="inlinecode"><span class="id" type="var">imp
 "(* If this appears, you're using Ascii internals. Please don't *) (fun (b0,b1,b2,b3,b4,b5,b6,b7) <span style="font-family: arial;">&rarr;</span> let f b i = if b then 1 lsl i else 0 in Char.chr (f b0 0 + f b1 1 + f b2 2 + f b3 3 + f b4 4 + f b5 5 + f b6 6 + f b7 7))"<br/>
 ]<br/>
 "(* If this appears, you're using Ascii internals. Please don't *) (fun f c <span style="font-family: arial;">&rarr;</span> let n = Char.code c in let h i = (n land (1 lsl i)) &lt;&gt; 0 in f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))".<br/>
-<span class="id" type="var">Extract</span> <span class="id" type="var">Constant</span> <span class="id" type="var">zero</span> =&gt; "'\000'".<br/>
-<span class="id" type="var">Extract</span> <span class="id" type="var">Constant</span> <span class="id" type="var">one</span> =&gt; "'\001'".<br/>
+<span class="id" type="var">Extract</span> <span class="id" type="var">Constant</span> <span class="id" type="var">zero</span> =&gt; "'&lambda;000'".<br/>
+<span class="id" type="var">Extract</span> <span class="id" type="var">Constant</span> <span class="id" type="var">one</span> =&gt; "'&lambda;001'".<br/>
 <span class="id" type="var">Extract</span> <span class="id" type="var">Constant</span> <span class="id" type="var">shift</span> =&gt;<br/>
 &nbsp;"fun b c <span style="font-family: arial;">&rarr;</span> Char.chr (((Char.code c) lsl 1) land 255 + if b then 1 else 0)".<br/>
 <span class="id" type="var">Extract</span> <span class="id" type="var">Inlined</span> <span class="id" type="var">Constant</span> <span class="id" type="var">ascii_dec</span> =&gt; "(=)".<br/>
@@ -290,7 +263,7 @@ Now let's run our generated Imp evaluator.  First, have a look at
 </div>
 
 <div class="doc">
-<a name="lab345"></a><h1 class="section">Discussion</h1>
+<a name="lab355"></a><h1 class="section">Discussion</h1>
 
 <div class="paragraph"> </div>
 
